@@ -38,7 +38,5 @@
   "starter_vscode_ext_name": "VS Code 확장",
   "card_vscode_p": "Vanilla JS. VS Marketplace + Open VSX 동시 배포.",
   "starter_vscode_ext_tags": "VS Code · Open VSX · Vanilla JS",
-  "cta_h": "스타터를 Clone하세요.\n프로젝트를 배포하세요.",
-  "cta_btn": "시작하기",
   "footer_built": "배포하는 개발자를 위해."
 }

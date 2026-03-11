@@ -38,7 +38,5 @@
   "starter_vscode_ext_name": "VS Code Extension",
   "card_vscode_p": "Vanilla JS. Dual publish to VS Marketplace + Open VSX.",
   "starter_vscode_ext_tags": "VS Code · Open VSX · Vanilla JS",
-  "cta_h": "Clone a starter.\nShip your project.",
-  "cta_btn": "Get started",
   "footer_built": "Built for developers who ship."
 }
