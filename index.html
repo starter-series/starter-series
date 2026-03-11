@@ -22,11 +22,10 @@
     }
   </script>
   <link rel="stylesheet" href="style.css">
-
 </head>
-<body class="font-sans antialiased overflow-x-hidden leading-relaxed">
+<body class="font-sans antialiased overflow-x-hidden">
 
-  <!-- Ambient orbs -->
+  <!-- Ambient -->
   <div class="scene" aria-hidden="true">
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
@@ -38,37 +37,84 @@
     <div class="max-w-[1080px] mx-auto px-5 flex items-center justify-between h-full">
       <a href="#" class="font-mono text-sm font-medium opacity-80 tracking-tight">starter-series</a>
       <div class="flex items-center gap-6" id="navLinks">
-        <a href="#starters" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_starters">Starters</a>
-        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity">GitHub</a>
-        <button class="pill-btn" id="themeToggle" aria-label="Toggle theme">
-          <span class="theme-icon">☀</span>
-        </button>
-        <button class="pill-btn" id="langToggle" aria-label="Toggle language">
-          <span data-i18n="lang_label">EN</span>
-        </button>
+        <a href="#starters" class="nav-link" data-i18n="nav_starters">Starters</a>
+        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+        <button class="pill-btn" id="themeToggle" aria-label="Toggle theme"><span class="theme-icon">☀</span></button>
+        <button class="pill-btn" id="langToggle" aria-label="Toggle language"><span data-i18n="lang_label">EN</span></button>
       </div>
       <button class="nav-mobile" id="mobileToggle" aria-label="Menu"><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <header class="relative z-[1] pt-[calc(56px+110px)] pb-20 text-center">
+  <!-- ====== Hero ====== -->
+  <header class="relative z-[1] pt-[calc(56px+120px)] pb-24 text-center">
     <div class="max-w-[1080px] mx-auto px-5">
-      <p class="font-mono text-sm opacity-30 tracking-tight mb-6 reveal" data-i18n="hero_tag">git clone → git push → deployed</p>
-      <h1 class="text-[clamp(3.2rem,8vw,6rem)] font-bold leading-[.98] tracking-tighter hero-h1 reveal" data-delay="60">
+      <p class="font-mono text-sm dim mb-6 tracking-tight reveal" data-i18n="hero_tag">git clone → git push → deployed</p>
+      <h1 class="hero-h1 reveal" data-delay="60">
         <span data-i18n="hero_line1">From clone</span><br>
         <span data-i18n="hero_line2">to production.</span>
       </h1>
-      <p class="mt-6 text-lg opacity-40 max-w-[46ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.</p>
+      <p class="mt-6 text-lg dim max-w-[46ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.</p>
       <div class="flex gap-3 justify-center mt-10 reveal" data-delay="180">
-        <a href="#starters" class="lg-btn" data-i18n="hero_cta">Explore starters</a>
-        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="lg-btn lg-btn--ghost">GitHub</a>
+        <a href="#starters" class="btn-primary" data-i18n="hero_cta">Explore starters</a>
+        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
       </div>
     </div>
   </header>
 
-  <!-- Starters -->
-  <section id="starters" class="relative z-[1] py-10 pb-24">
+  <!-- ====== Problem ====== -->
+  <section class="relative z-[1] py-32 text-center">
+    <div class="max-w-[720px] mx-auto px-5">
+      <h2 class="section-h reveal" data-i18n="problem_h">AI writes your code.</h2>
+      <h2 class="section-h accent reveal" data-delay="80" data-i18n="problem_h2">But who ships it?</h2>
+      <p class="mt-8 text-lg dim leading-relaxed reveal" data-delay="160" data-i18n="problem_p">You generated the whole app in 5 minutes. Then spent 5 hours on CI/CD, secrets, permissions, deploy scripts. That part hasn't changed.</p>
+    </div>
+  </section>
+
+  <!-- ====== Three Pillars ====== -->
+  <section class="relative z-[1] py-24">
+    <div class="max-w-[1080px] mx-auto px-5 grid grid-cols-3 gap-6 max-md:grid-cols-1">
+      <div class="pillar reveal">
+        <div class="pillar-icon">⚙</div>
+        <h3 class="pillar-h" data-i18n="pillar_cicd_h">CI/CD</h3>
+        <p class="pillar-p" data-i18n="pillar_cicd_p">GitHub Actions pipelines that build, test, lint, and deploy — on every push.</p>
+      </div>
+      <div class="pillar reveal" data-delay="80">
+        <div class="pillar-icon">🛡</div>
+        <h3 class="pillar-h" data-i18n="pillar_security_h">Security</h3>
+        <p class="pillar-p" data-i18n="pillar_security_p">Dependency audits, permission checks, vulnerability scanning. Automated, not afterthought.</p>
+      </div>
+      <div class="pillar reveal" data-delay="160">
+        <div class="pillar-icon">🚀</div>
+        <h3 class="pillar-h" data-i18n="pillar_deploy_h">Deploy</h3>
+        <p class="pillar-p" data-i18n="pillar_deploy_p">Docker, VPS, App Store, npm, browser stores. Configured and ready to go.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== How It Works ====== -->
+  <section class="relative z-[1] py-32">
+    <div class="max-w-[720px] mx-auto px-5 text-center">
+      <h2 class="section-h reveal" data-i18n="how_h">Three steps. Zero config.</h2>
+      <div class="mt-16 grid grid-cols-3 gap-8 max-sm:grid-cols-1 max-sm:gap-12">
+        <div class="reveal" data-delay="60">
+          <code class="step-code" data-i18n="how_1">git clone</code>
+          <p class="step-p" data-i18n="how_1_p">Pick a starter. Clone it.</p>
+        </div>
+        <div class="reveal" data-delay="120">
+          <code class="step-code" data-i18n="how_2">Build your app</code>
+          <p class="step-p" data-i18n="how_2_p">With Cursor, Copilot, Claude, or by hand. The template handles the infra.</p>
+        </div>
+        <div class="reveal" data-delay="180">
+          <code class="step-code" data-i18n="how_3">git push</code>
+          <p class="step-p" data-i18n="how_3_p">Push to main. CI/CD takes over. Deployed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Starters ====== -->
+  <section id="starters" class="relative z-[1] py-12 pb-32">
     <div class="max-w-[1080px] mx-auto px-5">
       <div class="flex gap-1.5 mb-9 flex-wrap reveal">
         <button class="pill-btn active" data-filter="all" data-i18n="filter_all">All</button>
@@ -79,118 +125,53 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1" id="starterGrid">
-
-        <!-- Docker Deploy (flagship, wide) -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="infra"
-             data-repo="https://github.com/heznpc/docker-deploy-starter" data-detail="detail_docker">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <small class="card-badge" data-i18n="starter_docker_deploy_badge">Flagship</small>
-            <h3 class="card-title" data-i18n="starter_docker_deploy_name">Docker Deploy</h3>
-            <p class="card-desc" data-i18n="card_docker_p">Any language. One Dockerfile. SSH deploy to any VPS.</p>
-            <code class="card-tags" data-i18n="starter_docker_deploy_tags">Docker · VPS · GHCR</code>
-          </div>
+        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="infra" data-repo="https://github.com/heznpc/docker-deploy-starter" data-detail="detail_docker">
+          <small class="card-badge" data-i18n="starter_docker_deploy_badge">Flagship</small>
+          <h3 class="card-title" data-i18n="starter_docker_deploy_name">Docker Deploy</h3>
+          <p class="card-desc" data-i18n="card_docker_p">Any language. One Dockerfile. SSH deploy to any VPS.</p>
+          <code class="card-tags" data-i18n="starter_docker_deploy_tags">Docker · VPS · GHCR</code>
         </div>
-
-        <!-- Browser Extension -->
-        <div class="glass-card reveal" data-category="web" data-delay="40"
-             data-repo="https://github.com/heznpc/browser-extension-starter" data-detail="detail_ext">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_browser_ext_name">Browser Extension</h3>
-            <p class="card-desc" data-i18n="card_ext_p">MV3. Chrome Web Store + Firefox AMO. Permission audit on every push.</p>
-            <code class="card-tags" data-i18n="starter_browser_ext_tags">MV3 · Chrome · Firefox</code>
-          </div>
+        <div class="glass-card reveal" data-category="web" data-delay="40" data-repo="https://github.com/heznpc/browser-extension-starter" data-detail="detail_ext">
+          <h3 class="card-title" data-i18n="starter_browser_ext_name">Browser Extension</h3>
+          <p class="card-desc" data-i18n="card_ext_p">MV3. Chrome Web Store + Firefox AMO. Permission audit on every push.</p>
+          <code class="card-tags" data-i18n="starter_browser_ext_tags">MV3 · Chrome · Firefox</code>
         </div>
-
-        <!-- Discord Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="80"
-             data-repo="https://github.com/heznpc/discord-bot-starter" data-detail="detail_discord">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_discord_bot_name">Discord Bot</h3>
-            <p class="card-desc" data-i18n="card_discord_p">Discord.js v14. Auto-loaded slash commands. Railway or Fly.io deploy.</p>
-            <code class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js · Docker · Railway</code>
-          </div>
+        <div class="glass-card reveal" data-category="bot" data-delay="80" data-repo="https://github.com/heznpc/discord-bot-starter" data-detail="detail_discord">
+          <h3 class="card-title" data-i18n="starter_discord_bot_name">Discord Bot</h3>
+          <p class="card-desc" data-i18n="card_discord_p">Discord.js v14. Auto-loaded slash commands. Railway or Fly.io deploy.</p>
+          <code class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js · Docker · Railway</code>
         </div>
-
-        <!-- Telegram Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="40"
-             data-repo="https://github.com/heznpc/telegram-bot-starter" data-detail="detail_tg">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
-            <p class="card-desc" data-i18n="card_tg_p">grammY. Polling + webhook dual mode. One-command deploy.</p>
-            <code class="card-tags" data-i18n="starter_telegram_bot_tags">grammY · Polling · Webhook</code>
-          </div>
+        <div class="glass-card reveal" data-category="bot" data-delay="40" data-repo="https://github.com/heznpc/telegram-bot-starter" data-detail="detail_tg">
+          <h3 class="card-title" data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
+          <p class="card-desc" data-i18n="card_tg_p">grammY. Polling + webhook dual mode. One-command deploy.</p>
+          <code class="card-tags" data-i18n="starter_telegram_bot_tags">grammY · Polling · Webhook</code>
         </div>
-
-        <!-- Electron App -->
-        <div class="glass-card reveal" data-category="app" data-delay="80"
-             data-repo="https://github.com/heznpc/electron-app-starter" data-detail="detail_electron">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_electron_name">Electron App</h3>
-            <p class="card-desc" data-i18n="card_electron_p">macOS + Windows + Linux. Code signing. Auto-update via GitHub Releases.</p>
-            <code class="card-tags" data-i18n="starter_electron_tags">Electron · macOS · Win · Linux</code>
-          </div>
+        <div class="glass-card reveal" data-category="app" data-delay="80" data-repo="https://github.com/heznpc/electron-app-starter" data-detail="detail_electron">
+          <h3 class="card-title" data-i18n="starter_electron_name">Electron App</h3>
+          <p class="card-desc" data-i18n="card_electron_p">macOS + Windows + Linux. Code signing. Auto-update via GitHub Releases.</p>
+          <code class="card-tags" data-i18n="starter_electron_tags">Electron · macOS · Win · Linux</code>
         </div>
-
-        <!-- npm Package -->
-        <div class="glass-card reveal" data-category="infra" data-delay="120"
-             data-repo="https://github.com/heznpc/npm-package-starter" data-detail="detail_npm">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_npm_package_name">npm Package</h3>
-            <p class="card-desc" data-i18n="card_npm_p">OIDC trusted publishing. Zero secrets. Provenance built in.</p>
-            <code class="card-tags" data-i18n="starter_npm_package_tags">npm · OIDC · Provenance</code>
-          </div>
+        <div class="glass-card reveal" data-category="infra" data-delay="120" data-repo="https://github.com/heznpc/npm-package-starter" data-detail="detail_npm">
+          <h3 class="card-title" data-i18n="starter_npm_package_name">npm Package</h3>
+          <p class="card-desc" data-i18n="card_npm_p">OIDC trusted publishing. Zero secrets. Provenance built in.</p>
+          <code class="card-tags" data-i18n="starter_npm_package_tags">npm · OIDC · Provenance</code>
         </div>
-
-        <!-- React Native -->
-        <div class="glass-card reveal" data-category="app" data-delay="40"
-             data-repo="https://github.com/heznpc/react-native-starter" data-detail="detail_rn">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_react_native_name">React Native</h3>
-            <p class="card-desc" data-i18n="card_rn_p">Expo + EAS Build. Submit to App Store and Play Store from CI.</p>
-            <code class="card-tags" data-i18n="starter_react_native_tags">Expo · iOS · Android · EAS</code>
-          </div>
+        <div class="glass-card reveal" data-category="app" data-delay="40" data-repo="https://github.com/heznpc/react-native-starter" data-detail="detail_rn">
+          <h3 class="card-title" data-i18n="starter_react_native_name">React Native</h3>
+          <p class="card-desc" data-i18n="card_rn_p">Expo + EAS Build. Submit to App Store and Play Store from CI.</p>
+          <code class="card-tags" data-i18n="starter_react_native_tags">Expo · iOS · Android · EAS</code>
         </div>
-
-        <!-- VS Code Extension (wide) -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="web" data-delay="80"
-             data-repo="https://github.com/heznpc/vscode-extension-starter" data-detail="detail_vscode">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_vscode_ext_name">VS Code Extension</h3>
-            <p class="card-desc" data-i18n="card_vscode_p">Vanilla JS. Dual publish to VS Marketplace + Open VSX.</p>
-            <code class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code · Open VSX · Vanilla JS</code>
-          </div>
+        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="web" data-delay="80" data-repo="https://github.com/heznpc/vscode-extension-starter" data-detail="detail_vscode">
+          <h3 class="card-title" data-i18n="starter_vscode_ext_name">VS Code Extension</h3>
+          <p class="card-desc" data-i18n="card_vscode_p">Vanilla JS. Dual publish to VS Marketplace + Open VSX.</p>
+          <code class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code · Open VSX · Vanilla JS</code>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="relative z-[1] py-6 border-t border-white/[.04]">
+  <footer class="relative z-[1] py-6 foot-border">
     <div class="max-w-[1080px] mx-auto px-5 flex justify-between text-xs opacity-20 max-sm:flex-col max-sm:gap-1 max-sm:text-center">
       <span data-i18n="footer_built">Built for developers who ship.</span>
       <span>MIT</span>
@@ -199,20 +180,15 @@
 
   <!-- Modal -->
   <div class="modal-overlay" id="modal">
-    <div class="modal-glass">
-      <div class="glass-fx"></div>
-      <div class="glass-tint"></div>
-      <div class="glass-shine"></div>
-      <div class="glass-content">
-        <button class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-lg opacity-40 hover:opacity-80 border border-white/10 transition-opacity z-10" id="modalClose" aria-label="Close">&times;</button>
-        <h3 class="text-xl font-bold tracking-tight mb-3" id="modalTitle"></h3>
-        <p class="text-sm opacity-45 leading-relaxed mb-5" id="modalDetail"></p>
-        <code class="block mb-6 font-mono text-xs opacity-30" id="modalTags"></code>
-        <a id="modalRepo" class="lg-btn w-full justify-center" target="_blank" rel="noopener">
-          <span data-i18n="modal_repo_btn">View on GitHub</span>
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="ml-2"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg>
-        </a>
-      </div>
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <h3 class="card-title text-xl mb-3" id="modalTitle"></h3>
+      <p class="card-desc mb-5 !opacity-50 leading-relaxed" id="modalDetail"></p>
+      <code class="card-tags !mt-0 mb-6" id="modalTags"></code>
+      <a id="modalRepo" class="btn-primary w-full justify-center" target="_blank" rel="noopener">
+        <span data-i18n="modal_repo_btn">View on GitHub</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="ml-2"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg>
+      </a>
     </div>
   </div>
 
