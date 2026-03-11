@@ -9,7 +9,7 @@
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
   <!-- Nav -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">starter-series<span class="nav-logo-dot">_</span></a>
+      <a href="#" class="nav-logo">starter-series</a>
       <div class="nav-links" id="navLinks">
         <a href="#starters" data-i18n="nav_starters">Starters</a>
         <a href="#why" data-i18n="nav_why">Why</a>
@@ -34,39 +34,40 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="container">
-      <div class="reveal">
-        <h1>
-          <span data-i18n="hero_title_1">AI writes your code.</span><br>
-          <span class="hero-accent" data-i18n="hero_title_2">We ship it safely.</span>
-        </h1>
-        <p class="hero-sub" data-i18n="hero_desc">Production-ready templates with CI/CD, security audits, and one-click deployment. Just clone and push.</p>
-        <div class="hero-ctas">
-          <a href="#starters" class="btn-primary" data-i18n="hero_cta">Browse Starters</a>
-          <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="btn-ghost" data-i18n="nav_github">GitHub</a>
-        </div>
-      </div>
-      <div class="hero-terminal reveal" data-delay="200">
-        <div class="terminal-bar"><span></span><span></span><span></span></div>
-        <div class="terminal-content">
-          <div class="term-line"><span class="t-dim">$</span> git clone starter <span class="t-dim">&amp;&amp;</span> git push</div>
-          <div class="term-line delay-1"><span class="t-green">✓</span> CI/CD pipeline running</div>
-          <div class="term-line delay-2"><span class="t-green">✓</span> Security audit passed</div>
-          <div class="term-line delay-3"><span class="t-green">✓</span> <span data-i18n="terminal_deployed">Deployed to production</span></div>
-        </div>
+    <!-- Floating 3D shapes -->
+    <div class="shapes" aria-hidden="true">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+    <div class="container hero-content">
+      <h1 class="reveal"><span data-i18n="hero_title_1">AI writes your code.</span><br><span data-i18n="hero_title_2">We ship it safely.</span></h1>
+      <p class="hero-sub reveal" data-delay="100" data-i18n="hero_desc">Production-ready templates with CI/CD, security audits, and one-click deployment. Just clone and push.</p>
+      <div class="hero-ctas reveal" data-delay="200">
+        <a href="#starters" class="btn-primary" data-i18n="hero_cta">Browse Starters</a>
+        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="btn-ghost" data-i18n="nav_github">GitHub</a>
       </div>
     </div>
   </section>
 
-  <!-- Social proof numbers -->
+  <!-- Metrics -->
   <section class="metrics">
     <div class="container">
       <div class="metrics-row reveal">
-        <dl class="metric"><dt>8</dt><dd data-i18n="stats_starters">Starters</dd></dl>
-        <dl class="metric"><dt>&lt;2</dt><dd data-i18n="stats_runtime_deps">Avg Runtime Deps</dd></dl>
-        <dl class="metric"><dt>100%</dt><dd data-i18n="stats_cicd">CI/CD Built-in</dd></dl>
-        <dl class="metric"><dt>EN/KO</dt><dd data-i18n="stats_lang">Bilingual Docs</dd></dl>
+        <div class="metric-card">
+          <strong>8</strong><span data-i18n="stats_starters">Starters</span>
+        </div>
+        <div class="metric-card">
+          <strong>&lt;2</strong><span data-i18n="stats_runtime_deps">Avg Runtime Deps</span>
+        </div>
+        <div class="metric-card">
+          <strong>100%</strong><span data-i18n="stats_cicd">CI/CD Built-in</span>
+        </div>
+        <div class="metric-card">
+          <strong>EN/KO</strong><span data-i18n="stats_lang">Bilingual Docs</span>
+        </div>
       </div>
     </div>
   </section>
@@ -86,7 +87,6 @@
       </div>
 
       <div class="grid" id="starterGrid">
-
         <a href="https://github.com/heznpc/docker-deploy-starter" target="_blank" rel="noopener"
            class="card card--feat reveal" data-category="infra" data-delay="0">
           <div class="card-badge" data-i18n="starter_docker_deploy_badge">Flagship</div>
@@ -143,7 +143,6 @@
           <p data-i18n="starter_vscode_ext_desc">Vanilla JS extension with dual publishing to VS Marketplace and Open VSX.</p>
           <span class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code, Open VSX, Vanilla JS</span>
         </a>
-
       </div>
     </div>
   </section>
@@ -163,9 +162,13 @@
   </section>
 
   <!-- CTA -->
-  <section class="section">
+  <section class="section section--cta">
     <div class="container">
       <div class="cta reveal">
+        <div class="cta-shapes" aria-hidden="true">
+          <div class="shape shape-c1"></div>
+          <div class="shape shape-c2"></div>
+        </div>
         <h2 data-i18n="cta_title">Stop googling deployment configs.</h2>
         <p data-i18n="cta_desc">Clone a starter. Ship your project.</p>
         <a href="#starters" class="btn-primary btn-lg" data-i18n="cta_button">Get Started</a>
