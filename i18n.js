@@ -43,17 +43,6 @@ const I18n = (() => {
     if (pointsEl && data.why_points) {
       pointsEl.innerHTML = data.why_points.map(p => `<li>${p}</li>`).join('');
     }
-
-    const stepsEl = document.getElementById('howSteps');
-    if (stepsEl && data.how_steps) {
-      stepsEl.innerHTML = data.how_steps.map(s => `
-        <div class="step">
-          <div class="step-num">${s.num}</div>
-          <h3>${s.title}</h3>
-          <p>${s.desc}</p>
-        </div>
-      `).join('');
-    }
   }
 
   async function init() {

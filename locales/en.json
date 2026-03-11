@@ -70,5 +70,6 @@
   "cta_desc": "Clone a starter. Ship your project.",
   "cta_button": "Get Started",
   "footer_built": "Built for developers who ship.",
-  "footer_license": "MIT Licensed"
+  "footer_license": "MIT Licensed",
+  "terminal_deployed": "Deployed to production"
 }

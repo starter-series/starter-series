@@ -9,18 +9,15 @@
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Grain overlay -->
-  <svg class="grain" aria-hidden="true"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
-
   <!-- Nav -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">starter-series</a>
+      <a href="#" class="nav-logo">starter-series<span class="nav-logo-dot">_</span></a>
       <div class="nav-links" id="navLinks">
         <a href="#starters" data-i18n="nav_starters">Starters</a>
         <a href="#why" data-i18n="nav_why">Why</a>
@@ -38,24 +35,33 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
-    <div class="container hero-container">
+    <div class="container">
       <div class="reveal">
-        <p class="eyebrow" data-i18n="hero_badge">Open Source Starter Templates</p>
         <h1>
           <span data-i18n="hero_title_1">AI writes your code.</span><br>
-          <span class="gradient-text" data-i18n="hero_title_2">We ship it safely.</span>
+          <span class="hero-accent" data-i18n="hero_title_2">We ship it safely.</span>
         </h1>
         <p class="hero-sub" data-i18n="hero_desc">Production-ready templates with CI/CD, security audits, and one-click deployment. Just clone and push.</p>
         <div class="hero-ctas">
           <a href="#starters" class="btn-primary" data-i18n="hero_cta">Browse Starters</a>
-          <a href="#why" class="btn-ghost" data-i18n="hero_cta2">Why this exists</a>
+          <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="btn-ghost" data-i18n="nav_github">GitHub</a>
         </div>
       </div>
-      <div class="stats reveal" data-delay="120">
-        <dl class="stat"><dt>8</dt><dd data-i18n="stats_starters">Starters</dd></dl>
-        <dl class="stat"><dt>&lt;2</dt><dd data-i18n="stats_runtime_deps">Avg Runtime Deps</dd></dl>
-        <dl class="stat"><dt>100%</dt><dd data-i18n="stats_cicd">CI/CD Built-in</dd></dl>
-        <dl class="stat"><dt>EN/KO</dt><dd data-i18n="stats_lang">Bilingual Docs</dd></dl>
+      <div class="hero-terminal reveal" data-delay="200">
+        <div class="terminal-bar"><span></span><span></span><span></span></div>
+        <code><span class="t-dim">$</span> git clone starter <span class="t-dim">&amp;&amp;</span> git push<br><span class="t-green">✓</span> CI/CD pipeline running<br><span class="t-green">✓</span> Security audit passed<br><span class="t-green">✓</span> <span data-i18n="terminal_deployed">Deployed to production</span></code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof numbers -->
+  <section class="metrics">
+    <div class="container">
+      <div class="metrics-row reveal">
+        <dl class="metric"><dt>8</dt><dd data-i18n="stats_starters">Starters</dd></dl>
+        <dl class="metric"><dt>&lt;2</dt><dd data-i18n="stats_runtime_deps">Avg Runtime Deps</dd></dl>
+        <dl class="metric"><dt>100%</dt><dd data-i18n="stats_cicd">CI/CD Built-in</dd></dl>
+        <dl class="metric"><dt>EN/KO</dt><dd data-i18n="stats_lang">Bilingual Docs</dd></dl>
       </div>
     </div>
   </section>
@@ -65,7 +71,6 @@
     <div class="container">
       <header class="section-head reveal">
         <h2 data-i18n="section_find_title">What are you building?</h2>
-        <p data-i18n="section_find_desc">Pick your deployment target. Each starter includes full CI/CD pipeline, security checks, and production-ready defaults.</p>
       </header>
       <div class="filters reveal" data-delay="60">
         <button class="pill active" data-filter="all" data-i18n="filter_all">All</button>
@@ -75,96 +80,63 @@
         <button class="pill" data-filter="infra" data-i18n="filter_infra">Infrastructure</button>
       </div>
 
-      <!-- Bento grid -->
-      <div class="bento" id="starterGrid">
+      <div class="grid" id="starterGrid">
 
         <a href="https://github.com/heznpc/docker-deploy-starter" target="_blank" rel="noopener"
-           class="card card--wide reveal" data-category="infra" data-delay="0">
-          <div class="card-glow" aria-hidden="true"></div>
-          <span class="card-flag" data-i18n="starter_docker_deploy_badge">Flagship</span>
+           class="card card--feat reveal" data-category="infra" data-delay="0">
+          <div class="card-badge" data-i18n="starter_docker_deploy_badge">Flagship</div>
           <h3 data-i18n="starter_docker_deploy_name">Docker Deploy</h3>
           <p data-i18n="starter_docker_deploy_desc">Language-agnostic Docker + VPS deployment via SSH. GHCR, health checks, image cleanup.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_docker_deploy_tags">Docker, VPS, GHCR, Any Language</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_docker_deploy_tags">Docker, VPS, GHCR, Any Language</span>
         </a>
 
         <a href="https://github.com/heznpc/browser-extension-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="web" data-delay="60">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_browser_ext_name">Browser Extension</h3>
           <p data-i18n="starter_browser_ext_desc">Manifest V3 + Chrome Web Store & Firefox AMO deployment with permission security audit.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_browser_ext_tags">MV3, Chrome, Firefox, Vanilla JS</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_browser_ext_tags">MV3, Chrome, Firefox, Vanilla JS</span>
         </a>
 
         <a href="https://github.com/heznpc/discord-bot-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="bot" data-delay="120">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_discord_bot_name">Discord Bot</h3>
           <p data-i18n="starter_discord_bot_desc">Discord.js v14 with Docker, auto-loaded commands, and Railway/Fly.io deploy.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js, Docker, Railway, Fly.io</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js, Docker, Railway, Fly.io</span>
         </a>
 
         <a href="https://github.com/heznpc/telegram-bot-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="bot" data-delay="60">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
           <p data-i18n="starter_telegram_bot_desc">grammY framework with polling + webhook dual mode and Railway/Fly.io deploy.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_telegram_bot_tags">grammY, Docker, Polling, Webhook</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_telegram_bot_tags">grammY, Docker, Polling, Webhook</span>
         </a>
 
         <a href="https://github.com/heznpc/electron-app-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="app" data-delay="120">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_electron_name">Electron App</h3>
           <p data-i18n="starter_electron_desc">Cross-platform desktop builds with code signing, auto-update, and GitHub Releases.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_electron_tags">Electron, macOS, Windows, Linux</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_electron_tags">Electron, macOS, Windows, Linux</span>
         </a>
 
         <a href="https://github.com/heznpc/npm-package-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="infra" data-delay="180">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_npm_package_name">npm Package</h3>
           <p data-i18n="starter_npm_package_desc">OIDC trusted publishing with provenance. Zero secrets needed for npm deploy.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_npm_package_tags">npm, OIDC, Provenance, Zero Config</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_npm_package_tags">npm, OIDC, Provenance, Zero Config</span>
         </a>
 
         <a href="https://github.com/heznpc/react-native-starter" target="_blank" rel="noopener"
            class="card reveal" data-category="app" data-delay="60">
-          <div class="card-glow" aria-hidden="true"></div>
           <h3 data-i18n="starter_react_native_name">React Native</h3>
           <p data-i18n="starter_react_native_desc">Expo + Expo Router with EAS Build/Submit to App Store and Play Store.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_react_native_tags">Expo, iOS, Android, EAS</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_react_native_tags">Expo, iOS, Android, EAS</span>
         </a>
 
         <a href="https://github.com/heznpc/vscode-extension-starter" target="_blank" rel="noopener"
-           class="card card--wide reveal" data-category="web" data-delay="120">
-          <div class="card-glow" aria-hidden="true"></div>
+           class="card card--feat reveal" data-category="web" data-delay="120">
           <h3 data-i18n="starter_vscode_ext_name">VS Code Extension</h3>
           <p data-i18n="starter_vscode_ext_desc">Vanilla JS extension with dual publishing to VS Marketplace and Open VSX.</p>
-          <div class="card-meta">
-            <span class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code, Open VSX, Vanilla JS</span>
-            <span class="card-arrow">&rarr;</span>
-          </div>
+          <span class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code, Open VSX, Vanilla JS</span>
         </a>
 
       </div>
@@ -172,32 +144,16 @@
   </section>
 
   <!-- Why -->
-  <section class="section" id="why">
+  <section class="section section--why" id="why">
     <div class="container">
-      <header class="section-head reveal">
-        <h2 data-i18n="section_why_title">Why Starter Series?</h2>
-      </header>
-      <div class="split reveal" data-delay="60">
-        <div class="split-card split--problem">
-          <h3 data-i18n="why_problem_title">The Problem</h3>
-          <p data-i18n="why_problem_desc">AI can generate a full-stack app in minutes. But CI/CD? Security? Deployment? You're still googling YAML snippets and copy-pasting from Stack Overflow.</p>
+      <div class="why-layout reveal">
+        <div class="why-text">
+          <h2 data-i18n="section_why_title">Why Starter Series?</h2>
+          <p class="why-lead" data-i18n="why_problem_desc">AI can generate a full-stack app in minutes. But CI/CD? Security? Deployment? You're still googling YAML snippets and copy-pasting from Stack Overflow.</p>
+          <p class="why-answer" data-i18n="why_solution_desc">Each starter is a complete, production-ready template. Clone it, replace the example code with yours, push — and your CI/CD pipeline is already running.</p>
         </div>
-        <div class="split-card split--solution">
-          <h3 data-i18n="why_solution_title">The Solution</h3>
-          <p data-i18n="why_solution_desc">Each starter is a complete, production-ready template. Clone it, replace the example code with yours, push — and your CI/CD pipeline is already running.</p>
-        </div>
+        <ul class="why-list" id="whyPoints"></ul>
       </div>
-      <ul class="checklist reveal" id="whyPoints" data-delay="120"></ul>
-    </div>
-  </section>
-
-  <!-- How -->
-  <section class="section" id="how">
-    <div class="container">
-      <header class="section-head reveal">
-        <h2 data-i18n="section_how_title">How It Works</h2>
-      </header>
-      <div class="steps reveal" id="howSteps" data-delay="60"></div>
     </div>
   </section>
 

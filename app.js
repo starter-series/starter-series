@@ -31,14 +31,3 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-// === Card flashlight glow ===
-document.querySelectorAll('.card').forEach(card => {
-  const glow = card.querySelector('.card-glow');
-  if (!glow) return;
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    glow.style.left = (e.clientX - r.left) + 'px';
-    glow.style.top = (e.clientY - r.top) + 'px';
-  });
-});

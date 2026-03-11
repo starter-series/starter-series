@@ -70,5 +70,6 @@
   "cta_desc": "스타터를 Clone하세요. 프로젝트를 배포하세요.",
   "cta_button": "시작하기",
   "footer_built": "배포하는 개발자를 위해 만들었습니다.",
-  "footer_license": "MIT 라이선스"
+  "footer_license": "MIT 라이선스",
+  "terminal_deployed": "프로덕션 배포 완료"
 }
