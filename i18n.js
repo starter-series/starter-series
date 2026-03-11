@@ -29,20 +29,14 @@ const I18n = (() => {
         el.setAttribute(el.getAttribute('data-i18n-attr'), data[key]);
       } else if (el.tagName === 'TITLE') {
         document.title = data[key];
+      } else if (data[key].includes('\n')) {
+        el.innerHTML = data[key].split('\n').map(s => s.replace(/</g,'&lt;')).join('<br>');
       } else {
         el.textContent = data[key];
       }
     });
 
-    renderDynamic(data);
     document.documentElement.lang = currentLang;
-  }
-
-  function renderDynamic(data) {
-    const pointsEl = document.getElementById('whyPoints');
-    if (pointsEl && data.why_points) {
-      pointsEl.innerHTML = data.why_points.map(p => `<li>${p}</li>`).join('');
-    }
   }
 
   async function init() {

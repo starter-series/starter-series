@@ -10,13 +10,13 @@ navLinks.querySelectorAll('a').forEach(a =>
 );
 
 // === Filter cards ===
-document.querySelectorAll('.pill').forEach(btn => {
+document.querySelectorAll('[data-filter]').forEach(btn => {
   btn.addEventListener('click', () => {
     const f = btn.dataset.filter;
-    document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.lg-card[data-category]');
     cards.forEach(c => {
       if (!c.classList.contains('hidden')) {
         c.style.opacity = '0';

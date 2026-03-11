@@ -3,160 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="meta_title">Starter Series — AI writes your code. We ship it safely.</title>
-  <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Production-ready starter templates with CI/CD, security, and deployment baked in.">
-  <meta property="og:title" data-i18n-attr="content" data-i18n-og="meta_title" content="Starter Series">
-  <meta property="og:type" content="website">
+  <title data-i18n="meta_title">Starter Series — Ship what AI builds.</title>
+  <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <!-- SVG refraction filter -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <filter id="glass-refract" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.012" numOctaves="2" seed="42" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="3" result="smooth"/>
+      <feDisplacementMap in="SourceGraphic" in2="smooth" scale="6" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+      <feColorMatrix in="displaced" type="saturate" values="1.3"/>
+    </filter>
+  </svg>
 </head>
 <body>
 
-  <!-- Ambient orbs -->
-  <div class="orbs" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div>
+  <div class="scene" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
   </div>
 
-  <!-- Nav -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">starter-series</a>
+  <nav class="glass-nav" id="nav">
+    <div class="w">
+      <a href="#" class="logo">starter-series</a>
       <div class="nav-links" id="navLinks">
         <a href="#starters" data-i18n="nav_starters">Starters</a>
-        <a href="#why" data-i18n="nav_why">Why</a>
-        <a href="https://github.com/heznpc" target="_blank" rel="noopener" data-i18n="nav_github">GitHub</a>
-        <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+        <a href="https://github.com/heznpc" target="_blank" rel="noopener">GitHub</a>
+        <button class="pill-btn" id="langToggle" aria-label="Toggle language">
           <span data-i18n="lang_label">EN</span>
         </button>
       </div>
-      <button class="nav-mobile" id="mobileToggle" aria-label="Menu">
-        <span></span><span></span>
-      </button>
+      <button class="nav-mobile" id="mobileToggle" aria-label="Menu"><span></span><span></span></button>
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="hero">
-    <div class="wrap">
-      <h1 class="reveal">
-        <span data-i18n="hero_title_1">AI writes your code.</span><br>
-        <span data-i18n="hero_title_2">We ship it safely.</span>
+    <div class="w">
+      <p class="mono-tag reveal" data-i18n="hero_tag">git clone → git push → deployed</p>
+      <h1 class="reveal" data-delay="60">
+        <span data-i18n="hero_line1">From clone</span><br>
+        <span data-i18n="hero_line2">to production.</span>
       </h1>
-      <p class="hero-sub reveal" data-delay="80" data-i18n="hero_desc">Production-ready templates with CI/CD, security audits, and one-click deployment. Just clone and push.</p>
-      <div class="hero-actions reveal" data-delay="160">
-        <a href="#starters" class="btn" data-i18n="hero_cta">Browse Starters</a>
-        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="btn btn--ghost" data-i18n="nav_github">GitHub</a>
-      </div>
-      <div class="hero-stats reveal" data-delay="240">
-        <div class="stat-chip"><strong>8</strong> <span data-i18n="stats_starters">Starters</span></div>
-        <div class="stat-chip"><strong>&lt;2</strong> <span data-i18n="stats_runtime_deps">Deps</span></div>
-        <div class="stat-chip"><strong>100%</strong> <span data-i18n="stats_cicd">CI/CD</span></div>
-        <div class="stat-chip"><strong>EN/KO</strong> <span data-i18n="stats_lang">Docs</span></div>
+      <p class="hero-p reveal" data-delay="120" data-i18n="hero_p">Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.</p>
+      <div class="hero-btns reveal" data-delay="180">
+        <a href="#starters" class="lg-btn" data-i18n="hero_cta">Explore starters</a>
+        <a href="https://github.com/heznpc" target="_blank" rel="noopener" class="lg-btn lg-btn--ghost">GitHub</a>
       </div>
     </div>
   </header>
 
-  <!-- Starters -->
   <section id="starters">
-    <div class="wrap">
-      <h2 class="section-title reveal" data-i18n="section_find_title">What are you building?</h2>
-      <div class="filters reveal" data-delay="40">
-        <button class="pill active" data-filter="all" data-i18n="filter_all">All</button>
-        <button class="pill" data-filter="web" data-i18n="filter_web">Web / Extensions</button>
-        <button class="pill" data-filter="bot" data-i18n="filter_bot">Bots</button>
-        <button class="pill" data-filter="app" data-i18n="filter_app">Apps</button>
-        <button class="pill" data-filter="infra" data-i18n="filter_infra">Infrastructure</button>
+    <div class="w">
+      <div class="filters reveal">
+        <button class="pill-btn active" data-filter="all" data-i18n="filter_all">All</button>
+        <button class="pill-btn" data-filter="infra" data-i18n="filter_infra">Infrastructure</button>
+        <button class="pill-btn" data-filter="web" data-i18n="filter_web">Web</button>
+        <button class="pill-btn" data-filter="bot" data-i18n="filter_bot">Bots</button>
+        <button class="pill-btn" data-filter="app" data-i18n="filter_app">Apps</button>
       </div>
 
       <div class="grid" id="starterGrid">
         <a href="https://github.com/heznpc/docker-deploy-starter" target="_blank" rel="noopener"
-           class="card card--wide reveal" data-category="infra" data-delay="0">
-          <span class="badge" data-i18n="starter_docker_deploy_badge">Flagship</span>
+           class="lg-card lg-card--wide reveal" data-category="infra">
+          <small data-i18n="starter_docker_deploy_badge">Flagship</small>
           <h3 data-i18n="starter_docker_deploy_name">Docker Deploy</h3>
-          <p data-i18n="starter_docker_deploy_desc">Language-agnostic Docker + VPS deployment via SSH. GHCR, health checks, image cleanup.</p>
-          <code class="tags" data-i18n="starter_docker_deploy_tags">Docker, VPS, GHCR, Any Language</code>
+          <p data-i18n="card_docker_p">Any language. One Dockerfile. SSH deploy to any VPS.</p>
+          <code data-i18n="starter_docker_deploy_tags">Docker · VPS · GHCR</code>
         </a>
         <a href="https://github.com/heznpc/browser-extension-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="web" data-delay="60">
+           class="lg-card reveal" data-category="web" data-delay="40">
           <h3 data-i18n="starter_browser_ext_name">Browser Extension</h3>
-          <p data-i18n="starter_browser_ext_desc">Manifest V3 + Chrome Web Store & Firefox AMO deployment with permission security audit.</p>
-          <code class="tags" data-i18n="starter_browser_ext_tags">MV3, Chrome, Firefox, Vanilla JS</code>
+          <p data-i18n="card_ext_p">MV3. Chrome Web Store + Firefox AMO. Permission audit on every push.</p>
+          <code data-i18n="starter_browser_ext_tags">MV3 · Chrome · Firefox</code>
         </a>
         <a href="https://github.com/heznpc/discord-bot-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="bot" data-delay="120">
+           class="lg-card reveal" data-category="bot" data-delay="80">
           <h3 data-i18n="starter_discord_bot_name">Discord Bot</h3>
-          <p data-i18n="starter_discord_bot_desc">Discord.js v14 with Docker, auto-loaded commands, and Railway/Fly.io deploy.</p>
-          <code class="tags" data-i18n="starter_discord_bot_tags">Discord.js, Docker, Railway, Fly.io</code>
+          <p data-i18n="card_discord_p">Discord.js v14. Auto-loaded slash commands. Railway or Fly.io deploy.</p>
+          <code data-i18n="starter_discord_bot_tags">Discord.js · Docker · Railway</code>
         </a>
         <a href="https://github.com/heznpc/telegram-bot-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="bot" data-delay="60">
+           class="lg-card reveal" data-category="bot" data-delay="40">
           <h3 data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
-          <p data-i18n="starter_telegram_bot_desc">grammY framework with polling + webhook dual mode and Railway/Fly.io deploy.</p>
-          <code class="tags" data-i18n="starter_telegram_bot_tags">grammY, Docker, Polling, Webhook</code>
+          <p data-i18n="card_tg_p">grammY. Polling + webhook dual mode. One-command deploy.</p>
+          <code data-i18n="starter_telegram_bot_tags">grammY · Polling · Webhook</code>
         </a>
         <a href="https://github.com/heznpc/electron-app-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="app" data-delay="120">
+           class="lg-card reveal" data-category="app" data-delay="80">
           <h3 data-i18n="starter_electron_name">Electron App</h3>
-          <p data-i18n="starter_electron_desc">Cross-platform desktop builds with code signing, auto-update, and GitHub Releases.</p>
-          <code class="tags" data-i18n="starter_electron_tags">Electron, macOS, Windows, Linux</code>
+          <p data-i18n="card_electron_p">macOS + Windows + Linux. Code signing. Auto-update via GitHub Releases.</p>
+          <code data-i18n="starter_electron_tags">Electron · macOS · Win · Linux</code>
         </a>
         <a href="https://github.com/heznpc/npm-package-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="infra" data-delay="180">
+           class="lg-card reveal" data-category="infra" data-delay="120">
           <h3 data-i18n="starter_npm_package_name">npm Package</h3>
-          <p data-i18n="starter_npm_package_desc">OIDC trusted publishing with provenance. Zero secrets needed for npm deploy.</p>
-          <code class="tags" data-i18n="starter_npm_package_tags">npm, OIDC, Provenance, Zero Config</code>
+          <p data-i18n="card_npm_p">OIDC trusted publishing. Zero secrets. Provenance built in.</p>
+          <code data-i18n="starter_npm_package_tags">npm · OIDC · Provenance</code>
         </a>
         <a href="https://github.com/heznpc/react-native-starter" target="_blank" rel="noopener"
-           class="card reveal" data-category="app" data-delay="60">
+           class="lg-card reveal" data-category="app" data-delay="40">
           <h3 data-i18n="starter_react_native_name">React Native</h3>
-          <p data-i18n="starter_react_native_desc">Expo + Expo Router with EAS Build/Submit to App Store and Play Store.</p>
-          <code class="tags" data-i18n="starter_react_native_tags">Expo, iOS, Android, EAS</code>
+          <p data-i18n="card_rn_p">Expo + EAS Build. Submit to App Store and Play Store from CI.</p>
+          <code data-i18n="starter_react_native_tags">Expo · iOS · Android · EAS</code>
         </a>
         <a href="https://github.com/heznpc/vscode-extension-starter" target="_blank" rel="noopener"
-           class="card card--wide reveal" data-category="web" data-delay="120">
+           class="lg-card lg-card--wide reveal" data-category="web" data-delay="80">
           <h3 data-i18n="starter_vscode_ext_name">VS Code Extension</h3>
-          <p data-i18n="starter_vscode_ext_desc">Vanilla JS extension with dual publishing to VS Marketplace and Open VSX.</p>
-          <code class="tags" data-i18n="starter_vscode_ext_tags">VS Code, Open VSX, Vanilla JS</code>
+          <p data-i18n="card_vscode_p">Vanilla JS. Dual publish to VS Marketplace + Open VSX.</p>
+          <code data-i18n="starter_vscode_ext_tags">VS Code · Open VSX · Vanilla JS</code>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Why -->
-  <section id="why">
-    <div class="wrap">
-      <div class="why reveal">
-        <div>
-          <h2 class="section-title" data-i18n="section_why_title">Why Starter Series?</h2>
-          <p class="why-lead" data-i18n="why_problem_desc">AI can generate a full-stack app in minutes. But CI/CD? Security? Deployment? You're still googling YAML snippets and copy-pasting from Stack Overflow.</p>
-          <p class="why-answer" data-i18n="why_solution_desc">Each starter is a complete, production-ready template. Clone it, replace the example code with yours, push — and your CI/CD pipeline is already running.</p>
-        </div>
-        <ul class="why-list" id="whyPoints"></ul>
+  <section class="cta-wrap">
+    <div class="w">
+      <div class="lg-card lg-cta reveal">
+        <h2 data-i18n="cta_h">Clone a starter.<br>Ship your project.</h2>
+        <a href="#starters" class="lg-btn" data-i18n="cta_btn">Get started</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="wrap">
-      <div class="cta-card reveal">
-        <h2 data-i18n="cta_title">Stop googling deployment configs.</h2>
-        <p data-i18n="cta_desc">Clone a starter. Ship your project.</p>
-        <a href="#starters" class="btn btn--lg" data-i18n="cta_button">Get Started</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="wrap footer-inner">
+  <footer class="foot">
+    <div class="w foot-inner">
       <span data-i18n="footer_built">Built for developers who ship.</span>
-      <span data-i18n="footer_license">MIT Licensed</span>
+      <span>MIT</span>
     </div>
   </footer>
 
