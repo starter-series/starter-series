@@ -106,8 +106,6 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
   border-radius:inherit;
   backdrop-filter:blur(3px) saturate(180%) brightness(1.1);
   -webkit-backdrop-filter:blur(3px) saturate(180%) brightness(1.1);
-  filter:url(#glass-distortion);
-  isolation:isolate;
 }
 [data-theme="light"] .glass-fx{
   backdrop-filter:blur(3px) saturate(160%) brightness(1.05);
