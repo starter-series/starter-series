@@ -1,3 +1,18 @@
+// === Theme toggle ===
+const THEME_KEY = 'starter-series-theme';
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('.theme-icon');
+
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  themeIcon.textContent = t === 'dark' ? '\u2600' : '\u263E';
+  localStorage.setItem(THEME_KEY, t);
+}
+setTheme(localStorage.getItem(THEME_KEY) || 'dark');
+themeToggle.addEventListener('click', () => {
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
 // === Language toggle ===
 document.getElementById('langToggle').addEventListener('click', () => I18n.toggle());
 
@@ -36,6 +51,31 @@ document.querySelectorAll('[data-filter]').forEach(btn => {
       });
     }, 200);
   });
+});
+
+// === Modal ===
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDetail = document.getElementById('modalDetail');
+const modalTags = document.getElementById('modalTags');
+const modalRepo = document.getElementById('modalRepo');
+
+document.querySelectorAll('.lg-card[data-repo]').forEach(card => {
+  card.addEventListener('click', () => {
+    modalTitle.textContent = card.querySelector('h3').textContent;
+    modalDetail.textContent = I18n.get(card.dataset.detail);
+    modalTags.textContent = card.querySelector('code').textContent;
+    modalRepo.href = card.dataset.repo;
+    modal.classList.add('open');
+  });
+});
+
+document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', e => {
+  if (e.target === modal) modal.classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') modal.classList.remove('open');
 });
 
 // === Scroll reveal with stagger ===

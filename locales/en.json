@@ -38,5 +38,14 @@
   "starter_vscode_ext_name": "VS Code Extension",
   "card_vscode_p": "Vanilla JS. Dual publish to VS Marketplace + Open VSX.",
   "starter_vscode_ext_tags": "VS Code · Open VSX · Vanilla JS",
+  "detail_docker": "Language-agnostic deployment via Docker and SSH. GitHub Actions builds your image, pushes to GHCR, then deploys to any VPS with health checks and automatic rollback. Includes Hadolint linting, multi-stage build examples for Node, Python, Go, Rust, Java, and static sites, plus an HTTPS setup guide with Caddy.",
+  "detail_ext": "Manifest V3 browser extension with automated publishing to Chrome Web Store and Firefox AMO. Every push runs permission auditing, manifest validation, npm audit, linting, and tests. Five devDependencies, zero runtime dependencies.",
+  "detail_discord": "Discord.js v14 bot with file-based slash command auto-loading and graceful shutdown. Dockerized with CI/CD pipelines for Railway and Fly.io. Uses node --watch for development — no extra tooling needed.",
+  "detail_tg": "grammY-based Telegram bot supporting both long-polling and webhook modes. Docker-ready with one-command deploy to Railway or Fly.io. ESLint v9 flat config included.",
+  "detail_electron": "Cross-platform desktop app built with electron-builder. CI matrix builds for macOS, Windows, and Linux with code signing. Auto-update via electron-updater and GitHub Releases.",
+  "detail_npm": "Publish to npm using OIDC trusted publishing — no NPM_TOKEN secrets needed. Provenance attestation built in. Ready for the npm classic token deprecation (Dec 2025). Four devDependencies total.",
+  "detail_rn": "Expo + Expo Router with EAS Build and EAS Submit. CI/CD pipeline handles App Store and Play Store submission. Only EXPO_TOKEN required as a secret.",
+  "detail_vscode": "VS Code extension scaffold using vanilla JS — no bundler, no framework. Dual publishing to VS Marketplace and Open VSX via GitHub Actions. Six devDependencies, zero runtime.",
+  "modal_repo_btn": "View on GitHub",
   "footer_built": "Built for developers who ship."
 }
