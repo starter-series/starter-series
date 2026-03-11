@@ -31,7 +31,7 @@ document.querySelectorAll('[data-filter]').forEach(btn => {
     document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    const cards = document.querySelectorAll('.lg-card[data-category]');
+    const cards = document.querySelectorAll('.glass-card[data-category]');
     cards.forEach(c => {
       if (!c.classList.contains('hidden')) {
         c.style.opacity = '0';
@@ -60,7 +60,7 @@ const modalDetail = document.getElementById('modalDetail');
 const modalTags = document.getElementById('modalTags');
 const modalRepo = document.getElementById('modalRepo');
 
-document.querySelectorAll('.lg-card[data-repo]').forEach(card => {
+document.querySelectorAll('.glass-card[data-repo]').forEach(card => {
   card.addEventListener('click', () => {
     modalTitle.textContent = card.querySelector('h3').textContent;
     modalDetail.textContent = I18n.get(card.dataset.detail);
