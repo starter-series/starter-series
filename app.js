@@ -1,56 +1,44 @@
-// Language toggle
+// === Language toggle ===
 document.getElementById('langToggle').addEventListener('click', () => I18n.toggle());
 
-// Mobile nav toggle
+// === Mobile nav ===
 const mobileToggle = document.getElementById('mobileToggle');
-const navLinks = document.querySelector('.nav-links');
-mobileToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  mobileToggle.classList.toggle('active');
-});
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => navLinks.classList.remove('open'))
+);
 
-// Close mobile nav on link click
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    mobileToggle.classList.remove('active');
-  });
-});
-
-// Filter cards
-const filterBtns = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.card');
-
-filterBtns.forEach(btn => {
+// === Filter cards ===
+document.querySelectorAll('.pill').forEach(btn => {
   btn.addEventListener('click', () => {
-    const filter = btn.dataset.filter;
-
-    filterBtns.forEach(b => b.classList.remove('active'));
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
-    cards.forEach(card => {
-      if (filter === 'all' || card.dataset.category === filter) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
+    document.querySelectorAll('.card').forEach(c => {
+      c.classList.toggle('hidden', f !== 'all' && c.dataset.category !== f);
     });
   });
 });
 
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
+// === Scroll reveal with stagger ===
+const io = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (!entry.isIntersecting) return;
+    const delay = parseInt(entry.target.dataset.delay || '0', 10);
+    setTimeout(() => entry.target.classList.add('visible'), delay);
+    io.unobserve(entry.target);
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Nav background on scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
+// === Card flashlight glow ===
+document.querySelectorAll('.card').forEach(card => {
+  const glow = card.querySelector('.card-glow');
+  if (!glow) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    glow.style.left = (e.clientX - r.left) + 'px';
+    glow.style.top = (e.clientY - r.top) + 'px';
+  });
+});
