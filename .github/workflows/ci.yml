@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for large files
+        run: |
+          LARGE=$(find . -not -path './.git/*' -type f -size +5M)
+          if [ -n "$LARGE" ]; then
+            echo "::error::Large files detected (>5 MB):"
+            echo "$LARGE"
+            exit 1
+          fi
+
+      - name: Validate locale JSON
+        run: |
+          for f in locales/*.json; do
+            python3 -c "import json; json.load(open('$f'))" || {
+              echo "::error::Invalid JSON: $f"
+              exit 1
+            }
+            echo "Valid: $f"
+          done
+
+      - name: Validate HTML
+        run: |
+          for f in *.html; do
+            if ! head -1 "$f" | grep -qi 'doctype'; then
+              echo "::error::Missing DOCTYPE: $f"
+              exit 1
+            fi
+            echo "Valid: $f"
+          done
+
+      - name: Check internal links
+        run: |
+          BROKEN=0
+          for url in $(grep -oP 'https://github\.com/starter-series/[a-z-]+' index.html | sort -u); do
+            STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$url")
+            if [ "$STATUS" != "200" ]; then
+              echo "::error::Broken link ($STATUS): $url"
+              BROKEN=1
+            else
+              echo "OK: $url"
+            fi
+          done
+          exit $BROKEN
