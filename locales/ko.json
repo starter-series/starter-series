@@ -39,7 +39,7 @@
   "card_vscode_p": "Vanilla JS. VS Marketplace + Open VSX 동시 배포.",
   "starter_vscode_ext_tags": "VS Code · Open VSX · Vanilla JS",
   "detail_docker": "Docker와 SSH를 통한 언어 무관 배포. GitHub Actions가 이미지를 빌드하고 GHCR에 푸시한 뒤, 헬스체크와 자동 롤백으로 VPS에 배포합니다. Hadolint 린팅, Node/Python/Go/Rust/Java/정적 사이트용 멀티스테이지 빌드 예시, Caddy HTTPS 설정 가이드 포함.",
-  "detail_ext": "Chrome Web Store와 Firefox AMO 자동 배포가 포함된 Manifest V3 브라우저 확장. 매 push마다 권한 감사, 매니페스트 검증, npm audit, 린팅, 테스트를 실행합니다. devDependency 5개, 런타임 의존성 0개.",
+  "detail_ext": "Chrome Web Store와 Firefox AMO 자동 배포가 포함된 Manifest V3 브라우저 확장. 매 push마다 권한 감사, 매니페스트 검증, npm audit, 린팅, 테스트를 실행합니다. devDependency 7개, 런타임 의존성 0개.",
   "detail_discord": "Discord.js v14 봇. 파일 기반 슬래시 커맨드 자동 로딩과 graceful shutdown. Docker화되어 Railway, Fly.io CI/CD 파이프라인 제공. 개발 시 node --watch 사용 — 추가 도구 불필요.",
   "detail_tg": "grammY 기반 Telegram 봇. 롱폴링과 웹훅 이중 모드 지원. Docker 준비 완료, Railway 또는 Fly.io 원커맨드 배포. ESLint v9 flat config 포함.",
   "detail_electron": "electron-builder로 만든 크로스플랫폼 데스크톱 앱. macOS, Windows, Linux CI 매트릭스 빌드와 코드사이닝. electron-updater + GitHub Releases 자동 업데이트.",
@@ -48,7 +48,7 @@
   "starter_mcp_server_name": "MCP 서버",
   "card_mcp_p": "TypeScript MCP 서버. OIDC npm 배포. 시크릿 제로.",
   "starter_mcp_server_tags": "MCP · TypeScript · OIDC",
-  "detail_mcp": "TypeScript MCP 서버. Safety annotation, 구조화된 프롬프트, 응답 헬퍼 포함. OIDC trusted publishing으로 npm 배포 — 시크릿 불필요. ESLint, Vitest, CI/CD 완비.",
+  "detail_mcp": "TypeScript MCP 서버. Safety annotation, 구조화된 프롬프트, 응답 헬퍼 포함. OIDC trusted publishing으로 npm 배포 — 시크릿 불필요. ESLint, Jest, CI/CD 완비.",
   "detail_vscode": "Vanilla JS VS Code 확장 스캐폴드 — 번들러 없음, 프레임워크 없음. GitHub Actions로 VS Marketplace + Open VSX 동시 배포. devDependency 6개, 런타임 0개.",
   "modal_repo_btn": "GitHub에서 보기",
   "footer_built": "배포하는 개발자를 위해."

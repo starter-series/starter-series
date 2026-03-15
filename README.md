@@ -32,8 +32,10 @@ Clone a repo. Write your app. Push to deploy.
 Every starter comes with:
 
 - **CI/CD** — GitHub Actions pipelines for build, test, lint, and deploy
-- **Security** — `npm audit`, secret scanning (gitleaks), license checking
+- **Security** — `npm audit`, secret scanning (gitleaks), license checking, CodeQL static analysis
 - **Deploy** — Platform-specific publishing (npm, Docker, app stores, extension stores)
+- **Maintenance** — Weekly scheduled CI health checks with auto-issue on failure
+- **Stale management** — Auto-label and close inactive issues/PRs
 - **Dependabot** — Grouped dependency updates with lockfile conflict prevention
 
 ## Quick Start
