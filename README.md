@@ -19,6 +19,7 @@ Clone a repo. Write your app. Push to deploy.
 |---------|-------------|-------|
 | [docker-deploy-starter](https://github.com/starter-series/docker-deploy-starter) | Any language, one Dockerfile, SSH deploy to any VPS | Docker, GHCR, GitHub Actions |
 | [mcp-server-starter](https://github.com/starter-series/mcp-server-starter) | TypeScript MCP server with OIDC npm publish | MCP, TypeScript, OIDC |
+| [python-mcp-server-starter](https://github.com/starter-series/python-mcp-server-starter) | Python MCP server with OIDC PyPI publish | MCP, Python, OIDC |
 | [npm-package-starter](https://github.com/starter-series/npm-package-starter) | OIDC trusted publishing, zero secrets, provenance | npm, OIDC, Provenance |
 | [browser-extension-starter](https://github.com/starter-series/browser-extension-starter) | MV3 extension with CWS + AMO publishing | Manifest V3, Chrome, Firefox |
 | [vscode-extension-starter](https://github.com/starter-series/vscode-extension-starter) | Dual publish to VS Marketplace + Open VSX | VS Code, Vanilla JS |
@@ -26,6 +27,7 @@ Clone a repo. Write your app. Push to deploy.
 | [telegram-bot-starter](https://github.com/starter-series/telegram-bot-starter) | grammY bot with polling + webhook dual mode | grammY, Docker, Railway |
 | [electron-app-starter](https://github.com/starter-series/electron-app-starter) | Cross-platform desktop app with code signing + auto-update | Electron, macOS/Win/Linux |
 | [react-native-starter](https://github.com/starter-series/react-native-starter) | Expo + EAS Build with App Store + Play Store CI/CD | Expo, iOS, Android |
+| [cloudflare-pages-starter](https://github.com/starter-series/cloudflare-pages-starter) | Static site + Cloudflare Pages deploy, unlimited bandwidth | Cloudflare Pages, Wrangler, GitHub Actions |
 
 ## What's Included
 

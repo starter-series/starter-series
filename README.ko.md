@@ -19,6 +19,7 @@
 |--------|------|------|
 | [docker-deploy-starter](https://github.com/starter-series/docker-deploy-starter) | 언어 무관, Dockerfile 하나로 VPS SSH 배포 | Docker, GHCR, GitHub Actions |
 | [mcp-server-starter](https://github.com/starter-series/mcp-server-starter) | TypeScript MCP 서버 + OIDC npm 배포 | MCP, TypeScript, OIDC |
+| [python-mcp-server-starter](https://github.com/starter-series/python-mcp-server-starter) | Python MCP 서버 + OIDC PyPI 배포 | MCP, Python, OIDC |
 | [npm-package-starter](https://github.com/starter-series/npm-package-starter) | OIDC trusted publishing, 시크릿 제로, provenance | npm, OIDC, Provenance |
 | [browser-extension-starter](https://github.com/starter-series/browser-extension-starter) | MV3 확장 + CWS/AMO 자동 배포 | Manifest V3, Chrome, Firefox |
 | [vscode-extension-starter](https://github.com/starter-series/vscode-extension-starter) | VS Marketplace + Open VSX 동시 배포 | VS Code, Vanilla JS |
@@ -26,6 +27,7 @@
 | [telegram-bot-starter](https://github.com/starter-series/telegram-bot-starter) | grammY 봇 + 폴링/웹훅 이중 모드 | grammY, Docker, Railway |
 | [electron-app-starter](https://github.com/starter-series/electron-app-starter) | 크로스플랫폼 데스크톱 앱 + 코드사이닝 + 자동 업데이트 | Electron, macOS/Win/Linux |
 | [react-native-starter](https://github.com/starter-series/react-native-starter) | Expo + EAS Build + App Store/Play Store CI/CD | Expo, iOS, Android |
+| [cloudflare-pages-starter](https://github.com/starter-series/cloudflare-pages-starter) | 정적 사이트 + Cloudflare Pages 배포, 무제한 대역폭 | Cloudflare Pages, Wrangler, GitHub Actions |
 
 ## 포함 사항
 
