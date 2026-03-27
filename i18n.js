@@ -30,7 +30,13 @@ const I18n = (() => {
       } else if (el.tagName === 'TITLE') {
         document.title = data[key];
       } else if (data[key].includes('\n')) {
-        el.innerHTML = data[key].split('\n').map(s => s.replace(/</g,'&lt;')).join('<br>');
+        const frag = document.createDocumentFragment();
+        data[key].split('\n').forEach((s, i) => {
+          if (i > 0) frag.appendChild(document.createElement('br'));
+          frag.appendChild(document.createTextNode(s));
+        });
+        el.textContent = '';
+        el.appendChild(frag);
       } else {
         el.textContent = data[key];
       }
