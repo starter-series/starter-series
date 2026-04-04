@@ -227,3 +227,20 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
   }
   .nav-mobile{display:flex}
 }
+
+/* === Reduced motion === */
+@media(prefers-reduced-motion:reduce){
+  .orb{animation:none}
+  .glass-card{transition:none}
+  .glass-card:hover{transform:none}
+  .glass-card::before{display:none}
+  .glass-card:hover::before{transition:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  .modal-overlay{transition:none}
+  .modal-glass{transition:none}
+  body{transition:none}
+  .glass-nav{transition:none}
+  .lg-btn{transition:none}
+  .lg-btn:hover{transform:none}
+  .pill-btn{transition:none}
+}

@@ -46,9 +46,13 @@ const I18n = (() => {
   }
 
   async function init() {
-    currentLang = detect();
-    const data = await load(currentLang);
-    apply(data);
+    try {
+      currentLang = detect();
+      const data = await load(currentLang);
+      apply(data);
+    } catch (err) {
+      console.error('I18n init failed:', err);
+    }
   }
 
   async function toggle() {
@@ -64,4 +68,4 @@ const I18n = (() => {
   return { init, toggle, get, lang };
 })();
 
-I18n.init();
+I18n.init().catch(err => console.error('I18n init unhandled rejection:', err));

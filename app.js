@@ -60,13 +60,21 @@ const modalDetail = document.getElementById('modalDetail');
 const modalTags = document.getElementById('modalTags');
 const modalRepo = document.getElementById('modalRepo');
 
+function openCard(card) {
+  modalTitle.textContent = card.querySelector('h3').textContent;
+  modalDetail.textContent = I18n.get(card.dataset.detail);
+  modalTags.textContent = card.querySelector('code').textContent;
+  modalRepo.href = card.dataset.repo;
+  modal.classList.add('open');
+}
+
 document.querySelectorAll('.glass-card[data-repo]').forEach(card => {
-  card.addEventListener('click', () => {
-    modalTitle.textContent = card.querySelector('h3').textContent;
-    modalDetail.textContent = I18n.get(card.dataset.detail);
-    modalTags.textContent = card.querySelector('code').textContent;
-    modalRepo.href = card.dataset.repo;
-    modal.classList.add('open');
+  card.addEventListener('click', () => openCard(card));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openCard(card);
+    }
   });
 });
 
