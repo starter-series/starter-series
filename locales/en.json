@@ -1,12 +1,12 @@
 {
-  "meta_title": "Starter Series — Ship what AI builds.",
+  "meta_title": "Starter Series — Stop explaining CI/CD to your AI every time.",
   "meta_description": "Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.",
   "nav_starters": "Starters",
   "lang_label": "EN",
   "hero_tag": "git clone → git push → deployed",
   "hero_line1": "From clone",
   "hero_line2": "to production.",
-  "hero_p": "Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.",
+  "hero_p": "Stop explaining CI/CD to your AI every time. Clone a production-ready starter with CI/CD, security audits, and deploy pipelines baked in.",
   "hero_cta": "Explore starters",
   "filter_all": "All",
   "filter_web": "Web",
@@ -50,6 +50,11 @@
   "starter_mcp_server_tags": "MCP · TypeScript · OIDC",
   "detail_mcp": "TypeScript MCP server with safety annotations, structured prompts, and response helpers. OIDC trusted publishing to npm — no secrets required. ESLint, Jest, and full CI/CD included.",
   "detail_vscode": "VS Code extension scaffold using vanilla JS — no bundler, no framework. Dual publishing to VS Marketplace and Open VSX via GitHub Actions. Six devDependencies, zero runtime.",
+  "starter_mcp_server_name": "MCP Server",
+  "card_mcp_p": "TypeScript + MCP SDK. Zod-validated tools. OIDC publish to npm.",
+  "starter_mcp_server_tags": "MCP · TypeScript · npm · OIDC",
+  "detail_mcp": "Model Context Protocol server with TypeScript, Zod schema validation, and stdio transport. OIDC trusted publishing to npm — zero secrets needed. Clone, add your tools, publish with npx. Eight devDependencies, two runtime.",
+  "filter_ai": "AI",
   "modal_repo_btn": "View on GitHub",
-  "footer_built": "Built for developers who ship."
+  "footer_built": "Built for developers who ship with AI."
 }

@@ -1,12 +1,12 @@
 {
-  "meta_title": "Starter Series — AI가 만든 코드를 배포하세요.",
+  "meta_title": "Starter Series — 매번 AI한테 CI/CD 설명하지 마세요.",
   "meta_description": "스타터를 Clone하세요. Push하면 배포됩니다. CI/CD, 보안, 인프라 — 이미 설정되어 있습니다.",
   "nav_starters": "스타터",
   "lang_label": "한국어",
   "hero_tag": "git clone → git push → 배포 완료",
   "hero_line1": "Clone에서",
   "hero_line2": "프로덕션까지.",
-  "hero_p": "모든 스타터에 CI/CD, 보안 검사, 배포 파이프라인이 내장되어 있습니다. 앱만 만드세요. 나머지는 저희가 합니다.",
+  "hero_p": "매번 AI한테 CI/CD 설명하지 마세요. CI/CD, 보안 검사, 배포 파이프라인이 내장된 스타터를 clone하고 바로 시작하세요.",
   "hero_cta": "스타터 둘러보기",
   "filter_all": "전체",
   "filter_web": "웹",
@@ -50,6 +50,11 @@
   "starter_mcp_server_tags": "MCP · TypeScript · OIDC",
   "detail_mcp": "TypeScript MCP 서버. Safety annotation, 구조화된 프롬프트, 응답 헬퍼 포함. OIDC trusted publishing으로 npm 배포 — 시크릿 불필요. ESLint, Jest, CI/CD 완비.",
   "detail_vscode": "Vanilla JS VS Code 확장 스캐폴드 — 번들러 없음, 프레임워크 없음. GitHub Actions로 VS Marketplace + Open VSX 동시 배포. devDependency 6개, 런타임 0개.",
+  "starter_mcp_server_name": "MCP 서버",
+  "card_mcp_p": "TypeScript + MCP SDK. Zod 스키마 검증. OIDC로 npm 배포.",
+  "starter_mcp_server_tags": "MCP · TypeScript · npm · OIDC",
+  "detail_mcp": "Model Context Protocol 서버. TypeScript, Zod 스키마 검증, stdio 트랜스포트. OIDC trusted publishing으로 npm 배포 — 시크릿 0개. Clone하고 Tool 추가하면 npx로 배포. devDependency 8개, 런타임 2개.",
+  "filter_ai": "AI",
   "modal_repo_btn": "GitHub에서 보기",
-  "footer_built": "배포하는 개발자를 위해."
+  "footer_built": "AI와 함께 배포하는 개발자를 위해."
 }
