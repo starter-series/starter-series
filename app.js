@@ -59,13 +59,30 @@ const modalTitle = document.getElementById('modalTitle');
 const modalDetail = document.getElementById('modalDetail');
 const modalTags = document.getElementById('modalTags');
 const modalRepo = document.getElementById('modalRepo');
+const modalClose = document.getElementById('modalClose');
+let lastFocused = null;
+
+function getFocusableInModal() {
+  return modal.querySelectorAll('a[href], button:not([disabled])');
+}
 
 function openCard(card) {
+  lastFocused = document.activeElement;
   modalTitle.textContent = card.querySelector('h3').textContent;
   modalDetail.textContent = I18n.get(card.dataset.detail);
   modalTags.textContent = card.querySelector('code').textContent;
   modalRepo.href = card.dataset.repo;
   modal.classList.add('open');
+  requestAnimationFrame(() => modalClose.focus());
+}
+
+function closeModal() {
+  if (!modal.classList.contains('open')) return;
+  modal.classList.remove('open');
+  if (lastFocused && typeof lastFocused.focus === 'function') {
+    lastFocused.focus();
+  }
+  lastFocused = null;
 }
 
 document.querySelectorAll('.glass-card[data-repo]').forEach(card => {
@@ -78,12 +95,33 @@ document.querySelectorAll('.glass-card[data-repo]').forEach(card => {
   });
 });
 
-document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
+modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', e => {
-  if (e.target === modal) modal.classList.remove('open');
+  if (e.target === modal) closeModal();
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') modal.classList.remove('open');
+  if (!modal.classList.contains('open')) return;
+  if (e.key === 'Escape') {
+    closeModal();
+    return;
+  }
+  if (e.key === 'Tab') {
+    const focusable = getFocusableInModal();
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    // If focus escaped the modal (e.g., tabbed in from browser chrome), pull it back.
+    if (!modal.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
 
 // === Scroll reveal with stagger ===
