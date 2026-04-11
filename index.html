@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="meta_title">Starter Series — Ship what AI builds.</title>
+  <script>
+    // Restore theme before first paint to avoid a flash of wrong theme.
+    try {
+      var t = localStorage.getItem('starter-series-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (_) { /* localStorage unavailable */ }
+  </script>
+  <title data-i18n="meta_title">Starter Series — Stop explaining CI/CD to your AI every time.</title>
   <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,7 +174,8 @@ data-repo="https://github.com/starter-series/npm-package-starter" data-detail="d
 
         <!-- MCP Server -->
         <div class="glass-card reveal" data-category="infra" data-delay="160"
-             data-repo="https://github.com/starter-series/mcp-server-starter" data-detail="detail_mcp">
+             data-repo="https://github.com/starter-series/mcp-server-starter" data-detail="detail_mcp"
+             tabindex="0" role="button">
           <div class="glass-fx"></div>
           <div class="glass-tint"></div>
           <div class="glass-shine"></div>
@@ -192,6 +200,34 @@ data-repo="https://github.com/starter-series/react-native-starter" data-detail="
           </div>
         </div>
 
+        <!-- Python MCP Server -->
+        <div class="glass-card reveal" data-category="infra" data-delay="120"
+             data-repo="https://github.com/starter-series/python-mcp-server-starter" data-detail="detail_py_mcp"
+             tabindex="0" role="button">
+          <div class="glass-fx"></div>
+          <div class="glass-tint"></div>
+          <div class="glass-shine"></div>
+          <div class="glass-content">
+            <h3 class="card-title" data-i18n="starter_py_mcp_name">Python MCP Server</h3>
+            <p class="card-desc" data-i18n="card_py_mcp_p">Python MCP server. OIDC PyPI publish. FastMCP + async.</p>
+            <code class="card-tags" data-i18n="starter_py_mcp_tags">MCP · Python · OIDC · PyPI</code>
+          </div>
+        </div>
+
+        <!-- Cloudflare Pages -->
+        <div class="glass-card reveal" data-category="web" data-delay="160"
+             data-repo="https://github.com/starter-series/cloudflare-pages-starter" data-detail="detail_cf_pages"
+             tabindex="0" role="button">
+          <div class="glass-fx"></div>
+          <div class="glass-tint"></div>
+          <div class="glass-shine"></div>
+          <div class="glass-content">
+            <h3 class="card-title" data-i18n="starter_cf_pages_name">Cloudflare Pages</h3>
+            <p class="card-desc" data-i18n="card_cf_pages_p">Static site. Unlimited bandwidth. Global CDN free.</p>
+            <code class="card-tags" data-i18n="starter_cf_pages_tags">Cloudflare Pages · Wrangler</code>
+          </div>
+        </div>
+
         <!-- VS Code Extension (wide) -->
         <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="web" data-delay="80"
 data-repo="https://github.com/starter-series/vscode-extension-starter" data-detail="detail_vscode"
@@ -213,7 +249,7 @@ data-repo="https://github.com/starter-series/vscode-extension-starter" data-deta
   <!-- Footer -->
   <footer class="relative z-[1] py-6 border-t border-white/[.04]">
     <div class="max-w-[1080px] mx-auto px-5 flex justify-between text-xs opacity-20 max-sm:flex-col max-sm:gap-1 max-sm:text-center">
-      <span data-i18n="footer_built">Built for developers who ship.</span>
+      <span data-i18n="footer_built">Built for developers who ship with AI.</span>
       <span>MIT</span>
     </div>
   </footer>
