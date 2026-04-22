@@ -19,7 +19,9 @@ const path = require('path');
 // Config
 // ---------------------------------------------------------------------------
 
-const ROOT = path.resolve(__dirname, '..');
+// Script lives inside the umbrella repo at scripts/sync-versions.js.
+// ROOT points to the parent dir that holds all starter repos as siblings.
+const ROOT = path.resolve(__dirname, '..', '..');
 const FIX = process.argv.includes('--fix');
 
 // Starters that have a package.json (auto-detected below)
