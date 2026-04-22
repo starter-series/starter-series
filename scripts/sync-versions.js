@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 //
-// sync-versions.js — Detect and fix version drift across starter-series repos.
+// sync-versions.js — Report version drift across starter-series repos.
 //
 // Usage:
-//   node scripts/sync-versions.js            Report mismatches only
-//   node scripts/sync-versions.js --fix      Update all to highest version found
+//   node scripts/sync-versions.js
 //
 // Checks:
 //   1. Shared devDependencies (jest, eslint, etc.) across package.json files
 //   2. engines.node field consistency
 //   3. Node.js version in GitHub Actions workflow files (setup-node)
 //   4. Node.js version in Dockerfiles (FROM node:XX)
+//
+// Report-only: auto-fix was removed because blind majority alignment breaks
+// starters with externally-driven constraints (e.g., electron-app-starter
+// tracks the Node version bundled by Electron). Per-repo drift should be
+// handled by Dependabot; use INTENTIONAL_DIVERGENCES below to annotate
+// cross-repo cases that must stay different on purpose.
 
 const fs = require('fs');
 const path = require('path');
@@ -22,12 +27,27 @@ const path = require('path');
 // Script lives inside the umbrella repo at scripts/sync-versions.js.
 // ROOT points to the parent dir that holds all starter repos as siblings.
 const ROOT = path.resolve(__dirname, '..', '..');
-const FIX = process.argv.includes('--fix');
 
-// Starters that have a package.json (auto-detected below)
-// Directories to always skip
+// Directories to always skip during discovery
 const SKIP_DIRS = new Set(['.git', '.idea', '.claude', 'node_modules', 'scripts',
   'dot-github', 'landing-page', 'starter-series']);
+
+// Intentional divergences — starters whose value legitimately differs from
+// the rest of the series. Listed here so they are reported as "ok (intentional)"
+// instead of being flagged as drift.
+//
+// Format: { 'starter-name': 'reason shown in report' }
+const INTENTIONAL_DIVERGENCES = {
+  engines: {
+    'electron-app-starter': 'Electron bundles its own Node — engines.node follows Electron',
+  },
+  workflowNode: {
+    'electron-app-starter': 'Electron bundles its own Node — CI Node must match Electron',
+  },
+  dockerNode: {
+    // none currently
+  },
+};
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -49,12 +69,6 @@ function semverCompare(a, b) {
   return 0;
 }
 
-/** Preserve the original range prefix (^, ~, >=, etc.) while swapping the version digits. */
-function applyPrefix(original, newBare) {
-  const prefix = original.match(/^[\^~>=<]*/)[0];
-  return prefix + newBare;
-}
-
 /** Read and parse a JSON file. Returns null on failure. */
 function readJSON(filepath) {
   try {
@@ -62,11 +76,6 @@ function readJSON(filepath) {
   } catch {
     return null;
   }
-}
-
-/** Write a JSON file preserving 2-space indent + trailing newline. */
-function writeJSON(filepath, data) {
-  fs.writeFileSync(filepath, JSON.stringify(data, null, 2) + '\n');
 }
 
 /** Read a text file. Returns null on failure. */
@@ -134,7 +143,6 @@ function detectDepMismatches(depMap) {
     const uniqueVersions = new Set(starterVersions.values());
     if (uniqueVersions.size <= 1) continue; // all aligned
 
-    // Determine highest
     let highest = null;
     for (const ver of uniqueVersions) {
       if (!highest || semverCompare(ver, highest) > 0) highest = ver;
@@ -177,7 +185,6 @@ function collectWorkflowNodeVersions(starters) {
       const content = readText(path.join(wfDir, file));
       if (!content) continue;
 
-      // Match: node-version: 20  or  node-version: '20'  or  node-version: "20.x"
       const re = /node-version:\s*['"]?(\d[\d.x]*)/g;
       let m;
       while ((m = re.exec(content)) !== null) {
@@ -201,7 +208,6 @@ function collectDockerfileNodeVersions(starters) {
     const content = readText(dockerfilePath);
     if (!content) continue;
 
-    // Match: FROM node:20-alpine  or  FROM node:22  etc.
     const re = /FROM\s+node:(\d[\d.]*)/gi;
     let m;
     while ((m = re.exec(content)) !== null) {
@@ -235,87 +241,6 @@ function printTable(headers, rows) {
 }
 
 // ---------------------------------------------------------------------------
-// 8. Fix mode
-// ---------------------------------------------------------------------------
-
-function fixDepMismatches(mismatches) {
-  let fixCount = 0;
-
-  // Group fixes by starter so we only read/write each package.json once
-  /** @type {Map<string, Map<string, string>>} */
-  const fixes = new Map(); // starter -> { dep: newVersion }
-
-  for (const { dep, versions, highest } of mismatches) {
-    for (const [starter, ver] of versions) {
-      if (ver === highest) continue;
-      if (!fixes.has(starter)) fixes.set(starter, new Map());
-      fixes.get(starter).set(dep, highest);
-    }
-  }
-
-  for (const [starter, depFixes] of fixes) {
-    const pkgPath = path.join(ROOT, starter, 'package.json');
-    const pkg = readJSON(pkgPath);
-    if (!pkg) continue;
-
-    for (const [dep, newVer] of depFixes) {
-      if (pkg.devDependencies && pkg.devDependencies[dep]) {
-        const oldVer = pkg.devDependencies[dep];
-        pkg.devDependencies[dep] = applyPrefix(oldVer, bareVersion(newVer));
-        fixCount++;
-      }
-    }
-
-    writeJSON(pkgPath, pkg);
-  }
-
-  return fixCount;
-}
-
-function fixWorkflowNodeVersions(entries, targetVersion) {
-  const filesFixed = new Set();
-
-  for (const { starter, file, version } of entries) {
-    if (version === targetVersion) continue;
-    const filepath = path.join(ROOT, starter, '.github', 'workflows', file);
-    let content = readText(filepath);
-    if (!content) continue;
-
-    // Replace the specific node-version value
-    content = content.replace(
-      new RegExp(`(node-version:\\s*['"]?)${version.replace('.', '\\.')}`, 'g'),
-      `$1${targetVersion}`
-    );
-
-    fs.writeFileSync(filepath, content);
-    filesFixed.add(`${starter}/.github/workflows/${file}`);
-  }
-
-  return filesFixed.size;
-}
-
-function fixDockerfileNodeVersions(entries, targetVersion) {
-  let fixCount = 0;
-
-  for (const { starter, version } of entries) {
-    if (version === targetVersion) continue;
-    const filepath = path.join(ROOT, starter, 'Dockerfile');
-    let content = readText(filepath);
-    if (!content) continue;
-
-    content = content.replace(
-      new RegExp(`(FROM\\s+node:)${version.replace('.', '\\.')}`, 'gi'),
-      `$1${targetVersion}`
-    );
-
-    fs.writeFileSync(filepath, content);
-    fixCount++;
-  }
-
-  return fixCount;
-}
-
-// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -330,16 +255,17 @@ function main() {
 
   console.log(`Found ${starters.length} starters (${startersWithPkg.length} with package.json)\n`);
 
-  let hasIssues = false;
+  let hasUnintendedDrift = false;
 
   // --- devDependencies ---
   const depMap = collectDevDeps(startersWithPkg);
   const depMismatches = detectDepMismatches(depMap);
 
   if (depMismatches.length > 0) {
-    hasIssues = true;
+    hasUnintendedDrift = true;
     console.log('DEPENDENCY MISMATCHES');
     console.log('---------------------');
+    console.log('(Per-repo dep freshness is Dependabot\'s job — this surfaces cross-repo drift)');
 
     for (const { dep, versions, highest } of depMismatches) {
       console.log(`\n  ${dep}  (highest: ${highest})`);
@@ -357,61 +283,73 @@ function main() {
 
   // --- engines.node ---
   const engines = collectEngines(startersWithPkg);
-  const uniqueEngines = new Set(engines.values());
+  const engineIgnore = INTENTIONAL_DIVERGENCES.engines;
+  const engineCheckable = new Map([...engines].filter(([s]) => !engineIgnore[s]));
+  const uniqueCheckableEngines = new Set(engineCheckable.values());
 
-  if (uniqueEngines.size > 1) {
-    hasIssues = true;
+  if (uniqueCheckableEngines.size > 1) {
+    hasUnintendedDrift = true;
     console.log('ENGINES.NODE MISMATCHES');
     console.log('-----------------------');
     const rows = [];
     for (const [starter, eng] of engines) {
-      rows.push([starter, eng]);
+      const note = engineIgnore[starter] ? `[intentional] ${engineIgnore[starter]}` : '';
+      rows.push([starter, eng, note]);
     }
-    printTable(['Starter', 'engines.node'], rows);
+    printTable(['Starter', 'engines.node', 'Note'], rows);
     console.log();
   } else {
-    const engineVal = uniqueEngines.size === 1 ? [...uniqueEngines][0] : '(none)';
-    console.log(`engines.node: all aligned (${engineVal})\n`);
+    const engineVal = uniqueCheckableEngines.size === 1 ? [...uniqueCheckableEngines][0] : '(none)';
+    const ignoredCount = Object.keys(engineIgnore).filter(s => engines.has(s)).length;
+    const note = ignoredCount > 0 ? ` (+${ignoredCount} intentional divergence${ignoredCount > 1 ? 's' : ''})` : '';
+    console.log(`engines.node: aligned (${engineVal})${note}\n`);
   }
 
   // --- GitHub Actions node-version ---
   const wfVersions = collectWorkflowNodeVersions(starters);
-  const uniqueWfVersions = new Set(wfVersions.map(e => e.version));
+  const wfIgnore = INTENTIONAL_DIVERGENCES.workflowNode;
+  const wfCheckable = wfVersions.filter(e => !wfIgnore[e.starter]);
+  const uniqueCheckableWf = new Set(wfCheckable.map(e => e.version));
 
-  if (uniqueWfVersions.size > 1) {
-    hasIssues = true;
+  if (uniqueCheckableWf.size > 1) {
+    hasUnintendedDrift = true;
     console.log('GITHUB ACTIONS NODE VERSION MISMATCHES');
     console.log('--------------------------------------');
-    const rows = wfVersions.map(e => [e.starter, e.file, e.version]);
-    printTable(['Starter', 'Workflow', 'node-version'], rows);
-
-    // Determine majority version
-    const versionCounts = {};
-    for (const v of wfVersions) {
-      versionCounts[v.version] = (versionCounts[v.version] || 0) + 1;
-    }
-    const majority = Object.entries(versionCounts).sort((a, b) => b[1] - a[1])[0][0];
-    console.log(`\n  Majority version: ${majority} (${versionCounts[majority]}/${wfVersions.length} files)`);
+    const rows = wfVersions.map(e => [
+      e.starter,
+      e.file,
+      e.version,
+      wfIgnore[e.starter] ? '[intentional]' : '',
+    ]);
+    printTable(['Starter', 'Workflow', 'node-version', 'Note'], rows);
     console.log();
   } else {
-    const wfVer = uniqueWfVersions.size === 1 ? [...uniqueWfVersions][0] : '(none)';
-    console.log(`GitHub Actions node-version: all aligned (${wfVer})\n`);
+    const wfVer = uniqueCheckableWf.size === 1 ? [...uniqueCheckableWf][0] : '(none)';
+    const ignoredCount = new Set(wfVersions.filter(e => wfIgnore[e.starter]).map(e => e.starter)).size;
+    const note = ignoredCount > 0 ? ` (+${ignoredCount} intentional divergence${ignoredCount > 1 ? 's' : ''})` : '';
+    console.log(`GitHub Actions node-version: aligned (${wfVer})${note}\n`);
   }
 
   // --- Dockerfile node versions ---
   const dockerVersions = collectDockerfileNodeVersions(starters);
-  const uniqueDockerVersions = new Set(dockerVersions.map(e => e.version));
+  const dockerIgnore = INTENTIONAL_DIVERGENCES.dockerNode;
+  const dockerCheckable = dockerVersions.filter(e => !dockerIgnore[e.starter]);
+  const uniqueCheckableDocker = new Set(dockerCheckable.map(e => e.version));
 
-  if (uniqueDockerVersions.size > 1) {
-    hasIssues = true;
+  if (uniqueCheckableDocker.size > 1) {
+    hasUnintendedDrift = true;
     console.log('DOCKERFILE NODE VERSION MISMATCHES');
     console.log('----------------------------------');
-    const rows = dockerVersions.map(e => [e.starter, e.version]);
-    printTable(['Starter', 'FROM node:XX'], rows);
+    const rows = dockerVersions.map(e => [
+      e.starter,
+      e.version,
+      dockerIgnore[e.starter] ? '[intentional]' : '',
+    ]);
+    printTable(['Starter', 'FROM node:XX', 'Note'], rows);
     console.log();
   } else if (dockerVersions.length > 0) {
-    const dVer = [...uniqueDockerVersions][0];
-    console.log(`Dockerfile node versions: all aligned (${dVer})\n`);
+    const dVer = [...uniqueCheckableDocker][0];
+    console.log(`Dockerfile node versions: aligned (${dVer})\n`);
   }
 
   // --- Summary ---
@@ -421,51 +359,18 @@ function main() {
   console.log(`  Shared devDeps checked:    ${depMap.size}`);
   console.log(`  Dependency mismatches:     ${depMismatches.length}`);
   console.log(`  Workflow files checked:    ${wfVersions.length}`);
-  console.log(`  Workflow version groups:   ${uniqueWfVersions.size}`);
   console.log(`  Dockerfiles checked:       ${dockerVersions.length}`);
-  console.log(`  Dockerfile version groups: ${uniqueDockerVersions.size}`);
   console.log();
 
-  // --- Fix ---
-  if (FIX && hasIssues) {
-    console.log('FIXING...\n');
-
-    if (depMismatches.length > 0) {
-      const count = fixDepMismatches(depMismatches);
-      console.log(`  Updated ${count} dependency versions in package.json files`);
-    }
-
-    if (uniqueWfVersions.size > 1) {
-      const majority = (() => {
-        const counts = {};
-        for (const v of wfVersions) counts[v.version] = (counts[v.version] || 0) + 1;
-        return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-      })();
-      const count = fixWorkflowNodeVersions(wfVersions, majority);
-      console.log(`  Updated node-version in ${count} workflow files (target: ${majority})`);
-    }
-
-    if (uniqueDockerVersions.size > 1) {
-      const majority = (() => {
-        const counts = {};
-        for (const v of dockerVersions) counts[v.version] = (counts[v.version] || 0) + 1;
-        return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-      })();
-      const count = fixDockerfileNodeVersions(dockerVersions, majority);
-      console.log(`  Updated FROM node:XX in ${count} Dockerfiles (target: ${majority})`);
-    }
-
-    console.log('\nDone. Review changes with git diff, then run without --fix to verify.');
-  } else if (FIX && !hasIssues) {
-    console.log('Nothing to fix -- all versions are aligned.');
-  } else if (hasIssues) {
-    console.log('Run with --fix to auto-align versions to the highest/majority value.');
+  if (hasUnintendedDrift) {
+    console.log('Unintended drift detected. Options:');
+    console.log('  - For per-repo dep freshness: ensure Dependabot is configured');
+    console.log('  - For cross-repo alignment: open PRs manually with context');
+    console.log('  - If the divergence is intentional: add it to INTENTIONAL_DIVERGENCES');
+    process.exit(1);
   } else {
-    console.log('All versions are in sync.');
+    console.log('All versions are in sync (or intentionally diverged).');
   }
-
-  // Exit 1 if there are mismatches (useful for CI)
-  if (hasIssues && !FIX) process.exit(1);
 }
 
 main();
