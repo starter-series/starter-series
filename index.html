@@ -12,8 +12,79 @@
   </script>
   <title data-i18n="meta_title">Starter Series — Stop explaining CI/CD to your AI every time.</title>
   <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
+  <meta name="keywords" content="CI/CD, GitHub Actions, starter template, AI-assisted development, Claude Code, Docker deploy, OIDC npm publish, MCP server, Electron, React Native, browser extension, Discord bot, Telegram bot">
+  <meta name="author" content="heznpc">
+  <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8eaef" media="(prefers-color-scheme: light)">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://starter-series.github.io/starter-series/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Starter Series">
+  <meta property="og:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Stop explaining CI/CD to your AI every time.">
+  <meta property="og:description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
+  <meta property="og:url" content="https://starter-series.github.io/starter-series/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <!-- TODO: add 1200x630 og-image.png to repo root and uncomment. Until then, Twitter/OG will fall back to text card. -->
+  <!-- <meta property="og:image" content="https://starter-series.github.io/starter-series/og-image.png"> -->
+  <!-- <meta property="og:image:width" content="1200"> -->
+  <!-- <meta property="og:image:height" content="630"> -->
+  <!-- <meta property="og:image:alt" content="Starter Series — clone, push, deploy"> -->
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Stop explaining CI/CD to your AI every time.">
+  <meta name="twitter:description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
+  <!-- TODO: uncomment once og-image.png exists -->
+  <!-- <meta name="twitter:image" content="https://starter-series.github.io/starter-series/og-image.png"> -->
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://starter-series.github.io/starter-series/#website",
+        "url": "https://starter-series.github.io/starter-series/",
+        "name": "Starter Series",
+        "description": "Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.",
+        "inLanguage": ["en", "ko"],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Starter Series",
+          "url": "https://github.com/starter-series"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "create-starter",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "description": "CLI for scaffolding production-ready project starters with CI/CD, security, and deploy pipelines baked in.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "url": "https://github.com/starter-series/create-starter",
+        "author": {
+          "@type": "Organization",
+          "name": "Starter Series",
+          "url": "https://github.com/starter-series"
+        },
+        "license": "https://opensource.org/licenses/MIT"
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -47,7 +118,7 @@
       <div class="flex items-center gap-6" id="navLinks">
         <a href="#install" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_install">Install</a>
         <a href="#starters" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_starters">Starters</a>
-        <a href="https://github.com/starter-series" target="_blank" rel="noopener" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity">GitHub</a>
+        <a href="https://github.com/starter-series" target="_blank" rel="noopener" aria-label="Starter Series on GitHub" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity">GitHub</a>
         <button class="pill-btn" id="themeToggle" aria-label="Toggle theme">
           <span class="theme-icon">☀</span>
         </button>
@@ -70,7 +141,7 @@
       <p class="mt-6 text-lg opacity-40 max-w-[46ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.</p>
       <div class="flex gap-3 justify-center mt-10 reveal" data-delay="180">
         <a href="#starters" class="lg-btn" data-i18n="hero_cta">Explore starters</a>
-        <a href="https://github.com/starter-series" target="_blank" rel="noopener" class="lg-btn lg-btn--ghost">GitHub</a>
+        <a href="https://github.com/starter-series" target="_blank" rel="noopener" aria-label="Starter Series on GitHub" class="lg-btn lg-btn--ghost">GitHub</a>
       </div>
     </div>
   </header>
@@ -88,9 +159,9 @@
           <p class="card-desc mb-6" data-i18n="install_subtitle">One CLI. Three install paths. Pick the one that matches your workflow.</p>
 
           <div class="flex gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Install channel">
-            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" data-i18n="install_tab_cli">npx CLI</button>
-            <button class="pill-btn" data-install-tab="plugin" role="tab" aria-selected="false" aria-controls="install-panel-plugin" id="install-tab-plugin" data-i18n="install_tab_plugin">Claude Code Plugin</button>
-            <button class="pill-btn" data-install-tab="mcpb" role="tab" aria-selected="false" aria-controls="install-panel-mcpb" id="install-tab-mcpb" data-i18n="install_tab_mcpb">Claude Desktop</button>
+            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" tabindex="0" data-i18n="install_tab_cli">npx CLI</button>
+            <button class="pill-btn pill-btn--recommended" data-install-tab="plugin" role="tab" aria-selected="false" aria-controls="install-panel-plugin" id="install-tab-plugin" tabindex="-1" data-i18n="install_tab_plugin">Claude Code Plugin<span class="pill-recommended-dot" aria-hidden="true"></span><span class="sr-only" data-i18n="install_recommended_sr">Recommended</span></button>
+            <button class="pill-btn" data-install-tab="mcpb" role="tab" aria-selected="false" aria-controls="install-panel-mcpb" id="install-tab-mcpb" tabindex="-1" data-i18n="install_tab_mcpb">Claude Desktop</button>
           </div>
 
           <!-- CLI panel -->
@@ -99,7 +170,8 @@
             <div class="install-code">
               <code data-i18n="install_cli_cmd">npx @starter-series/create my-bot --template discord-bot</code>
               <button class="copy-btn" data-copy-target="install-panel-cli" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
                 <span class="copy-label" data-i18n="install_copy">Copy</span>
               </button>
             </div>
@@ -111,14 +183,16 @@
             <div class="install-code">
               <code data-i18n="install_plugin_cmd_1">/plugin marketplace add starter-series/create-starter</code>
               <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="0" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
                 <span class="copy-label" data-i18n="install_copy">Copy</span>
               </button>
             </div>
             <div class="install-code">
               <code data-i18n="install_plugin_cmd_2">/plugin install create-starter@starter-series</code>
               <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="1" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
                 <span class="copy-label" data-i18n="install_copy">Copy</span>
               </button>
             </div>
@@ -338,5 +412,28 @@ data-repo="https://github.com/starter-series/vscode-extension-starter" data-deta
 
   <script src="i18n.js"></script>
   <script src="app.js"></script>
+
+  <!--
+    ===========================================================================
+    Analytics scaffold — DISABLED BY DEFAULT. Privacy-first, no cookies.
+    ---------------------------------------------------------------------------
+    OPTION A: Plausible (recommended for GitHub Pages — hosted, paid after trial)
+      1. Sign up at https://plausible.io, add site `starter-series.github.io`
+      2. Replace `data-domain` below with the exact site name you configured
+      3. Uncomment the <script> tag
+      4. Redeploy — no other changes needed. No GDPR banner required.
+
+    <script defer data-domain="starter-series.github.io" src="https://plausible.io/js/script.js"></script>
+
+    OPTION B: Umami (self-host — free, open source)
+      1. Deploy umami (Railway/Fly/VPS) per https://umami.is/docs
+      2. Create a website in umami, copy the website-id UUID
+      3. Replace YOUR_UMAMI_DOMAIN and YOUR_WEBSITE_ID below and uncomment
+
+    <script defer src="https://YOUR_UMAMI_DOMAIN/script.js" data-website-id="YOUR_WEBSITE_ID"></script>
+
+    DO NOT add Google Analytics — it requires a cookie banner and leaks to ads.
+    ===========================================================================
+  -->
 </body>
 </html>

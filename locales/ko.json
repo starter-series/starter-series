@@ -19,6 +19,7 @@
   "install_copy": "복사",
   "install_copied": "복사됨",
   "install_copy_aria": "명령어 복사",
+  "install_recommended_sr": "추천",
   "lang_label": "한국어",
   "hero_tag": "git clone → git push → 배포 완료",
   "hero_line1": "Clone에서",
