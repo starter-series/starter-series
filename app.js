@@ -126,26 +126,33 @@ document.addEventListener('keydown', e => {
 
 // === Install section: tabs + copy ===
 const installTabs = document.querySelectorAll('[data-install-tab]');
-installTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    const target = tab.dataset.installTab;
-    installTabs.forEach(t => {
-      const selected = t === tab;
-      t.classList.toggle('active', selected);
-      t.setAttribute('aria-selected', selected ? 'true' : 'false');
-    });
-    document.querySelectorAll('.install-panel').forEach(panel => {
-      panel.classList.toggle('hidden', panel.id !== `install-panel-${target}`);
-    });
+function activateInstallTab(tab) {
+  const target = tab.dataset.installTab;
+  installTabs.forEach(t => {
+    const selected = t === tab;
+    t.classList.toggle('active', selected);
+    t.setAttribute('aria-selected', selected ? 'true' : 'false');
+    // Roving tabindex: only the active tab is in the tab sequence.
+    t.setAttribute('tabindex', selected ? '0' : '-1');
   });
+  document.querySelectorAll('.install-panel').forEach(panel => {
+    panel.classList.toggle('hidden', panel.id !== `install-panel-${target}`);
+  });
+}
+installTabs.forEach(tab => {
+  tab.addEventListener('click', () => activateInstallTab(tab));
   tab.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    e.preventDefault();
     const tabs = Array.from(installTabs);
     const i = tabs.indexOf(tab);
-    const next = e.key === 'ArrowRight' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+    let next = -1;
+    if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = tabs.length - 1;
+    else return;
+    e.preventDefault();
+    activateInstallTab(tabs[next]);
     tabs[next].focus();
-    tabs[next].click();
   });
 });
 
@@ -175,7 +182,7 @@ document.querySelectorAll('.copy-btn[data-copy-target]').forEach(btn => {
     setTimeout(() => {
       btn.classList.remove('copied');
       if (label) label.textContent = original;
-    }, 1500);
+    }, 2000);
   });
 });
 

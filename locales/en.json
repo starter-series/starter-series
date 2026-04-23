@@ -19,6 +19,7 @@
   "install_copy": "Copy",
   "install_copied": "Copied",
   "install_copy_aria": "Copy command",
+  "install_recommended_sr": "Recommended",
   "lang_label": "EN",
   "hero_tag": "git clone → git push → deployed",
   "hero_line1": "From clone",

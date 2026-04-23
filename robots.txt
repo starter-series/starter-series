@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starter-series.github.io/starter-series/sitemap.xml
