@@ -124,6 +124,61 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// === Install section: tabs + copy ===
+const installTabs = document.querySelectorAll('[data-install-tab]');
+installTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.installTab;
+    installTabs.forEach(t => {
+      const selected = t === tab;
+      t.classList.toggle('active', selected);
+      t.setAttribute('aria-selected', selected ? 'true' : 'false');
+    });
+    document.querySelectorAll('.install-panel').forEach(panel => {
+      panel.classList.toggle('hidden', panel.id !== `install-panel-${target}`);
+    });
+  });
+  tab.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    const tabs = Array.from(installTabs);
+    const i = tabs.indexOf(tab);
+    const next = e.key === 'ArrowRight' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+    tabs[next].focus();
+    tabs[next].click();
+  });
+});
+
+document.querySelectorAll('.copy-btn[data-copy-target]').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const panel = document.getElementById(btn.dataset.copyTarget);
+    if (!panel) return;
+    const codes = panel.querySelectorAll('code');
+    const idx = parseInt(btn.dataset.copyIndex || '0', 10);
+    const text = (codes[idx] || codes[0])?.textContent || '';
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      // Fallback for insecure contexts.
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (_) { /* noop */ }
+      document.body.removeChild(ta);
+    }
+    const label = btn.querySelector('.copy-label');
+    const original = label ? label.textContent : '';
+    btn.classList.add('copied');
+    if (label) label.textContent = I18n.get('install_copied') || 'Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      if (label) label.textContent = original;
+    }, 1500);
+  });
+});
+
 // === Scroll reveal with stagger ===
 const io = new IntersectionObserver((entries) => {
   entries.forEach(entry => {

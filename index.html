@@ -45,6 +45,7 @@
     <div class="max-w-[1080px] mx-auto px-5 flex items-center justify-between h-full">
       <a href="#" class="font-mono text-sm font-medium opacity-80 tracking-tight">starter-series</a>
       <div class="flex items-center gap-6" id="navLinks">
+        <a href="#install" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_install">Install</a>
         <a href="#starters" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_starters">Starters</a>
         <a href="https://github.com/starter-series" target="_blank" rel="noopener" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity">GitHub</a>
         <button class="pill-btn" id="themeToggle" aria-label="Toggle theme">
@@ -73,6 +74,68 @@
       </div>
     </div>
   </header>
+
+  <!-- Install create-starter -->
+  <section id="install" class="relative z-[1] pt-4 pb-16">
+    <div class="max-w-[1080px] mx-auto px-5">
+      <div class="glass-card reveal">
+        <div class="glass-fx"></div>
+        <div class="glass-tint"></div>
+        <div class="glass-shine"></div>
+        <div class="glass-content">
+          <small class="card-badge" data-i18n="install_badge">Install</small>
+          <h2 class="text-2xl font-bold tracking-tight mb-2" data-i18n="install_title">Install create-starter</h2>
+          <p class="card-desc mb-6" data-i18n="install_subtitle">One CLI. Three install paths. Pick the one that matches your workflow.</p>
+
+          <div class="flex gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Install channel">
+            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" data-i18n="install_tab_cli">npx CLI</button>
+            <button class="pill-btn" data-install-tab="plugin" role="tab" aria-selected="false" aria-controls="install-panel-plugin" id="install-tab-plugin" data-i18n="install_tab_plugin">Claude Code Plugin</button>
+            <button class="pill-btn" data-install-tab="mcpb" role="tab" aria-selected="false" aria-controls="install-panel-mcpb" id="install-tab-mcpb" data-i18n="install_tab_mcpb">Claude Desktop</button>
+          </div>
+
+          <!-- CLI panel -->
+          <div class="install-panel" id="install-panel-cli" role="tabpanel" aria-labelledby="install-tab-cli">
+            <p class="install-hint" data-i18n="install_cli_hint">Fastest path. Run once, scaffold anywhere. Requires Node.js 18+.</p>
+            <div class="install-code">
+              <code data-i18n="install_cli_cmd">npx @starter-series/create my-bot --template discord-bot</code>
+              <button class="copy-btn" data-copy-target="install-panel-cli" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <span class="copy-label" data-i18n="install_copy">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Plugin panel -->
+          <div class="install-panel hidden" id="install-panel-plugin" role="tabpanel" aria-labelledby="install-tab-plugin">
+            <p class="install-hint" data-i18n="install_plugin_hint">Use inside Claude Code. Native slash-command scaffolding with auto-completion.</p>
+            <div class="install-code">
+              <code data-i18n="install_plugin_cmd_1">/plugin marketplace add starter-series/create-starter</code>
+              <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="0" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <span class="copy-label" data-i18n="install_copy">Copy</span>
+              </button>
+            </div>
+            <div class="install-code">
+              <code data-i18n="install_plugin_cmd_2">/plugin install create-starter@starter-series</code>
+              <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="1" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+                <span class="copy-label" data-i18n="install_copy">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- MCPB panel -->
+          <div class="install-panel hidden" id="install-panel-mcpb" role="tabpanel" aria-labelledby="install-tab-mcpb">
+            <p class="install-hint" data-i18n="install_mcpb_hint">One-click bundle for Claude Desktop. Download .mcpb and drag-drop into Claude.</p>
+            <a href="https://github.com/starter-series/create-starter/releases/latest" target="_blank" rel="noopener" class="lg-btn">
+              <span data-i18n="install_mcpb_btn">Download .mcpb from GitHub Releases</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="ml-2" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Starters -->
   <section id="starters" class="relative z-[1] py-10 pb-24">
