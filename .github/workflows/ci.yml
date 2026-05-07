@@ -62,14 +62,18 @@ jobs:
 
       - name: Check internal links
         run: |
-          BROKEN=0
-          for url in $(grep -oP 'https://github\.com/starter-series/[a-z-]+' index.html | sort -u); do
-            STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$url")
-            if [ "$STATUS" != "200" ]; then
-              echo "::error::Broken link ($STATUS): $url"
-              BROKEN=1
-            else
-              echo "OK: $url"
-            fi
-          done
-          exit $BROKEN
+          # `while read` is safer than `for url in $(...)` (shellcheck SC2013) —
+          # one URL per line, preserves whitespace if a future href ever
+          # contains an unexpected character.
+          : > /tmp/broken
+          grep -oP 'https://github\.com/starter-series/[a-z-]+' index.html | sort -u | \
+            while read -r url; do
+              STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$url")
+              if [ "$STATUS" != "200" ]; then
+                echo "::error::Broken link ($STATUS): $url"
+                echo "$url" >> /tmp/broken
+              else
+                echo "OK: $url"
+              fi
+            done
+          if [ -s /tmp/broken ]; then exit 1; fi
