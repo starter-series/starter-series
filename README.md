@@ -5,7 +5,7 @@
 **AI writes your code. We ship it safely.**
 
 Safe-by-default templates for shipping AI-assisted projects —<br>
-plus a meta-CLI that scaffolds them AND audits what's already on disk.
+plus a meta-CLI that not only scaffolds them but also audits what's already on disk.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -15,15 +15,37 @@ plus a meta-CLI that scaffolds them AND audits what's already on disk.
 
 ## Install
 
-The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — a CLI / MCP server / Claude Code plugin / `.mcpb` bundle / skill that scaffolds any starter below, and audits an existing repo's release-readiness, CD wiring, and security posture.
+The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It scaffolds any starter below and audits an existing repo's release-readiness, CD wiring, and security posture.
+
+Three install channels — pick one:
+
+**npx CLI**
 
 ```bash
-# Claude Code plugin (recommended)
+npx @starter-series/create my-bot --template discord-bot
+```
+
+**Claude Code plugin** (recommended; the skill auto-loads with the plugin)
+
+```text
 /plugin marketplace add starter-series/create-starter
 /plugin install create-starter@starter-series
+```
 
-# Or use any starter directly as a GitHub template
+**Claude Desktop (`.mcpb` bundle)** — [download the latest `.mcpb` from GitHub Releases](https://github.com/starter-series/create-starter/releases/latest) and drag it into Claude Desktop.
+
+## Quick start (use a starter directly)
+
+If you just want to clone a starter as a GitHub template, you don't need create-starter at all:
+
+```bash
+# 1. Use as a GitHub template
 gh repo create my-app --template starter-series/docker-deploy-starter
+
+# 2. Write your app
+
+# 3. Push — CI/CD handles the rest
+git push origin main
 ```
 
 ## Starters
@@ -44,10 +66,16 @@ gh repo create my-app --template starter-series/docker-deploy-starter
 
 ## Currently implemented
 
-- 11 starters above, all under [github.com/starter-series](https://github.com/starter-series), each with: pinned GitHub Actions, gitleaks (SHA256-pinned), CodeQL, license check, `--ignore-scripts` install, grouped Dependabot, weekly CI health check, stale automation
+- 11 starters above, all under [github.com/starter-series](https://github.com/starter-series). Every starter ships with:
+  - **CI/CD pipelines** — GitHub Actions for build, test, lint, and deploy on every PR and push
+  - **Security in CI** — `npm audit`, gitleaks (SHA256-pinned), CodeQL, license check, `--ignore-scripts` install
+  - **Publish pipelines** — platform-specific publishing to npm, PyPI, Docker / GHCR, VS Marketplace, Open VSX, AMO, Chrome Web Store, App Store, Play Store, GitHub Releases
+  - **Weekly CI health check** with **auto-issue on failure** (you get a GitHub issue when scheduled CI breaks)
+  - **Stale automation** — inactive issues/PRs are auto-labeled and auto-closed
+  - **Grouped Dependabot** — prevents the lockfile-conflict cascade that ungrouped Dependabot produces
 - `create-starter` v0.4.0+ with two modes:
   - **Scaffold** — generate a new project from any starter above
-  - **Audit** — `audit_release` (ship-ready verdict from CHANGELOG + workflows + git log), `audit_cd` (verify the package actually reached npm / PyPI / Open VSX / etc.), `audit_security` (gitleaks pin, CodeQL, dep-audit, license-check, secret-scanning, push-protection)
+  - **Audit** — `audit_release` (ship-ready verdict from CHANGELOG + workflows + git log), `audit_cd` (verify the package actually reached npm / PyPI / Open VSX / VS Marketplace / AMO / GitHub Releases), `audit_security` (gitleaks pin, CodeQL, dep-audit, license, `--ignore-scripts`, Dependabot, secret-scanning, claude-code-security-review, claude-security-guidance)
 - OIDC trusted publishing where the platform supports it (npm, PyPI) — no long-lived secrets
 - Bilingual docs (English + 한국어) on every starter
 - 5-step "graduation from vibe coding" guide for users coming from Lovable / Bolt / v0
@@ -68,10 +96,10 @@ gh repo create my-app --template starter-series/docker-deploy-starter
 
 ## Non-goals
 
-- Next.js on Vercel templates (Vercel auto-deploys on push — no CI logs needed)
-- Netlify / Render / Railway direct-deploy templates (same reason)
-- Generic web-framework starters (Astro, SvelteKit, Remix scaffolds) — those are framework concerns, not deploy concerns
-- A learning tool or tutorial series — see [graduation-from-vibe-coding](https://github.com/starter-series/create-starter/blob/main/docs/graduation-from-vibe-coding.md) if you want the conceptual pathway, but the starters themselves assume you can write your app
+- Next.js on Vercel templates (Vercel owns the build pipeline — no GitHub Actions logs to manage).
+- Netlify / Render / Railway direct-deploy templates (same reason — the platform owns the pipeline).
+- Generic web-framework starters (Astro, SvelteKit, Remix scaffolds) — those are framework concerns, not deploy concerns.
+- A learning tool or tutorial series — see [graduation-from-vibe-coding](https://github.com/starter-series/create-starter/blob/main/docs/graduation-from-vibe-coding.md) if you want the conceptual pathway, but the starters themselves assume you can write your app.
 
 ## License
 
