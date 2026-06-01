@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # This repo is a static site (no package.json); the only updatable
+  # ecosystem is the pinned GitHub Actions SHAs in .github/workflows/*.
+  # Grouping minor/patch into one PR is what dependabot-auto-merge.yml
+  # auto-merges; majors stay separate for manual review.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    groups:
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"

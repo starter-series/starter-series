@@ -6,10 +6,18 @@ permissions:
   contents: write
   pull-requests: write
 
+# One run per PR; a Dependabot rebase (frequent under strict branch
+# protection) cancels the superseded run instead of racing it.
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   auto-merge:
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
-    runs-on: ubuntu-latest
+    # github.actor (not pull_request.user.login): a maintainer push to a
+    # Dependabot branch must NOT pass this gate and auto-merge human edits.
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-24.04
     steps:
       - name: Fetch Dependabot metadata
         id: meta
