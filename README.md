@@ -9,7 +9,7 @@ plus a meta-CLI that not only scaffolds them but also audits what's already on d
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**English** | [한국어](README.ko.md)
+🌐 **[Full site](https://starter-series.github.io/starter-series/)** — landing page in English · 한국어
 
 </div>
 
@@ -34,7 +34,7 @@ npx @starter-series/create my-bot --template discord-bot
 
 **Claude Desktop (`.mcpb` bundle)** — [download the latest `.mcpb` from GitHub Releases](https://github.com/starter-series/create-starter/releases/latest) and drag it into Claude Desktop.
 
-## Quick start (use a starter directly)
+## Quick start
 
 If you just want to clone a starter as a GitHub template, you don't need create-starter at all:
 
