@@ -73,6 +73,30 @@ Reusable capabilities, shipped as installable packages — not clone-templates:
 | [create-starter](https://github.com/starter-series/create-starter) | Scaffold any starter; audit an existing repo's release / CD / security posture | npx CLI · MCP server · Claude Code plugin + skill · `.mcpb` |
 | [shotkit](https://github.com/starter-series/shotkit) | Capture Chrome Web Store + social promo assets (screenshots, promo tiles, demo screencast, listing copy) from a built browser extension | npx CLI (`--json` agent contract) · Claude Code skill · capture-in-CI workflow |
 
+## Health — receipts, not claims
+
+[![Org audit](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml/badge.svg)](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml)
+— every Monday, [`org-audit.yml`](.github/workflows/org-audit.yml) runs
+`create-starter audit-security` against **every repo in the org** and publishes
+the verdicts in the run summary. If any repo drops below the bar, the badge
+goes red. We audit ourselves with our own tool, in public.
+
+| Repo | CI |
+|------|----|
+| browser-extension-starter | [![CI](https://github.com/starter-series/browser-extension-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/browser-extension-starter/actions/workflows/ci.yml) |
+| cloudflare-pages-starter | [![CI](https://github.com/starter-series/cloudflare-pages-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/cloudflare-pages-starter/actions/workflows/ci.yml) |
+| discord-bot-starter | [![CI](https://github.com/starter-series/discord-bot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/discord-bot-starter/actions/workflows/ci.yml) |
+| docker-deploy-starter | [![CI](https://github.com/starter-series/docker-deploy-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/docker-deploy-starter/actions/workflows/ci.yml) |
+| electron-app-starter | [![CI](https://github.com/starter-series/electron-app-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/electron-app-starter/actions/workflows/ci.yml) |
+| mcp-server-starter | [![CI](https://github.com/starter-series/mcp-server-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/mcp-server-starter/actions/workflows/ci.yml) |
+| npm-package-starter | [![CI](https://github.com/starter-series/npm-package-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/npm-package-starter/actions/workflows/ci.yml) |
+| python-mcp-server-starter | [![CI](https://github.com/starter-series/python-mcp-server-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/python-mcp-server-starter/actions/workflows/ci.yml) |
+| react-native-starter | [![CI](https://github.com/starter-series/react-native-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/react-native-starter/actions/workflows/ci.yml) |
+| telegram-bot-starter | [![CI](https://github.com/starter-series/telegram-bot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/telegram-bot-starter/actions/workflows/ci.yml) |
+| vscode-extension-starter | [![CI](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml) |
+| create-starter | [![CI](https://github.com/starter-series/create-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/create-starter/actions/workflows/ci.yml) |
+| shotkit | [![CI](https://github.com/starter-series/shotkit/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/shotkit/actions/workflows/ci.yml) |
+
 ## Currently implemented
 
 - 11 starters above, all under [github.com/starter-series](https://github.com/starter-series). Every starter ships with:
@@ -82,18 +106,19 @@ Reusable capabilities, shipped as installable packages — not clone-templates:
   - **Weekly CI health check** with **auto-issue on failure** (you get a GitHub issue when scheduled CI breaks)
   - **Stale automation** — inactive issues/PRs are auto-labeled and auto-closed
   - **Grouped Dependabot** — prevents the lockfile-conflict cascade that ungrouped Dependabot produces
-- `create-starter` v0.4.0+ with two modes:
+- `create-starter` v0.4.0+ with three modes:
   - **Scaffold** — generate a new project from any starter above
   - **Audit** — `audit_release` (ship-ready verdict from CHANGELOG + workflows + git log), `audit_cd` (verify the package actually reached npm / PyPI / Open VSX / VS Marketplace / AMO / GitHub Releases), `audit_security` (gitleaks pin, CodeQL, dep-audit, license, `--ignore-scripts`, Dependabot, secret-scanning, claude-code-security-review, claude-security-guidance)
+  - **Add** — `add_component` lifts a starter's CI/CD layer (ci / security / dependabot / maintenance) into an *existing* repo: dry-run plan first, never touches app code or secrets-bearing CD — the remediation half of the audit loop, and its dry-run doubles as a drift report against the starter
 - OIDC trusted publishing where the platform supports it (npm, PyPI) — no long-lived secrets
 - Bilingual docs (English + 한국어) on every starter
 - 5-step "graduation from vibe coding" guide for users coming from Lovable / Bolt / v0
 
 ## Planned
 
-- `add_component` — lift a starter's CI/CD layer into an existing repo without re-scaffolding
 - Additional audit primitives: `audit_docs` (README ↔ code drift), `audit_releases` (tag-vs-CHANGELOG-vs-published drift)
 - Standalone `detect_starter` tool (currently only inside scaffold flow)
+- `update_component` — refresh previously-lifted components when the starter improves (today: `add_component`'s dry-run plan already reports the drift; `--force` applies the starter's version)
 
 ## Design intent
 
@@ -102,6 +127,7 @@ Reusable capabilities, shipped as installable packages — not clone-templates:
 - **Scaffolder + auditor.** Greenfield scaffolding is a small slice of real work; most AI-assisted development is maintaining an existing repo. `create-starter` adds audit mode to address the larger surface.
 - **Lightweight.** Clone → done. No bundlers unless required, no opinionated frameworks layered on.
 - **One organization.** Everything lives under `github.com/starter-series/*` for a stable, brand-separable home.
+- **Agent-native.** Coding agents are first-class users: every repo ships `AGENTS.md`, every tool ships machine output (`--json`, stable exit codes) + a Claude Code skill, and MCP is used only where the tool's nature fits. The standard: [docs/agent-native.md](docs/agent-native.md).
 
 ## Non-goals
 

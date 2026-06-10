@@ -1,0 +1,46 @@
+name: Org audit
+
+# Weekly receipts: runs `create-starter audit-security` against every repo in
+# the org and publishes the verdicts to the run summary. The badge on the
+# README's Health section reflects this run — if any repo goes "soft", the
+# badge goes red. We audit ourselves with our own tool and post the results.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Audit every repo with create-starter
+        run: |
+          REPOS="browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter create-starter shotkit"
+          FAIL=0
+          {
+            echo "## Weekly security audit — $(date -u '+%Y-%m-%d')"
+            echo ""
+            echo "| repo | verdict |"
+            echo "|---|---|"
+          } >> "$GITHUB_STEP_SUMMARY"
+          for r in $REPOS; do
+            git clone --quiet --depth=1 "https://github.com/starter-series/$r" "/tmp/$r"
+            RC=0
+            npx -y @starter-series/create audit-security "/tmp/$r" > "/tmp/$r.audit" 2>&1 || RC=$?
+            VERDICT=$(grep -oiE 'hardened|needs-attention|soft' "/tmp/$r.audit" | head -1 || true)
+            if [ "$RC" -ge 2 ]; then VERDICT="error(rc=$RC)"; FAIL=1; fi
+            if [ "$RC" -eq 1 ]; then FAIL=1; fi
+            echo "| $r | ${VERDICT:-unknown} |" >> "$GITHUB_STEP_SUMMARY"
+            echo "::group::$r"
+            cat "/tmp/$r.audit"
+            echo "::endgroup::"
+          done
+          exit "$FAIL"
