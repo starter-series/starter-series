@@ -64,6 +64,15 @@ git push origin main
 | [react-native-starter](https://github.com/starter-series/react-native-starter) | Expo + EAS Build with App Store + Play Store CI/CD | Expo, iOS, Android |
 | [cloudflare-pages-starter](https://github.com/starter-series/cloudflare-pages-starter) | Static site + Cloudflare Pages deploy, unlimited bandwidth | Cloudflare Pages, Wrangler, GitHub Actions |
 
+## Tooling
+
+Reusable capabilities, shipped as installable packages — not clone-templates:
+
+| Tool | What it does | Surfaces |
+|------|--------------|----------|
+| [create-starter](https://github.com/starter-series/create-starter) | Scaffold any starter; audit an existing repo's release / CD / security posture | npx CLI · MCP server · Claude Code plugin + skill · `.mcpb` |
+| [shotkit](https://github.com/starter-series/shotkit) | Capture Chrome Web Store + social promo assets (screenshots, promo tiles, demo screencast, listing copy) from a built browser extension | npx CLI (`--json` agent contract) · Claude Code skill · capture-in-CI workflow |
+
 ## Currently implemented
 
 - 11 starters above, all under [github.com/starter-series](https://github.com/starter-series). Every starter ships with:
