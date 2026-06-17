@@ -55,6 +55,7 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
 [data-theme="light"] .pill-btn.active{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12)}
 
 /* === Hero h1 gradient text === */
+.hero-section{padding-top:64px;padding-bottom:40px}
 .hero-h1{
   background:linear-gradient(180deg,#fff 30%,rgba(255,255,255,.45));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
@@ -232,6 +233,8 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
 @media(max-width:640px){
   [role="tablist"] .pill-btn{min-height:44px;padding:10px 16px;font-size:.82rem}
   .copy-btn{min-height:36px}
+  .hero-actions{flex-direction:column}
+  .hero-actions .lg-btn{width:100%;justify-content:center}
 }
 .install-code{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -252,6 +255,18 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
   flex:1;min-width:0;
   opacity:.9;
   scrollbar-width:thin;
+}
+.hero-command{
+  max-width:720px;
+  margin:34px auto 0;
+  text-align:left;
+  box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.hero-command code{font-size:.86rem}
+.hero-actions{align-items:center}
+@media(max-width:640px){
+  .hero-command{margin-top:28px;align-items:stretch;flex-direction:column}
+  .hero-command code{font-size:.74rem}
 }
 .copy-btn{
   display:inline-flex;align-items:center;gap:6px;
@@ -304,6 +319,7 @@ button{font:inherit;cursor:pointer;border:0;background:0 0}
 
 /* === Mobile === */
 @media(max-width:640px){
+  .hero-section{padding-top:76px;padding-bottom:44px}
   #navLinks{display:none}
   #navLinks.open{
     display:flex;flex-direction:column;
