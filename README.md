@@ -15,14 +15,14 @@ plus a meta-CLI that not only scaffolds them but also audits what's already on d
 
 ## Install
 
-The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It scaffolds any starter below and audits an existing repo's release-readiness, CD wiring, and security posture.
+The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It dry-runs upgrades for an existing repo, scaffolds any starter below, and audits release-readiness, CD wiring, and security posture.
 
 Three install channels — pick one:
 
 **npx CLI**
 
 ```bash
-npx @starter-series/create my-bot --template discord-bot
+npx @starter-series/create add-component
 ```
 
 **Claude Code plugin** (recommended; the skill auto-loads with the plugin)
@@ -35,6 +35,14 @@ npx @starter-series/create my-bot --template discord-bot
 **Claude Desktop (`.mcpb` bundle)** — [download the latest `.mcpb` from GitHub Releases](https://github.com/starter-series/create-starter/releases/latest) and drag it into Claude Desktop.
 
 ## Quick start
+
+Already have a Lovable, v0, or Bolt export? Run the cold-start check inside that folder first:
+
+```bash
+npx @starter-series/create add-component
+```
+
+It prints a dry-run plan and writes nothing until you rerun with `--apply`.
 
 If you just want to clone a starter as a GitHub template, you don't need create-starter at all:
 
@@ -73,6 +81,15 @@ Reusable capabilities, shipped as installable packages — not clone-templates:
 | [create-starter](https://github.com/starter-series/create-starter) | Scaffold any starter; audit an existing repo's release / CD / security posture | npx CLI · MCP server · Claude Code plugin + skill · `.mcpb` |
 | [shotkit](https://github.com/starter-series/shotkit) | Capture Chrome Web Store + social promo assets (screenshots, promo tiles, demo screencast, listing copy) from a built browser extension | npx CLI (`--json` agent contract) · Claude Code skill · capture-in-CI workflow |
 
+## Launch & Presence
+
+Profile and promotion tools for the launch side of the ecosystem.
+
+| Tool | What it does | Surfaces |
+|------|--------------|----------|
+| [ProfileKit](https://github.com/starter-series/ProfileKit) | Build composable SVG cards for GitHub profiles, READMEs, dev blogs, and personal sites | Vercel API · Docker self-host |
+| [profilekit-mcp](https://github.com/starter-series/profilekit-mcp) | Render ProfileKit cards from Claude Code, Codex, ChatGPT Apps, or any MCP-capable agent | npm package · MCP stdio |
+
 ## Health — receipts, not claims
 
 [![Org audit](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml/badge.svg)](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml)
@@ -96,6 +113,8 @@ goes red. We audit ourselves with our own tool, in public.
 | vscode-extension-starter | [![CI](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml) |
 | create-starter | [![CI](https://github.com/starter-series/create-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/create-starter/actions/workflows/ci.yml) |
 | shotkit | [![CI](https://github.com/starter-series/shotkit/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/shotkit/actions/workflows/ci.yml) |
+| ProfileKit | [![CI](https://github.com/starter-series/ProfileKit/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/ProfileKit/actions/workflows/ci.yml) |
+| profilekit-mcp | [![CI](https://github.com/starter-series/profilekit-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/profilekit-mcp/actions/workflows/ci.yml) |
 
 ## Currently implemented
 
@@ -110,6 +129,7 @@ goes red. We audit ourselves with our own tool, in public.
   - **Scaffold** — generate a new project from any starter above
   - **Audit** — `audit_release` (ship-ready verdict from CHANGELOG + workflows + git log), `audit_cd` (verify the package actually reached npm / PyPI / Open VSX / VS Marketplace / AMO / GitHub Releases), `audit_security` (gitleaks pin, CodeQL, dep-audit, license, `--ignore-scripts`, Dependabot, secret-scanning, claude-code-security-review, claude-security-guidance)
   - **Add** — `add_component` lifts a starter's CI/CD layer (ci / security / dependabot / maintenance) into an *existing* repo: dry-run plan first, never touches app code or secrets-bearing CD — the remediation half of the audit loop, and its dry-run doubles as a drift report against the starter
+- ProfileKit + profilekit-mcp extend the series from project launch into profile branding and agent-driven README composition.
 - OIDC trusted publishing where the platform supports it (npm, PyPI) — no long-lived secrets
 - Bilingual docs (English + 한국어) on every starter
 - 5-step "graduation from vibe coding" guide for users coming from Lovable / Bolt / v0

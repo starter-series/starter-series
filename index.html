@@ -10,9 +10,9 @@
       if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
     } catch (_) { /* localStorage unavailable */ }
   </script>
-  <title data-i18n="meta_title">Starter Series — Stop explaining CI/CD to your AI every time.</title>
-  <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
-  <meta name="keywords" content="CI/CD, GitHub Actions, starter template, AI-assisted development, Claude Code, Docker deploy, OIDC npm publish, MCP server, Electron, React Native, browser extension, Discord bot, Telegram bot">
+  <title data-i18n="meta_title">Starter Series — Run one dry-run before your AI export ships.</title>
+  <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
+  <meta name="keywords" content="CI/CD, GitHub Actions, starter template, AI-assisted development, Claude Code, Lovable export, v0 export, Bolt export, add-component, Docker deploy, OIDC npm publish, MCP server, Electron, React Native, browser extension">
   <meta name="author" content="heznpc">
   <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#e8eaef" media="(prefers-color-scheme: light)">
@@ -23,23 +23,21 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Starter Series">
-  <meta property="og:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Stop explaining CI/CD to your AI every time.">
-  <meta property="og:description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
+  <meta property="og:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Run one dry-run before your AI export ships.">
+  <meta property="og:description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
   <meta property="og:url" content="https://starter-series.github.io/starter-series/">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ko_KR">
-  <!-- TODO: add 1200x630 og-image.png to repo root and uncomment. Until then, Twitter/OG will fall back to text card. -->
-  <!-- <meta property="og:image" content="https://starter-series.github.io/starter-series/og-image.png"> -->
-  <!-- <meta property="og:image:width" content="1200"> -->
-  <!-- <meta property="og:image:height" content="630"> -->
-  <!-- <meta property="og:image:alt" content="Starter Series — clone, push, deploy"> -->
+  <meta property="og:image" content="https://starter-series.github.io/starter-series/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Starter Series — npx @starter-series/create add-component">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Stop explaining CI/CD to your AI every time.">
-  <meta name="twitter:description" data-i18n-attr="content" data-i18n="meta_description" content="Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.">
-  <!-- TODO: uncomment once og-image.png exists -->
-  <!-- <meta name="twitter:image" content="https://starter-series.github.io/starter-series/og-image.png"> -->
+  <meta name="twitter:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Run one dry-run before your AI export ships.">
+  <meta name="twitter:description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
+  <meta name="twitter:image" content="https://starter-series.github.io/starter-series/og-image.png">
 
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
@@ -51,7 +49,7 @@
         "@id": "https://starter-series.github.io/starter-series/#website",
         "url": "https://starter-series.github.io/starter-series/",
         "name": "Starter Series",
-        "description": "Clone a starter. Push to deploy. CI/CD, security, and infrastructure — already configured.",
+        "description": "Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.",
         "inLanguage": ["en", "ko"],
         "publisher": {
           "@type": "Organization",
@@ -64,7 +62,7 @@
         "name": "create-starter",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
-        "description": "CLI for scaffolding production-ready project starters with CI/CD, security, and deploy pipelines baked in.",
+        "description": "CLI for scaffolding production-ready starters and dry-running CI/CD, security, and maintenance upgrades inside exported AI-built repos.",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -131,17 +129,25 @@
   </nav>
 
   <!-- Hero -->
-  <header class="relative z-[1] pt-[calc(56px+110px)] pb-20 text-center">
+  <header class="hero-section relative z-[1] text-center">
     <div class="max-w-[1080px] mx-auto px-5">
-      <p class="font-mono text-sm opacity-30 tracking-tight mb-6 reveal" data-i18n="hero_tag">git clone → git push → deployed</p>
+      <p class="font-mono text-sm opacity-30 tracking-tight mb-6 reveal" data-i18n="hero_tag">open the folder your AI exported</p>
       <h1 class="text-[clamp(3.2rem,8vw,6rem)] font-bold leading-[.98] tracking-tighter hero-h1 reveal" data-delay="60">
-        <span data-i18n="hero_line1">From clone</span><br>
-        <span data-i18n="hero_line2">to production.</span>
+        <span data-i18n="hero_line1">One dry-run</span><br>
+        <span data-i18n="hero_line2">before launch.</span>
       </h1>
-      <p class="mt-6 text-lg opacity-40 max-w-[46ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Every starter ships with CI/CD, security audits, and deploy pipelines. You write the app. We handle the rest.</p>
-      <div class="flex gap-3 justify-center mt-10 reveal" data-delay="180">
-        <a href="#starters" class="lg-btn" data-i18n="hero_cta">Explore starters</a>
-        <a href="https://github.com/starter-series" target="_blank" rel="noopener" aria-label="Starter Series on GitHub" class="lg-btn lg-btn--ghost">GitHub</a>
+      <p class="mt-6 text-lg opacity-40 max-w-[50ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Paste this inside a Lovable, v0, or Bolt export. It prints the CI/CD, security, and maintenance files Starter Series would add, then waits for --apply.</p>
+      <div class="install-code hero-command reveal" id="hero-command" data-delay="160">
+        <code data-i18n="hero_command">npx @starter-series/create add-component</code>
+        <button class="copy-btn" data-copy-target="hero-command" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
+          <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
+          <span class="copy-label" data-i18n="install_copy">Copy</span>
+        </button>
+      </div>
+      <div class="flex gap-3 justify-center mt-6 reveal hero-actions" data-delay="220">
+        <a href="#install" class="lg-btn" data-i18n="hero_cta">Use the one-line check</a>
+        <a href="#starters" class="lg-btn lg-btn--ghost" data-i18n="hero_secondary_cta">Browse kits</a>
       </div>
     </div>
   </header>
@@ -154,21 +160,21 @@
         <div class="glass-tint"></div>
         <div class="glass-shine"></div>
         <div class="glass-content">
-          <small class="card-badge" data-i18n="install_badge">Install</small>
-          <h2 class="text-2xl font-bold tracking-tight mb-2" data-i18n="install_title">Install create-starter</h2>
-          <p class="card-desc mb-6" data-i18n="install_subtitle">One CLI. Three install paths. Pick the one that matches your workflow.</p>
+          <small class="card-badge" data-i18n="install_badge">Cold start</small>
+          <h2 class="text-2xl font-bold tracking-tight mb-2" data-i18n="install_title">Run the cold-start check</h2>
+          <p class="card-desc mb-6" data-i18n="install_subtitle">The default path is a dry-run for an existing repo. Starter browsing can wait until the plan makes sense.</p>
 
           <div class="flex gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Install channel">
-            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" tabindex="0" data-i18n="install_tab_cli">npx CLI</button>
+            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" tabindex="0" data-i18n="install_tab_cli">Cold-start CLI</button>
             <button class="pill-btn pill-btn--recommended" data-install-tab="plugin" role="tab" aria-selected="false" aria-controls="install-panel-plugin" id="install-tab-plugin" tabindex="-1" data-i18n="install_tab_plugin">Claude Code Plugin<span class="pill-recommended-dot" aria-hidden="true"></span><span class="sr-only" data-i18n="install_recommended_sr">Recommended</span></button>
             <button class="pill-btn" data-install-tab="mcpb" role="tab" aria-selected="false" aria-controls="install-panel-mcpb" id="install-tab-mcpb" tabindex="-1" data-i18n="install_tab_mcpb">Claude Desktop</button>
           </div>
 
           <!-- CLI panel -->
           <div class="install-panel" id="install-panel-cli" role="tabpanel" aria-labelledby="install-tab-cli">
-            <p class="install-hint" data-i18n="install_cli_hint">Fastest path. Run once, scaffold anywhere. Requires Node.js 18+.</p>
+            <p class="install-hint" data-i18n="install_cli_hint">Already inside an exported repo? This prints a per-file plan and writes nothing until you add --apply.</p>
             <div class="install-code">
-              <code data-i18n="install_cli_cmd">npx @starter-series/create my-bot --template discord-bot</code>
+              <code data-i18n="install_cli_cmd">npx @starter-series/create add-component</code>
               <button class="copy-btn" data-copy-target="install-panel-cli" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
                 <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
                 <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
@@ -413,27 +419,7 @@ data-repo="https://github.com/starter-series/vscode-extension-starter" data-deta
   <script src="i18n.js"></script>
   <script src="app.js"></script>
 
-  <!--
-    ===========================================================================
-    Analytics scaffold — DISABLED BY DEFAULT. Privacy-first, no cookies.
-    ---------------------------------------------------------------------------
-    OPTION A: Plausible (recommended for GitHub Pages — hosted, paid after trial)
-      1. Sign up at https://plausible.io, add site `starter-series.github.io`
-      2. Replace `data-domain` below with the exact site name you configured
-      3. Uncomment the <script> tag
-      4. Redeploy — no other changes needed. No GDPR banner required.
-
-    <script defer data-domain="starter-series.github.io" src="https://plausible.io/js/script.js"></script>
-
-    OPTION B: Umami (self-host — free, open source)
-      1. Deploy umami (Railway/Fly/VPS) per https://umami.is/docs
-      2. Create a website in umami, copy the website-id UUID
-      3. Replace YOUR_UMAMI_DOMAIN and YOUR_WEBSITE_ID below and uncomment
-
-    <script defer src="https://YOUR_UMAMI_DOMAIN/script.js" data-website-id="YOUR_WEBSITE_ID"></script>
-
-    DO NOT add Google Analytics — it requires a cookie banner and leaks to ads.
-    ===========================================================================
-  -->
+  <!-- Privacy-first analytics: no cookies and no ad network dependency. -->
+  <script defer data-domain="starter-series.github.io" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
