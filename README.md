@@ -15,14 +15,14 @@ plus a meta-CLI that not only scaffolds them but also audits what's already on d
 
 ## Install
 
-The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It scaffolds any starter below and audits an existing repo's release-readiness, CD wiring, and security posture.
+The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It dry-runs upgrades for an existing repo, scaffolds any starter below, and audits release-readiness, CD wiring, and security posture.
 
 Three install channels — pick one:
 
 **npx CLI**
 
 ```bash
-npx @starter-series/create my-bot --template discord-bot
+npx @starter-series/create add-component
 ```
 
 **Claude Code plugin** (recommended; the skill auto-loads with the plugin)
@@ -35,6 +35,14 @@ npx @starter-series/create my-bot --template discord-bot
 **Claude Desktop (`.mcpb` bundle)** — [download the latest `.mcpb` from GitHub Releases](https://github.com/starter-series/create-starter/releases/latest) and drag it into Claude Desktop.
 
 ## Quick start
+
+Already have a Lovable, v0, or Bolt export? Run the cold-start check inside that folder first:
+
+```bash
+npx @starter-series/create add-component
+```
+
+It prints a dry-run plan and writes nothing until you rerun with `--apply`.
 
 If you just want to clone a starter as a GitHub template, you don't need create-starter at all:
 
