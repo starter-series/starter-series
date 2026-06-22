@@ -13,7 +13,34 @@ plus a meta-CLI that not only scaffolds them but also audits what's already on d
 
 </div>
 
-## Install
+## First Commands
+
+Already have a repo? Run the dry-run check inside that folder first:
+
+```bash
+cd path/to/your/repo
+npx @starter-series/create add-component
+```
+
+It prints a dry-run plan and writes nothing until you rerun with `--apply`.
+
+Starting from a starter instead?
+
+```bash
+gh repo create my-app --template starter-series/docker-deploy-starter
+```
+
+Verifying this hub repo after editing the landing page or README?
+
+```bash
+npm ci
+npm run lint
+npm test
+npm run build
+npm audit --audit-level=high
+```
+
+## Install Channels
 
 The entry point is [`create-starter`](https://github.com/starter-series/create-starter) — an npx CLI, a Claude Code plugin (with a bundled skill), an MCP server, and a `.mcpb` bundle for Claude Desktop. It dry-runs upgrades for an existing repo, scaffolds any starter below, and audits release-readiness, CD wiring, and security posture.
 
@@ -33,28 +60,6 @@ npx @starter-series/create add-component
 ```
 
 **Claude Desktop (`.mcpb` bundle)** — [download the latest `.mcpb` from GitHub Releases](https://github.com/starter-series/create-starter/releases/latest) and drag it into Claude Desktop.
-
-## Quick start
-
-Already have a Lovable, v0, or Bolt export? Run the cold-start check inside that folder first:
-
-```bash
-npx @starter-series/create add-component
-```
-
-It prints a dry-run plan and writes nothing until you rerun with `--apply`.
-
-If you just want to clone a starter as a GitHub template, you don't need create-starter at all:
-
-```bash
-# 1. Use as a GitHub template
-gh repo create my-app --template starter-series/docker-deploy-starter
-
-# 2. Write your app
-
-# 3. Push — CI/CD handles the rest
-git push origin main
-```
 
 ## Local site checks
 
