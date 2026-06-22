@@ -5,10 +5,13 @@
   "description": "Static landing page for Starter Series.",
   "scripts": {
     "lint": "python3 scripts/validate-site.py",
-    "test": "python3 scripts/validate-site.py",
+    "test": "python3 scripts/validate-site.py && node --test tests/*.test.mjs",
     "build": "python3 scripts/validate-site.py --check-deploy-surface"
   },
   "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
   }
 }
