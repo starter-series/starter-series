@@ -1,9 +1,10 @@
 name: Org audit
 
 # Weekly receipts: runs `create-starter audit-security` against every repo in
-# the org and publishes the verdicts to the run summary. The badge on the
-# README's Health section reflects this run — if any repo goes "soft", the
-# badge goes red. We audit ourselves with our own tool and post the results.
+# the README Health table and publishes the verdicts to the run summary. The
+# badge on the README's Health section reflects this run — if any repo goes
+# "soft", the badge goes red. We audit ourselves with our own tool and post the
+# results.
 
 on:
   schedule:
@@ -21,9 +22,9 @@ jobs:
         with:
           node-version: 22
 
-      - name: Audit every repo with create-starter
+      - name: Audit Health table repos with create-starter
         run: |
-          REPOS="browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter create-starter shotkit"
+          REPOS="browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter create-starter shotkit ProfileKit profilekit-mcp"
           FAIL=0
           {
             echo "## Weekly security audit — $(date -u '+%Y-%m-%d')"
