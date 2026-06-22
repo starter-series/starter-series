@@ -107,10 +107,10 @@ Profile and promotion tools for the launch side of the ecosystem.
 
 [![Org audit](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml/badge.svg)](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml)
 — every Monday, [`org-audit.yml`](.github/workflows/org-audit.yml) runs
-`create-starter audit-security` against the core starter/tool hardening set
-listed in the workflow and publishes the verdicts in the run summary. If any
-audited repo drops below the bar, the badge goes red. The CI badges below link
-to each repo's own workflow status.
+`create-starter audit-security` against **every product/tool repo in this Health
+table** and publishes the verdicts in the run summary. If any listed repo drops
+below the bar, the badge goes red. We audit ourselves with our own tool, in
+public.
 
 | Repo | CI |
 |------|----|

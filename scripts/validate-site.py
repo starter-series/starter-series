@@ -31,7 +31,7 @@ EXPECTED_SITE_REPOS = {
     "profilekit-mcp",
 }
 
-CORE_AUDIT_REPOS = {
+HEALTH_AUDIT_REPOS = {
     "browser-extension-starter",
     "cloudflare-pages-starter",
     "discord-bot-starter",
@@ -45,6 +45,8 @@ CORE_AUDIT_REPOS = {
     "vscode-extension-starter",
     "create-starter",
     "shotkit",
+    "ProfileKit",
+    "profilekit-mcp",
 }
 
 DEPLOY_FILES = {
@@ -142,7 +144,7 @@ def validate_site(check_deploy_surface: bool) -> None:
         assert_equal(f"{lang} locale coverage", keys & required_locale_keys, required_locale_keys)
 
     assert_equal("site repo cards", parser.repo_slugs & EXPECTED_SITE_REPOS, EXPECTED_SITE_REPOS)
-    assert_equal("org audit repo list", workflow_repos(), CORE_AUDIT_REPOS)
+    assert_equal("org audit repo list", workflow_repos(), HEALTH_AUDIT_REPOS)
 
     usable_filters = parser.filters - {"all"}
     assert_equal("category filters", usable_filters, parser.categories)
