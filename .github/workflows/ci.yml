@@ -18,6 +18,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install static-site toolchain
+        run: npm ci
+
+      - name: Run local validation gates
+        run: |
+          npm run lint
+          npm test
+          npm run build
+          npm audit --audit-level=high
+
       - name: Scan for secrets
         env:
           # Bump together; checksum from
@@ -40,16 +55,6 @@ jobs:
             exit 1
           fi
 
-      - name: Validate locale JSON
-        run: |
-          for f in locales/*.json; do
-            python3 -c "import json; json.load(open('$f'))" || {
-              echo "::error::Invalid JSON: $f"
-              exit 1
-            }
-            echo "Valid: $f"
-          done
-
       - name: Validate HTML
         run: |
           for f in *.html; do
@@ -62,18 +67,32 @@ jobs:
 
       - name: Check internal links
         run: |
-          # `while read` is safer than `for url in $(...)` (shellcheck SC2013) —
-          # one URL per line, preserves whitespace if a future href ever
-          # contains an unexpected character.
           : > /tmp/broken
-          grep -oP 'https://github\.com/starter-series/[a-z-]+' index.html | sort -u | \
-            while read -r url; do
-              STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$url")
-              if [ "$STATUS" != "200" ]; then
-                echo "::error::Broken link ($STATUS): $url"
-                echo "$url" >> /tmp/broken
-              else
-                echo "OK: $url"
-              fi
-            done
+          python3 - <<'PY' > /tmp/starter-series-links
+          from html.parser import HTMLParser
+
+          class Links(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.urls = set()
+              def handle_starttag(self, tag, attrs):
+                  for key, value in attrs:
+                      if value and value.startswith("https://github.com/starter-series/"):
+                          self.urls.add(value)
+
+          p = Links()
+          p.feed(open("index.html", encoding="utf-8").read())
+          for url in sorted(p.urls):
+              print(url)
+          PY
+          while read -r url; do
+            if [ -z "$url" ]; then continue; fi
+            STATUS=$(curl -L -s -o /dev/null -w '%{http_code}' "$url")
+            if [ "$STATUS" != "200" ]; then
+              echo "::error::Broken link ($STATUS): $url"
+              echo "$url" >> /tmp/broken
+            else
+              echo "OK: $url"
+            fi
+          done < /tmp/starter-series-links
           if [ -s /tmp/broken ]; then exit 1; fi

@@ -56,6 +56,19 @@ gh repo create my-app --template starter-series/docker-deploy-starter
 git push origin main
 ```
 
+## Local site checks
+
+This repo is the static landing page, so the validation stack has no runtime
+dependencies. The npm scripts exist to make local checks match CI:
+
+```bash
+npm ci
+npm run lint
+npm test
+npm run build
+npm audit --audit-level=high
+```
+
 ## Starters
 
 | Starter | Description | Stack |

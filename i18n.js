@@ -5,7 +5,12 @@ const I18n = (() => {
   let currentLang = 'en';
 
   function detect() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    let saved = null;
+    try {
+      saved = localStorage.getItem(STORAGE_KEY);
+    } catch (_) {
+      saved = null;
+    }
     if (saved && SUPPORTED.includes(saved)) return saved;
     const nav = navigator.language || '';
     if (nav.startsWith('ko')) return 'ko';
@@ -43,6 +48,7 @@ const I18n = (() => {
     });
 
     document.documentElement.lang = currentLang;
+    window.dispatchEvent(new CustomEvent('starter-series:i18n', { detail: { lang: currentLang } }));
   }
 
   async function init() {
@@ -53,7 +59,11 @@ const I18n = (() => {
 
   async function toggle() {
     currentLang = currentLang === 'en' ? 'ko' : 'en';
-    localStorage.setItem(STORAGE_KEY, currentLang);
+    try {
+      localStorage.setItem(STORAGE_KEY, currentLang);
+    } catch (_) {
+      // Storage can be unavailable in strict browser modes.
+    }
     const data = await load(currentLang);
     apply(data);
   }
