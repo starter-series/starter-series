@@ -33,6 +33,12 @@ jobs:
           npm run build
           npm audit --audit-level=high
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser first-action smoke
+        run: npm run test:browser
+
       - name: Scan for secrets
         env:
           # Bump together; checksum from
