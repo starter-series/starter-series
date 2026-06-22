@@ -6,12 +6,14 @@
   "scripts": {
     "lint": "python3 scripts/validate-site.py",
     "test": "python3 scripts/validate-site.py && node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
     "build": "python3 scripts/validate-site.py --check-deploy-surface"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "jsdom": "^29.1.1"
   }
 }

@@ -37,6 +37,7 @@ npm ci
 npm run lint
 npm test
 npm run build
+npm run test:browser
 npm audit --audit-level=high
 ```
 
