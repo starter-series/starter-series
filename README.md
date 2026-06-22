@@ -56,6 +56,19 @@ gh repo create my-app --template starter-series/docker-deploy-starter
 git push origin main
 ```
 
+## Local site checks
+
+This repo is the static landing page, so the validation stack has no runtime
+dependencies. The npm scripts exist to make local checks match CI:
+
+```bash
+npm ci
+npm run lint
+npm test
+npm run build
+npm audit --audit-level=high
+```
+
 ## Starters
 
 | Starter | Description | Stack |
@@ -94,9 +107,10 @@ Profile and promotion tools for the launch side of the ecosystem.
 
 [![Org audit](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml/badge.svg)](https://github.com/starter-series/starter-series/actions/workflows/org-audit.yml)
 — every Monday, [`org-audit.yml`](.github/workflows/org-audit.yml) runs
-`create-starter audit-security` against **every repo in the org** and publishes
-the verdicts in the run summary. If any repo drops below the bar, the badge
-goes red. We audit ourselves with our own tool, in public.
+`create-starter audit-security` against the core starter/tool hardening set
+listed in the workflow and publishes the verdicts in the run summary. If any
+audited repo drops below the bar, the badge goes red. The CI badges below link
+to each repo's own workflow status.
 
 | Repo | CI |
 |------|----|

@@ -3,12 +3,28 @@ const THEME_KEY = 'starter-series-theme';
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('.theme-icon');
 
+function readStored(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeStored(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (_) {
+    // Storage can be unavailable in strict browser modes.
+  }
+}
+
 function setTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   themeIcon.textContent = t === 'dark' ? '\u2600' : '\u263E';
-  localStorage.setItem(THEME_KEY, t);
+  writeStored(THEME_KEY, t);
 }
-setTheme(localStorage.getItem(THEME_KEY) || 'dark');
+setTheme(readStored(THEME_KEY) || document.documentElement.getAttribute('data-theme') || 'dark');
 themeToggle.addEventListener('click', () => {
   setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
@@ -19,16 +35,26 @@ document.getElementById('langToggle').addEventListener('click', () => I18n.toggl
 // === Mobile nav ===
 const mobileToggle = document.getElementById('mobileToggle');
 const navLinks = document.getElementById('navLinks');
-mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+function setMobileNav(open) {
+  navLinks.classList.toggle('open', open);
+  mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+mobileToggle.addEventListener('click', () => setMobileNav(!navLinks.classList.contains('open')));
 navLinks.querySelectorAll('a').forEach(a =>
-  a.addEventListener('click', () => navLinks.classList.remove('open'))
+  a.addEventListener('click', () => setMobileNav(false))
 );
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') setMobileNav(false);
+});
 
 // === Filter cards ===
 document.querySelectorAll('[data-filter]').forEach(btn => {
   btn.addEventListener('click', () => {
     const f = btn.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('[data-filter]').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
     btn.classList.add('active');
 
     const cards = document.querySelectorAll('.glass-card[data-category]');
@@ -72,13 +98,16 @@ function openCard(card) {
   modalDetail.textContent = I18n.get(card.dataset.detail);
   modalTags.textContent = card.querySelector('code').textContent;
   modalRepo.href = card.dataset.repo;
+  modalRepo.setAttribute('aria-label', `${modalTitle.textContent}: ${I18n.get('modal_repo_btn')}`);
   modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
   requestAnimationFrame(() => modalClose.focus());
 }
 
 function closeModal() {
   if (!modal.classList.contains('open')) return;
   modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
   if (lastFocused && typeof lastFocused.focus === 'function') {
     lastFocused.focus();
   }
