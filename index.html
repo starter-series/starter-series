@@ -1,479 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    // Restore theme before first paint to avoid a flash of wrong theme.
-    try {
-      var t = localStorage.getItem('starter-series-theme');
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-    } catch (_) { /* localStorage unavailable */ }
-  </script>
-  <title data-i18n="meta_title">Starter Series — Run one dry-run before your AI export ships.</title>
-  <meta name="description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
-  <meta name="keywords" content="CI/CD, GitHub Actions, starter template, AI-assisted development, Claude Code, Lovable export, v0 export, Bolt export, add-component, Docker deploy, OIDC npm publish, MCP server, Electron, React Native, browser extension">
-  <meta name="author" content="heznpc">
-  <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#e8eaef" media="(prefers-color-scheme: light)">
-
-  <!-- Canonical -->
+  <title>Starter Series has moved</title>
+  <meta name="description" content="This legacy landing-page repo now points to the canonical Starter Series site.">
+  <meta name="robots" content="noindex,follow">
   <link rel="canonical" href="https://starter-series.github.io/starter-series/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Starter Series">
-  <meta property="og:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Run one dry-run before your AI export ships.">
-  <meta property="og:description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
-  <meta property="og:url" content="https://starter-series.github.io/starter-series/">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ko_KR">
-  <meta property="og:image" content="https://starter-series.github.io/starter-series/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Starter Series — npx @starter-series/create add-component">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" data-i18n-attr="content" data-i18n="meta_title" content="Starter Series — Run one dry-run before your AI export ships.">
-  <meta name="twitter:description" data-i18n-attr="content" data-i18n="meta_description" content="Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.">
-  <meta name="twitter:image" content="https://starter-series.github.io/starter-series/og-image.png">
-
-  <!-- JSON-LD structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://starter-series.github.io/starter-series/#website",
-        "url": "https://starter-series.github.io/starter-series/",
-        "name": "Starter Series",
-        "description": "Open the folder your AI exported and run npx @starter-series/create add-component. It prints a safe CI/CD, security, and maintenance plan before writing files.",
-        "inLanguage": ["en", "ko"],
-        "publisher": {
-          "@type": "Organization",
-          "name": "Starter Series",
-          "url": "https://github.com/starter-series"
-        }
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "create-starter",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Any",
-        "description": "CLI for scaffolding production-ready starters and dry-running CI/CD, security, and maintenance upgrades inside exported AI-built repos.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "url": "https://github.com/starter-series/create-starter",
-        "author": {
-          "@type": "Organization",
-          "name": "Starter Series",
-          "url": "https://github.com/starter-series"
-        },
-        "license": "https://opensource.org/licenses/MIT"
-      }
-    ]
-  }
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
-</head>
-<body class="font-sans antialiased overflow-x-hidden leading-relaxed">
-
-  <!-- Ambient orbs -->
-  <div class="scene" aria-hidden="true">
-    <div class="orb orb-a"></div>
-    <div class="orb orb-b"></div>
-    <div class="orb orb-c"></div>
-  </div>
-
-  <!-- Nav -->
-  <nav class="glass-nav" id="nav">
-    <div class="max-w-[1080px] mx-auto px-5 flex items-center justify-between h-full">
-      <a href="#" class="font-mono text-sm font-medium opacity-80 tracking-tight">starter-series</a>
-      <div class="flex items-center gap-6" id="navLinks">
-        <a href="#install" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_install">Install</a>
-        <a href="#starters" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity" data-i18n="nav_starters">Catalog</a>
-        <a href="https://github.com/starter-series" target="_blank" rel="noopener" aria-label="Starter Series on GitHub" class="text-sm opacity-45 font-medium hover:opacity-90 transition-opacity">GitHub</a>
-        <button class="pill-btn" id="themeToggle" aria-label="Toggle theme" data-i18n-attr="aria-label" data-i18n="theme_toggle_aria">
-          <span class="theme-icon">☀</span>
-        </button>
-        <button class="pill-btn" id="langToggle" aria-label="Toggle language" data-i18n-attr="aria-label" data-i18n="lang_toggle_aria">
-          <span data-i18n="lang_label">EN</span>
-        </button>
-      </div>
-      <button class="nav-mobile" id="mobileToggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false" data-i18n-attr="aria-label" data-i18n="mobile_menu_aria"><span></span><span></span></button>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero-section relative z-[1] text-center">
-    <div class="max-w-[1080px] mx-auto px-5">
-      <p class="font-mono text-sm opacity-30 tracking-tight mb-6 reveal" data-i18n="hero_tag">open the folder your AI exported</p>
-      <h1 class="text-[clamp(3.2rem,8vw,6rem)] font-bold leading-[.98] tracking-tighter hero-h1 reveal" data-delay="60">
-        <span data-i18n="hero_line1">One dry-run</span><br>
-        <span data-i18n="hero_line2">before launch.</span>
-      </h1>
-      <p class="mt-6 text-lg opacity-40 max-w-[50ch] mx-auto leading-relaxed reveal" data-delay="120" data-i18n="hero_p">Paste this inside a Lovable, v0, or Bolt export. It prints the CI/CD, security, and maintenance files Starter Series would add, then waits for --apply.</p>
-      <div class="install-code hero-command reveal" id="hero-command" data-delay="160">
-        <code data-i18n="hero_command">npx @starter-series/create add-component</code>
-        <button class="copy-btn" data-copy-target="hero-command" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-          <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
-          <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
-          <span class="copy-label" data-i18n="install_copy">Copy</span>
-        </button>
-      </div>
-      <div class="flex gap-3 justify-center mt-6 reveal hero-actions" data-delay="220">
-        <a href="#install" class="lg-btn" data-i18n="hero_cta">Use the one-line check</a>
-        <a href="#starters" class="lg-btn lg-btn--ghost" data-i18n="hero_secondary_cta">Browse catalog</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Install create-starter -->
-  <section id="install" class="relative z-[1] pt-4 pb-16">
-    <div class="max-w-[1080px] mx-auto px-5">
-      <div class="glass-card reveal">
-        <div class="glass-fx"></div>
-        <div class="glass-tint"></div>
-        <div class="glass-shine"></div>
-        <div class="glass-content">
-          <small class="card-badge" data-i18n="install_badge">Cold start</small>
-          <h2 class="text-2xl font-bold tracking-tight mb-2" data-i18n="install_title">Run the cold-start check</h2>
-          <p class="card-desc mb-6" data-i18n="install_subtitle">The default path is a dry-run for an existing repo. Starter browsing can wait until the plan makes sense.</p>
-
-          <div class="flex gap-1.5 mb-5 flex-wrap" role="tablist" aria-label="Install channel">
-            <button class="pill-btn active" data-install-tab="cli" role="tab" aria-selected="true" aria-controls="install-panel-cli" id="install-tab-cli" tabindex="0" data-i18n="install_tab_cli">Cold-start CLI</button>
-            <button class="pill-btn pill-btn--recommended" data-install-tab="plugin" role="tab" aria-selected="false" aria-controls="install-panel-plugin" id="install-tab-plugin" tabindex="-1" data-i18n="install_tab_plugin">Claude Code Plugin<span class="pill-recommended-dot" aria-hidden="true"></span><span class="sr-only" data-i18n="install_recommended_sr">Recommended</span></button>
-            <button class="pill-btn" data-install-tab="mcpb" role="tab" aria-selected="false" aria-controls="install-panel-mcpb" id="install-tab-mcpb" tabindex="-1" data-i18n="install_tab_mcpb">Claude Desktop</button>
-          </div>
-
-          <!-- CLI panel -->
-          <div class="install-panel" id="install-panel-cli" role="tabpanel" aria-labelledby="install-tab-cli">
-            <p class="install-hint" data-i18n="install_cli_hint">Already inside an exported repo? This prints a per-file plan and writes nothing until you add --apply.</p>
-            <div class="install-code">
-              <code data-i18n="install_cli_cmd">npx @starter-series/create add-component</code>
-              <button class="copy-btn" data-copy-target="install-panel-cli" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
-                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
-                <span class="copy-label" data-i18n="install_copy">Copy</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Plugin panel -->
-          <div class="install-panel hidden" id="install-panel-plugin" role="tabpanel" aria-labelledby="install-tab-plugin">
-            <p class="install-hint" data-i18n="install_plugin_hint">Use inside Claude Code. Native slash-command scaffolding with auto-completion.</p>
-            <div class="install-code">
-              <code data-i18n="install_plugin_cmd_1">/plugin marketplace add starter-series/create-starter</code>
-              <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="0" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
-                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
-                <span class="copy-label" data-i18n="install_copy">Copy</span>
-              </button>
-            </div>
-            <div class="install-code">
-              <code data-i18n="install_plugin_cmd_2">/plugin install create-starter@starter-series</code>
-              <button class="copy-btn" data-copy-target="install-panel-plugin" data-copy-index="1" aria-label="Copy command" data-i18n-attr="aria-label" data-i18n="install_copy_aria">
-                <svg class="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 2h7a1 1 0 0 1 1 1v9h-1V3H5V2Zm-2 2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 1v9h7V5H3Z"/></svg>
-                <svg class="copy-icon-check" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06L6.25 10.69l6.47-6.47a.75.75 0 0 1 1.06 0Z"/></svg>
-                <span class="copy-label" data-i18n="install_copy">Copy</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- MCPB panel -->
-          <div class="install-panel hidden" id="install-panel-mcpb" role="tabpanel" aria-labelledby="install-tab-mcpb">
-            <p class="install-hint" data-i18n="install_mcpb_hint">One-click bundle for Claude Desktop. Download .mcpb and drag-drop into Claude.</p>
-            <a href="https://github.com/starter-series/create-starter/releases/latest" target="_blank" rel="noopener" class="lg-btn">
-              <span data-i18n="install_mcpb_btn">Download .mcpb from GitHub Releases</span>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="ml-2" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Starters -->
-  <section id="starters" class="relative z-[1] py-10 pb-24">
-    <div class="max-w-[1080px] mx-auto px-5">
-      <div class="flex gap-1.5 mb-9 flex-wrap reveal">
-        <button class="pill-btn active" data-filter="all" aria-pressed="true" data-i18n="filter_all">All</button>
-        <button class="pill-btn" data-filter="infra" aria-pressed="false" data-i18n="filter_infra">Infrastructure</button>
-        <button class="pill-btn" data-filter="web" aria-pressed="false" data-i18n="filter_web">Web</button>
-        <button class="pill-btn" data-filter="bot" aria-pressed="false" data-i18n="filter_bot">Bots</button>
-        <button class="pill-btn" data-filter="app" aria-pressed="false" data-i18n="filter_app">Apps</button>
-        <button class="pill-btn" data-filter="tool" aria-pressed="false" data-i18n="filter_tool">Tools</button>
-        <button class="pill-btn" data-filter="presence" aria-pressed="false" data-i18n="filter_presence">Launch</button>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1" id="starterGrid">
-
-        <!-- Docker Deploy (flagship, wide) -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="infra"
-data-repo="https://github.com/starter-series/docker-deploy-starter" data-detail="detail_docker"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <small class="card-badge" data-i18n="starter_docker_deploy_badge">Flagship</small>
-            <h3 class="card-title" data-i18n="starter_docker_deploy_name">Docker Deploy</h3>
-            <p class="card-desc" data-i18n="card_docker_p">Any language. One Dockerfile. SSH deploy to any VPS.</p>
-            <code class="card-tags" data-i18n="starter_docker_deploy_tags">Docker · VPS · GHCR</code>
-          </div>
-        </div>
-
-        <!-- Browser Extension -->
-        <div class="glass-card reveal" data-category="web" data-delay="40"
-data-repo="https://github.com/starter-series/browser-extension-starter" data-detail="detail_ext"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_browser_ext_name">Browser Extension</h3>
-            <p class="card-desc" data-i18n="card_ext_p">MV3. Chrome Web Store + Firefox AMO. Permission audit on every push.</p>
-            <code class="card-tags" data-i18n="starter_browser_ext_tags">MV3 · Chrome · Firefox</code>
-          </div>
-        </div>
-
-        <!-- Discord Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="80"
-data-repo="https://github.com/starter-series/discord-bot-starter" data-detail="detail_discord"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_discord_bot_name">Discord Bot</h3>
-            <p class="card-desc" data-i18n="card_discord_p">Discord.js v14. Auto-loaded slash commands. Railway or Fly.io deploy.</p>
-            <code class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js · Docker · Railway</code>
-          </div>
-        </div>
-
-        <!-- Telegram Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="40"
-data-repo="https://github.com/starter-series/telegram-bot-starter" data-detail="detail_tg"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
-            <p class="card-desc" data-i18n="card_tg_p">grammY. Polling + webhook dual mode. One-command deploy.</p>
-            <code class="card-tags" data-i18n="starter_telegram_bot_tags">grammY · Polling · Webhook</code>
-          </div>
-        </div>
-
-        <!-- Electron App -->
-        <div class="glass-card reveal" data-category="app" data-delay="80"
-data-repo="https://github.com/starter-series/electron-app-starter" data-detail="detail_electron"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_electron_name">Electron App</h3>
-            <p class="card-desc" data-i18n="card_electron_p">macOS + Windows + Linux. Code signing. Auto-update via GitHub Releases.</p>
-            <code class="card-tags" data-i18n="starter_electron_tags">Electron · macOS · Win · Linux</code>
-          </div>
-        </div>
-
-        <!-- npm Package -->
-        <div class="glass-card reveal" data-category="infra" data-delay="120"
-data-repo="https://github.com/starter-series/npm-package-starter" data-detail="detail_npm"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_npm_package_name">npm Package</h3>
-            <p class="card-desc" data-i18n="card_npm_p">OIDC trusted publishing. Zero secrets. Provenance built in.</p>
-            <code class="card-tags" data-i18n="starter_npm_package_tags">npm · OIDC · Provenance</code>
-          </div>
-        </div>
-
-        <!-- MCP Server -->
-        <div class="glass-card reveal" data-category="infra" data-delay="160"
-             data-repo="https://github.com/starter-series/mcp-server-starter" data-detail="detail_mcp"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_mcp_server_name">MCP Server</h3>
-            <p class="card-desc" data-i18n="card_mcp_p">TypeScript MCP server. OIDC npm publish. Zero secrets needed.</p>
-            <code class="card-tags" data-i18n="starter_mcp_server_tags">MCP · TypeScript · OIDC</code>
-          </div>
-        </div>
-
-        <!-- React Native -->
-        <div class="glass-card reveal" data-category="app" data-delay="40"
-data-repo="https://github.com/starter-series/react-native-starter" data-detail="detail_rn"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_react_native_name">React Native</h3>
-            <p class="card-desc" data-i18n="card_rn_p">Expo + EAS Build. Submit to App Store and Play Store from CI.</p>
-            <code class="card-tags" data-i18n="starter_react_native_tags">Expo · iOS · Android · EAS</code>
-          </div>
-        </div>
-
-        <!-- Python MCP Server -->
-        <div class="glass-card reveal" data-category="infra" data-delay="120"
-             data-repo="https://github.com/starter-series/python-mcp-server-starter" data-detail="detail_py_mcp"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_py_mcp_name">Python MCP Server</h3>
-            <p class="card-desc" data-i18n="card_py_mcp_p">Python MCP server. OIDC PyPI publish. FastMCP + async.</p>
-            <code class="card-tags" data-i18n="starter_py_mcp_tags">MCP · Python · OIDC · PyPI</code>
-          </div>
-        </div>
-
-        <!-- Cloudflare Pages -->
-        <div class="glass-card reveal" data-category="web" data-delay="160"
-             data-repo="https://github.com/starter-series/cloudflare-pages-starter" data-detail="detail_cf_pages"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_cf_pages_name">Cloudflare Pages</h3>
-            <p class="card-desc" data-i18n="card_cf_pages_p">Static site. Unlimited bandwidth. Global CDN free.</p>
-            <code class="card-tags" data-i18n="starter_cf_pages_tags">Cloudflare Pages · Wrangler</code>
-          </div>
-        </div>
-
-        <!-- VS Code Extension (wide) -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="web" data-delay="80"
-data-repo="https://github.com/starter-series/vscode-extension-starter" data-detail="detail_vscode"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_vscode_ext_name">VS Code Extension</h3>
-            <p class="card-desc" data-i18n="card_vscode_p">Vanilla JS. Dual publish to VS Marketplace + Open VSX.</p>
-            <code class="card-tags" data-i18n="starter_vscode_ext_tags">VS Code · Open VSX · Vanilla JS</code>
-          </div>
-        </div>
-
-        <!-- create-starter -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="tool" data-delay="40"
-             data-repo="https://github.com/starter-series/create-starter" data-detail="detail_create_starter"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <small class="card-badge" data-i18n="tool_create_starter_badge">Entry point</small>
-            <h3 class="card-title" data-i18n="tool_create_starter_name">create-starter</h3>
-            <p class="card-desc" data-i18n="tool_create_starter_p">Dry-run CI/CD, security, and maintenance upgrades before applying files.</p>
-            <code class="card-tags" data-i18n="tool_create_starter_tags">npx · MCP · Plugin · .mcpb</code>
-          </div>
-        </div>
-
-        <!-- shotkit -->
-        <div class="glass-card reveal" data-category="tool" data-delay="80"
-             data-repo="https://github.com/starter-series/shotkit" data-detail="detail_shotkit"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="tool_shotkit_name">shotkit</h3>
-            <p class="card-desc" data-i18n="tool_shotkit_p">Capture browser-extension store assets and promo media from a built extension.</p>
-            <code class="card-tags" data-i18n="tool_shotkit_tags">Screenshots · Promo · JSON</code>
-          </div>
-        </div>
-
-        <!-- ProfileKit -->
-        <div class="glass-card reveal" data-category="presence" data-delay="120"
-             data-repo="https://github.com/starter-series/ProfileKit" data-detail="detail_profilekit"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="tool_profilekit_name">ProfileKit</h3>
-            <p class="card-desc" data-i18n="tool_profilekit_p">Composable SVG cards for profiles, READMEs, dev blogs, and personal sites.</p>
-            <code class="card-tags" data-i18n="tool_profilekit_tags">SVG · API · Docker</code>
-          </div>
-        </div>
-
-        <!-- profilekit-mcp -->
-        <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="presence" data-delay="160"
-             data-repo="https://github.com/starter-series/profilekit-mcp" data-detail="detail_profilekit_mcp"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="tool_profilekit_mcp_name">profilekit-mcp</h3>
-            <p class="card-desc" data-i18n="tool_profilekit_mcp_p">Render ProfileKit cards from agent workflows through MCP stdio.</p>
-            <code class="card-tags" data-i18n="tool_profilekit_mcp_tags">MCP · stdio · npm</code>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="relative z-[1] py-6 border-t border-white/[.04]">
-    <div class="max-w-[1080px] mx-auto px-5 flex justify-between text-xs opacity-20 max-sm:flex-col max-sm:gap-1 max-sm:text-center">
-      <span data-i18n="footer_built">Built for developers who ship with AI.</span>
-      <span>MIT</span>
-    </div>
-  </footer>
-
-  <!-- Modal -->
-  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-glass">
-      <div class="glass-fx"></div>
-      <div class="glass-tint"></div>
-      <div class="glass-shine"></div>
-      <div class="glass-content">
-        <button class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-lg opacity-40 hover:opacity-80 border border-white/10 transition-opacity z-10" id="modalClose" aria-label="Close" data-i18n-attr="aria-label" data-i18n="modal_close_aria">&times;</button>
-        <h3 class="text-xl font-bold tracking-tight mb-3" id="modalTitle"></h3>
-        <p class="text-sm opacity-45 leading-relaxed mb-5" id="modalDetail"></p>
-        <code class="block mb-6 font-mono text-xs opacity-30" id="modalTags"></code>
-        <a id="modalRepo" class="lg-btn w-full justify-center" target="_blank" rel="noopener">
-          <span data-i18n="modal_repo_btn">View on GitHub</span>
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="ml-2" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <script src="i18n.js"></script>
-  <script src="app.js"></script>
-
-  <!-- Privacy-first analytics: no cookies and no ad network dependency. -->
-  <script>
-    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
-      var analytics = document.createElement('script');
-      analytics.defer = true;
-      analytics.dataset.domain = 'starter-series.github.io';
-      analytics.src = 'https://plausible.io/js/script.js';
-      document.body.appendChild(analytics);
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0e1117;
+      --fg: #f5f7fb;
+      --muted: #9aa4b2;
+      --border: rgba(255, 255, 255, .14);
+      --panel: rgba(255, 255, 255, .06);
     }
-  </script>
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --fg: #1d2430;
+        --muted: #5f6b7a;
+        --border: rgba(15, 23, 42, .14);
+        --panel: rgba(255, 255, 255, .75);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    main {
+      width: min(100%, 640px);
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-top: 12px;
+      color: inherit;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p>Legacy surface</p>
+    <h1>Starter Series now lives in the canonical hub.</h1>
+    <p>
+      This repo is retained only as a redirect notice. The current public site,
+      baseline inventory, and service-completion evidence live in
+      <code>starter-series/starter-series</code>.
+    </p>
+    <a href="https://starter-series.github.io/starter-series/">Open the canonical site</a>
+  </main>
 </body>
 </html>

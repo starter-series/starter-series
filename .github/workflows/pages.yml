@@ -25,10 +25,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
+      - name: Assemble deploy surface
+        run: |
+          mkdir -p _site
+          cp index.html robots.txt _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

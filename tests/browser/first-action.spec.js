@@ -1,9 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const HERO_COMMAND = 'npx @starter-series/create add-component';
-
-test.beforeEach(async ({ context, page }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+test('legacy page exposes one canonical destination without horizontal overflow', async ({ page }) => {
   const runtimeMessages = [];
   page.on('console', (msg) => {
     if (['error', 'warning'].includes(msg.type())) {
@@ -11,25 +8,18 @@ test.beforeEach(async ({ context, page }) => {
     }
   });
   page.on('pageerror', (err) => runtimeMessages.push(`pageerror: ${err.message}`));
-  page.runtimeMessages = runtimeMessages;
-});
 
-test.afterEach(async ({ page }) => {
-  expect(page.runtimeMessages).toEqual([]);
-});
-
-test('hero copy command works in a real browser without horizontal overflow', async ({ page }) => {
   await page.goto('/');
 
-  const copyButton = page.locator('#hero-command .copy-btn');
-  await expect(copyButton).toBeVisible();
-  await copyButton.click();
-
-  await expect(copyButton).toHaveClass(/copied/);
-  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(HERO_COMMAND);
+  await expect(page.getByRole('heading', { name: /canonical hub/i })).toBeVisible();
+  await expect(page.getByRole('link', { name: /open the canonical site/i })).toHaveAttribute(
+    'href',
+    'https://starter-series.github.io/starter-series/',
+  );
 
   const overflow = await page.evaluate(() => (
     document.documentElement.scrollWidth - document.documentElement.clientWidth
   ));
   expect(overflow).toBeLessThanOrEqual(1);
+  expect(runtimeMessages).toEqual([]);
 });
