@@ -34,6 +34,7 @@ Verifying this hub repo after editing the landing page or README?
 
 ```bash
 npm ci
+npx playwright install chromium
 npm run lint
 npm test
 npm run build
@@ -69,11 +70,20 @@ dependencies. The npm scripts exist to make local checks match CI:
 
 ```bash
 npm ci
+npx playwright install chromium
 npm run lint
 npm test
 npm run build
+npm run test:browser
 npm audit --audit-level=high
 ```
+
+`npm run test:browser` starts its own local `127.0.0.1:4173` server and fails
+instead of reusing an already-running process on that port. That keeps the
+smoke test pointed at this checkout, not a stale tab from another repo.
+On Linux hosts that do not already have browser system packages installed, use
+`npx playwright install --with-deps chromium` instead of the shorter install
+command above.
 
 ## Starters
 
