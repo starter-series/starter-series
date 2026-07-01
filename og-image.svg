@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Starter Series cold-start command</title>
-  <desc id="desc">Run npx @starter-series/create add-component inside an exported AI-built repo.</desc>
+  <title id="title">Starter Series template path</title>
+  <desc id="desc">Use a safe-by-default deploy-target starter as a GitHub template.</desc>
   <defs>
     <radialGradient id="blue" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#38bdf8" stop-opacity=".55"/>
@@ -38,18 +38,18 @@
   </g>
 
   <text x="128" y="142" fill="#ffffff" fill-opacity=".62" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" font-weight="500">starter-series</text>
-  <text x="128" y="238" fill="url(#headline)" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-3">
-    <tspan x="128" dy="0">One dry-run</tspan>
-    <tspan x="128" dy="78">before launch.</tspan>
+  <text x="128" y="238" fill="url(#headline)" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">
+    <tspan x="128" dy="0">Choose a starter.</tspan>
+    <tspan x="128" dy="78">Keep the receipts.</tspan>
   </text>
   <text x="128" y="358" fill="#ffffff" fill-opacity=".62" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" font-weight="500">
-    <tspan x="128" dy="0">Paste this inside a Lovable, v0, or Bolt export.</tspan>
+    <tspan x="128" dy="0">Start from the deploy target, then let CI/CD prove the path.</tspan>
   </text>
 
   <g>
-    <rect x="128" y="414" width="808" height="78" rx="18" fill="#030712" fill-opacity=".52"/>
-    <rect x="128.5" y="414.5" width="807" height="77" rx="17.5" fill="none" stroke="#ffffff" stroke-opacity=".12"/>
-    <text x="164" y="464" fill="#e5e7eb" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="28" font-weight="500">npx @starter-series/create add-component</text>
+    <rect x="128" y="414" width="944" height="78" rx="18" fill="#030712" fill-opacity=".52"/>
+    <rect x="128.5" y="414.5" width="943" height="77" rx="17.5" fill="none" stroke="#ffffff" stroke-opacity=".12"/>
+    <text x="164" y="464" fill="#e5e7eb" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" font-weight="500">gh repo create my-app --template starter-series/docker-deploy-starter</text>
   </g>
-  <text x="128" y="530" fill="#ffffff" fill-opacity=".46" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="23" font-weight="500">Safe by default: prints a CI/CD, security, and maintenance plan before writing files.</text>
+  <text x="128" y="530" fill="#ffffff" fill-opacity=".46" font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="23" font-weight="500">Safe by default: CI/CD, security checks, package and deploy preflights stay visible.</text>
 </svg>

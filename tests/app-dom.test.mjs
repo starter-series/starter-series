@@ -75,6 +75,22 @@ function visibleCards(document) {
     .filter((card) => !card.classList.contains('hidden'));
 }
 
+test('every goal picker template maps to a rendered starter card', () => {
+  const { document } = new JSDOM(html).window;
+  const starterCards = new Set(
+    [...document.querySelectorAll('.glass-card[data-repo]')]
+      .map((card) => card.dataset.repo.split('/').pop()),
+  );
+  const pickerTemplates = [...document.querySelectorAll('[data-picker-template]')]
+    .map((button) => button.dataset.pickerTemplate);
+
+  assert.ok(pickerTemplates.length > 0);
+  assert.deepEqual(
+    pickerTemplates.filter((template) => !starterCards.has(template)),
+    [],
+  );
+});
+
 test('filter buttons update pressed state and hide nonmatching starter cards', async () => {
   const { window } = await setupDom();
   const { document } = window;
@@ -111,27 +127,32 @@ test('starter cards open a modal from keyboard and Escape closes back to the car
   assert.equal(document.activeElement, card);
 });
 
-test('install tabs support keyboard navigation and copy the active command', async () => {
+test('template panel copy and goal picker expose direct GitHub template commands', async () => {
   const { window, copied } = await setupDom();
   const { document } = window;
 
-  const cliTab = document.getElementById('install-tab-cli');
-  keydown(window, cliTab, 'ArrowRight');
-
-  const pluginTab = document.getElementById('install-tab-plugin');
-  assert.equal(pluginTab.getAttribute('aria-selected'), 'true');
-  assert.equal(pluginTab.getAttribute('tabindex'), '0');
-  assert.equal(document.getElementById('install-panel-cli').classList.contains('hidden'), true);
-  assert.equal(document.getElementById('install-panel-plugin').classList.contains('hidden'), false);
-  assert.equal(document.activeElement, pluginTab);
-
-  const secondCopyButton = document.querySelector(
-    '#install-panel-plugin .copy-btn[data-copy-index="1"]',
-  );
-  click(window, secondCopyButton);
+  const defaultCopyButton = document.querySelector('#install-panel-cli .copy-btn');
+  click(window, defaultCopyButton);
   await new Promise((resolve) => window.setTimeout(resolve, 0));
 
-  assert.deepEqual(copied, ['/plugin install create-starter@starter-series']);
-  assert.equal(secondCopyButton.classList.contains('copied'), true);
-  assert.equal(secondCopyButton.querySelector('.copy-label').textContent, 'Copied');
+  assert.equal(copied[0], 'gh repo create my-app --template starter-series/docker-deploy-starter');
+  assert.equal(defaultCopyButton.classList.contains('copied'), true);
+
+  const webGoal = document.querySelector('[data-picker-template="cloudflare-pages-starter"]');
+  click(window, webGoal);
+
+  const modal = document.getElementById('modal');
+  assert.equal(modal.classList.contains('open'), true);
+  assert.equal(document.getElementById('modalTitle').textContent, 'Cloudflare Pages');
+  assert.equal(
+    document.getElementById('modalCommand').textContent,
+    'gh repo create my-app --template starter-series/cloudflare-pages-starter',
+  );
+
+  const modalCopyButton = document.querySelector('.modal-command .copy-btn[data-copy-source="modalCommand"]');
+  click(window, modalCopyButton);
+  await new Promise((resolve) => window.setTimeout(resolve, 0));
+
+  assert.equal(copied[1], 'gh repo create my-app --template starter-series/cloudflare-pages-starter');
+  assert.equal(modalCopyButton.classList.contains('copied'), true);
 });

@@ -1,10 +1,9 @@
 name: Org audit
 
-# Weekly receipts: runs `create-starter audit-security` against every repo in
-# the README Health table and publishes the verdicts to the run summary. The
-# badge on the README's Health section reflects this run — if any repo goes
-# "soft", the badge goes red. We audit ourselves with our own tool and post the
-# results.
+# Weekly receipt for the current completion baseline. Public-surface cleanup
+# repos are cloned only for claim guards; they are not counted as baseline
+# completion evidence. External package repos are cloned only for package-name
+# drift guards; their release proof stays in separate proof sessions.
 
 on:
   schedule:
@@ -18,30 +17,38 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+
       - uses: actions/setup-node@v6
         with:
           node-version: 22
 
-      - name: Audit Health table repos with create-starter
+      - name: Audit baseline repos and public drift guards
         run: |
-          REPOS="browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter create-starter shotkit ProfileKit profilekit-mcp"
-          FAIL=0
-          {
-            echo "## Weekly security audit — $(date -u '+%Y-%m-%d')"
-            echo ""
-            echo "| repo | verdict |"
-            echo "|---|---|"
-          } >> "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          ROOT="/tmp/starter-series-baseline"
+          REPOS="starter-series browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter ProfileKit profilekit-mcp"
+          CLAIM_REPOS="dot-github icon-maker"
+          EXTERNAL_PACKAGE_REPOS="create-starter shotkit"
+          mkdir -p "$ROOT"
           for r in $REPOS; do
-            git clone --quiet --depth=1 "https://github.com/starter-series/$r" "/tmp/$r"
-            RC=0
-            npx -y @starter-series/create audit-security "/tmp/$r" > "/tmp/$r.audit" 2>&1 || RC=$?
-            VERDICT=$(grep -oiE 'hardened|needs-attention|soft' "/tmp/$r.audit" | head -1 || true)
-            if [ "$RC" -ge 2 ]; then VERDICT="error(rc=$RC)"; FAIL=1; fi
-            if [ "$RC" -eq 1 ]; then FAIL=1; fi
-            echo "| $r | ${VERDICT:-unknown} |" >> "$GITHUB_STEP_SUMMARY"
-            echo "::group::$r"
-            cat "/tmp/$r.audit"
-            echo "::endgroup::"
+            git clone --quiet --depth=1 "https://github.com/starter-series/$r" "$ROOT/$r"
           done
-          exit "$FAIL"
+          for r in $CLAIM_REPOS; do
+            git clone --quiet --depth=1 "https://github.com/starter-series/$r" "$ROOT/$r"
+          done
+          for r in $EXTERNAL_PACKAGE_REPOS; do
+            git clone --quiet --depth=1 "https://github.com/starter-series/$r" "$ROOT/$r"
+          done
+          (
+            cd "$ROOT/starter-series"
+            npm ci
+            npm run lint
+            npm test
+            npm run build
+          )
+          {
+            echo "## Weekly baseline and public-drift receipt — $(date -u '+%Y-%m-%d')"
+            echo ""
+            node scripts/audit-baseline.js --root "$ROOT" --markdown
+          } >> "$GITHUB_STEP_SUMMARY"
