@@ -3,7 +3,8 @@
 // sync-versions.js — Report version drift across starter-series repos.
 //
 // Usage:
-//   node scripts/sync-versions.js
+//   node scripts/sync-versions.js        # current completion baseline
+//   node scripts/sync-versions.js --all  # every local product/tool repo
 //
 // Checks:
 //   1. Shared devDependencies (jest, eslint, etc.) across package.json files
@@ -28,9 +29,20 @@ const path = require('path');
 // ROOT points to the parent dir that holds all starter repos as siblings.
 const ROOT = path.resolve(__dirname, '..', '..');
 
+const INCLUDE_ALL = process.argv.includes('--all');
+
 // Directories to always skip during discovery
-const SKIP_DIRS = new Set(['.git', '.idea', '.claude', 'node_modules', 'scripts',
+const ALWAYS_SKIP_DIRS = new Set(['.git', '.idea', '.claude', 'node_modules', 'scripts',
   'dot-github', 'landing-page', 'starter-series']);
+
+// The current service-completion cycle excludes these repos from baseline drift.
+// They can still be audited with `--all`.
+const NON_BASELINE_DIRS = new Set([
+  'create-starter',
+  'icon-maker',
+  'rulemeter',
+  'shotkit',
+]);
 
 // Intentional divergences — starters whose value legitimately differs from
 // the rest of the series. Listed here so they are reported as "ok (intentional)"
@@ -38,14 +50,25 @@ const SKIP_DIRS = new Set(['.git', '.idea', '.claude', 'node_modules', 'scripts'
 //
 // Format: { 'starter-name': 'reason shown in report' }
 const INTENTIONAL_DIVERGENCES = {
+  devDependencies: {
+    '@types/node': {
+      'mcp-server-starter': 'Template targets Node 22 APIs, so Node 22 types are intentional',
+    },
+    jest: {
+      'react-native-starter': 'jest-expo 52 keeps this template on Jest 29',
+    },
+  },
   engines: {
     'electron-app-starter': 'Electron bundles its own Node — engines.node follows Electron',
+    'ProfileKit': 'Production service currently caps Node below 25 while CI runs inside that range',
+    'profilekit-mcp': 'Published MCP package still supports Node 20 clients',
   },
   workflowNode: {
     'electron-app-starter': 'Electron bundles its own Node — CI Node must match Electron',
+    'ProfileKit': 'CI uses Node 24 while the service engine allows >=22 <25',
   },
   dockerNode: {
-    // none currently
+    'discord-bot-starter': 'Docker image follows its deploy runtime while package engines allow >=22',
   },
 };
 
@@ -94,8 +117,9 @@ function readText(filepath) {
 function discoverStarters() {
   return fs.readdirSync(ROOT)
     .filter(name => {
-      if (SKIP_DIRS.has(name)) return false;
-      if (name.startsWith('.')) return false;
+      if (ALWAYS_SKIP_DIRS.has(name)) return false;
+      if (!INCLUDE_ALL && NON_BASELINE_DIRS.has(name)) return false;
+      if (name.startsWith('.') || name.startsWith('_')) return false;
       const stat = fs.statSync(path.join(ROOT, name));
       return stat.isDirectory();
     })
@@ -138,9 +162,12 @@ function collectDevDeps(starters) {
 
 function detectDepMismatches(depMap) {
   const mismatches = []; // { dep, versions: Map<starter, ver>, highest }
+  const depIgnore = INTENTIONAL_DIVERGENCES.devDependencies;
 
   for (const [dep, starterVersions] of depMap) {
-    const uniqueVersions = new Set(starterVersions.values());
+    const ignored = depIgnore[dep] || {};
+    const checkableVersions = new Map([...starterVersions].filter(([starter]) => !ignored[starter]));
+    const uniqueVersions = new Set(checkableVersions.values());
     if (uniqueVersions.size <= 1) continue; // all aligned
 
     let highest = null;
@@ -269,9 +296,12 @@ function main() {
 
     for (const { dep, versions, highest } of depMismatches) {
       console.log(`\n  ${dep}  (highest: ${highest})`);
+      const ignored = INTENTIONAL_DIVERGENCES.devDependencies[dep] || {};
       const rows = [];
       for (const [starter, ver] of versions) {
-        const status = ver === highest ? '' : '<-- behind';
+        const status = ignored[starter]
+          ? `[intentional] ${ignored[starter]}`
+          : ver === highest ? '' : '<-- behind';
         rows.push([starter, ver, status]);
       }
       printTable(['Starter', 'Version', 'Status'], rows);

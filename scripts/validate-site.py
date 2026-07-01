@@ -25,13 +25,10 @@ EXPECTED_SITE_REPOS = {
     "python-mcp-server-starter",
     "cloudflare-pages-starter",
     "vscode-extension-starter",
-    "create-starter",
-    "shotkit",
-    "ProfileKit",
-    "profilekit-mcp",
 }
 
 HEALTH_AUDIT_REPOS = {
+    "starter-series",
     "browser-extension-starter",
     "cloudflare-pages-starter",
     "discord-bot-starter",
@@ -43,8 +40,6 @@ HEALTH_AUDIT_REPOS = {
     "react-native-starter",
     "telegram-bot-starter",
     "vscode-extension-starter",
-    "create-starter",
-    "shotkit",
     "ProfileKit",
     "profilekit-mcp",
 }
@@ -56,6 +51,7 @@ DEPLOY_FILES = {
     "i18n.js",
     "locales/en.json",
     "locales/ko.json",
+    "favicon.svg",
     "og-image.png",
     "og-image.svg",
     "robots.txt",
@@ -69,6 +65,7 @@ class SiteParser(HTMLParser):
         self.i18n_keys: set[str] = set()
         self.detail_keys: set[str] = set()
         self.repo_slugs: set[str] = set()
+        self.picker_templates: set[str] = set()
         self.filters: set[str] = set()
         self.categories: set[str] = set()
         self.github_urls: set[str] = set()
@@ -83,6 +80,8 @@ class SiteParser(HTMLParser):
             self.filters.add(attr["data-filter"])
         if "data-category" in attr:
             self.categories.add(attr["data-category"])
+        if "data-picker-template" in attr:
+            self.picker_templates.add(attr["data-picker-template"])
         for key in ("href", "data-repo", "content"):
             value = attr.get(key, "")
             if value.startswith("https://github.com/starter-series/"):
@@ -117,6 +116,27 @@ def workflow_repos() -> set[str]:
     return set(match.group(1).split())
 
 
+def readme_health_repos() -> set[str]:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    repos: set[str] = set()
+    in_table = False
+    for line in readme.splitlines():
+        if line.strip() == "| Repo | CI |":
+            in_table = True
+            continue
+        if not in_table:
+            continue
+        if not line.startswith("|"):
+            break
+        match = re.search(
+            r"https://github\.com/starter-series/([^/]+)/actions/workflows/ci\.yml",
+            line,
+        )
+        if match:
+            repos.add(match.group(1))
+    return repos
+
+
 def assert_equal(name: str, actual: set[str], expected: set[str]) -> None:
     missing = sorted(expected - actual)
     extra = sorted(actual - expected)
@@ -145,6 +165,8 @@ def validate_site(check_deploy_surface: bool) -> None:
 
     assert_equal("site repo cards", parser.repo_slugs & EXPECTED_SITE_REPOS, EXPECTED_SITE_REPOS)
     assert_equal("org audit repo list", workflow_repos(), HEALTH_AUDIT_REPOS)
+    assert_equal("README health table", readme_health_repos(), HEALTH_AUDIT_REPOS)
+    assert_equal("goal picker templates", parser.picker_templates - parser.repo_slugs, set())
 
     usable_filters = parser.filters - {"all"}
     assert_equal("category filters", usable_filters, parser.categories)

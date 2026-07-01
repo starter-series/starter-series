@@ -85,6 +85,7 @@ const modalTitle = document.getElementById('modalTitle');
 const modalDetail = document.getElementById('modalDetail');
 const modalTags = document.getElementById('modalTags');
 const modalRepo = document.getElementById('modalRepo');
+const modalCommand = document.getElementById('modalCommand');
 const modalClose = document.getElementById('modalClose');
 let lastFocused = null;
 
@@ -94,13 +95,16 @@ function getFocusableInModal() {
 
 function openCard(card) {
   lastFocused = document.activeElement;
+  const repoName = card.dataset.repo.split('/').filter(Boolean).pop();
   modalTitle.textContent = card.querySelector('h3').textContent;
   modalDetail.textContent = I18n.get(card.dataset.detail);
   modalTags.textContent = card.querySelector('code').textContent;
   modalRepo.href = card.dataset.repo;
   modalRepo.setAttribute('aria-label', `${modalTitle.textContent}: ${I18n.get('modal_repo_btn')}`);
-  modal.classList.add('open');
+  modalCommand.textContent = `gh repo create my-app --template starter-series/${repoName}`;
+  modal.removeAttribute('inert');
   modal.setAttribute('aria-hidden', 'false');
+  modal.classList.add('open');
   requestAnimationFrame(() => modalClose.focus());
 }
 
@@ -108,6 +112,7 @@ function closeModal() {
   if (!modal.classList.contains('open')) return;
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden', 'true');
+  modal.setAttribute('inert', '');
   if (lastFocused && typeof lastFocused.focus === 'function') {
     lastFocused.focus();
   }
@@ -121,6 +126,15 @@ document.querySelectorAll('.glass-card[data-repo]').forEach(card => {
       e.preventDefault();
       openCard(card);
     }
+  });
+});
+
+document.querySelectorAll('[data-picker-template]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const template = btn.dataset.pickerTemplate;
+    const card = Array.from(document.querySelectorAll('.glass-card[data-repo]'))
+      .find(c => c.dataset.repo.endsWith(`/${template}`));
+    if (card) openCard(card);
   });
 });
 
@@ -185,31 +199,57 @@ installTabs.forEach(tab => {
   });
 });
 
-document.querySelectorAll('.copy-btn[data-copy-target]').forEach(btn => {
+function copyFromButton(btn) {
+  const directSource = btn.dataset.copySource
+    ? document.getElementById(btn.dataset.copySource)
+    : null;
+  if (directSource) return directSource.textContent || '';
+
+  const panel = document.getElementById(btn.dataset.copyTarget);
+  if (!panel) return '';
+  const codes = panel.querySelectorAll('code');
+  const idx = parseInt(btn.dataset.copyIndex || '0', 10);
+  return (codes[idx] || codes[0])?.textContent || '';
+}
+
+async function writeClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '-9999px';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch (_) { copied = false; }
+    document.body.removeChild(ta);
+    return copied;
+  }
+}
+
+document.querySelectorAll('.copy-btn[data-copy-target], .copy-btn[data-copy-source]').forEach(btn => {
   btn.addEventListener('click', async () => {
-    const panel = document.getElementById(btn.dataset.copyTarget);
-    if (!panel) return;
-    const codes = panel.querySelectorAll('code');
-    const idx = parseInt(btn.dataset.copyIndex || '0', 10);
-    const text = (codes[idx] || codes[0])?.textContent || '';
+    const text = copyFromButton(btn);
     if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (_) {
-      // Fallback for insecure contexts.
-      const ta = document.createElement('textarea');
-      ta.value = text; ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch (_) { /* noop */ }
-      document.body.removeChild(ta);
-    }
+    const copied = await writeClipboard(text);
     const label = btn.querySelector('.copy-label');
     const original = label ? label.textContent : '';
-    btn.classList.add('copied');
-    if (label) label.textContent = I18n.get('install_copied') || 'Copied';
+    btn.classList.toggle('copied', copied);
+    btn.classList.toggle('copy-failed', !copied);
+    if (label) label.textContent = copied
+      ? I18n.get('install_copied') || 'Copied'
+      : I18n.get('install_copy_failed') || 'Copy failed';
     setTimeout(() => {
       btn.classList.remove('copied');
+      btn.classList.remove('copy-failed');
       if (label) label.textContent = original;
     }, 2000);
   });
