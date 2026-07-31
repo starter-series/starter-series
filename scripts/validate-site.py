@@ -44,6 +44,16 @@ HEALTH_AUDIT_REPOS = {
     "profilekit-mcp",
 }
 
+CLAIM_AUDIT_REPOS = {
+    ".github",
+    "icon-maker",
+}
+
+EXTERNAL_PACKAGE_REPOS = {
+    "create-starter",
+    "shotkit",
+}
+
 DEPLOY_FILES = {
     "index.html",
     "style.css",
@@ -108,12 +118,16 @@ def parse_site() -> SiteParser:
     return parser
 
 
-def workflow_repos() -> set[str]:
+def workflow_list(var_name: str) -> set[str]:
     workflow = (ROOT / ".github/workflows/org-audit.yml").read_text(encoding="utf-8")
-    match = re.search(r'REPOS="([^"]+)"', workflow)
+    match = re.search(rf'{var_name}="([^"]+)"', workflow)
     if not match:
-        raise AssertionError("org-audit.yml must define a quoted REPOS list")
+        raise AssertionError(f"org-audit.yml must define a quoted {var_name} list")
     return set(match.group(1).split())
+
+
+def workflow_repos() -> set[str]:
+    return workflow_list("REPOS")
 
 
 def readme_health_repos() -> set[str]:
@@ -165,6 +179,12 @@ def validate_site(check_deploy_surface: bool) -> None:
 
     assert_equal("site repo cards", parser.repo_slugs & EXPECTED_SITE_REPOS, EXPECTED_SITE_REPOS)
     assert_equal("org audit repo list", workflow_repos(), HEALTH_AUDIT_REPOS)
+    assert_equal("org audit claim repo list", workflow_list("CLAIM_REPOS"), CLAIM_AUDIT_REPOS)
+    assert_equal(
+        "org audit external package repo list",
+        workflow_list("EXTERNAL_PACKAGE_REPOS"),
+        EXTERNAL_PACKAGE_REPOS,
+    )
     assert_equal("README health table", readme_health_repos(), HEALTH_AUDIT_REPOS)
     assert_equal("goal picker templates", parser.picker_templates - parser.repo_slugs, set())
 

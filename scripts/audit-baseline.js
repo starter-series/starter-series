@@ -185,7 +185,7 @@ function auditRepo(repo) {
       failures.push('static site no longer exposes the direct GitHub template first action');
     }
 
-    const dotProfile = readText('dot-github', 'profile/README.md');
+    const dotProfile = readText('.github', 'profile/README.md');
     for (const line of linesMatching(dotProfile, /(create-starter|shotkit|Icon Maker).*npx CLI/i)) {
       failures.push(`org profile presents external/pre-release tool as active npx CLI: ${line.trim()}`);
     }
