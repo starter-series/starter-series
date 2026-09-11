@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           ROOT="/tmp/starter-series-baseline"
-          REPOS="starter-series browser-extension-starter cloudflare-pages-starter discord-bot-starter docker-deploy-starter electron-app-starter mcp-server-starter npm-package-starter python-mcp-server-starter react-native-starter telegram-bot-starter vscode-extension-starter"
+          REPOS="starter-series browser-extension-starter docker-deploy-starter mcp-server-starter npm-package-starter python-mcp-server-starter vscode-extension-starter"
           CLAIM_REPOS=".github"
           EXTERNAL_PACKAGE_REPOS="create-starter"
           mkdir -p "$ROOT"

@@ -138,21 +138,21 @@ test('template panel copy and goal picker expose direct GitHub template commands
   assert.equal(copied[0], 'gh repo create my-app --template starter-series/docker-deploy-starter');
   assert.equal(defaultCopyButton.classList.contains('copied'), true);
 
-  const webGoal = document.querySelector('[data-picker-template="cloudflare-pages-starter"]');
+  const webGoal = document.querySelector('[data-picker-template="npm-package-starter"]');
   click(window, webGoal);
 
   const modal = document.getElementById('modal');
   assert.equal(modal.classList.contains('open'), true);
-  assert.equal(document.getElementById('modalTitle').textContent, 'Cloudflare Pages');
+  assert.equal(document.getElementById('modalTitle').textContent, 'npm Package');
   assert.equal(
     document.getElementById('modalCommand').textContent,
-    'gh repo create my-app --template starter-series/cloudflare-pages-starter',
+    'gh repo create my-app --template starter-series/npm-package-starter',
   );
 
   const modalCopyButton = document.querySelector('.modal-command .copy-btn[data-copy-source="modalCommand"]');
   click(window, modalCopyButton);
   await new Promise((resolve) => window.setTimeout(resolve, 0));
 
-  assert.equal(copied[1], 'gh repo create my-app --template starter-series/cloudflare-pages-starter');
+  assert.equal(copied[1], 'gh repo create my-app --template starter-series/npm-package-starter');
   assert.equal(modalCopyButton.classList.contains('copied'), true);
 });

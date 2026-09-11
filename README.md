@@ -4,7 +4,7 @@
 
 **Production-ready starters for shipping software, with CI, security, release, and deployment paths pre-wired.**
 
-One fleet of 11 starters. Start with what you want to deploy.
+One fleet of 6 public starters. Start with what you want to deploy.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -19,13 +19,9 @@ Start from what you are trying to ship, not from a framework list.
 | I want to ship... | Use this starter | First path it protects |
 |---|---|---|
 | A backend, API, worker, or service on a VPS | [docker-deploy-starter](https://github.com/starter-series/docker-deploy-starter) | Docker build, compose check, GHCR deploy, health check, rollback |
-| A static website on a global CDN | [cloudflare-pages-starter](https://github.com/starter-series/cloudflare-pages-starter) | Build, Pages deploy preflight, placeholder metadata guard |
 | An npm package | [npm-package-starter](https://github.com/starter-series/npm-package-starter) | Test, build, package surface check, OIDC publish path |
 | An MCP tool server | [mcp-server-starter](https://github.com/starter-series/mcp-server-starter) or [python-mcp-server-starter](https://github.com/starter-series/python-mcp-server-starter) | MCP smoke, schema validation, package preflight |
 | A browser extension | [browser-extension-starter](https://github.com/starter-series/browser-extension-starter) | MV3 validation, permission audit, store build |
-| A mobile app | [react-native-starter](https://github.com/starter-series/react-native-starter) | Expo/EAS checks and store-readiness guards |
-| A desktop app | [electron-app-starter](https://github.com/starter-series/electron-app-starter) | Lint, tests, package build, signing/update scaffold |
-| A chat bot | [discord-bot-starter](https://github.com/starter-series/discord-bot-starter) or [telegram-bot-starter](https://github.com/starter-series/telegram-bot-starter) | Command smoke, lifecycle tests, deploy preflight |
 | A VS Code extension | [vscode-extension-starter](https://github.com/starter-series/vscode-extension-starter) | Lint, tests, VSIX build, marketplace publish path |
 
 Every included starter ships a root `AGENTS.md`, so a coding agent can open the
@@ -82,11 +78,6 @@ command above.
 | [npm-package-starter](https://github.com/starter-series/npm-package-starter) | OIDC trusted publishing, zero secrets, provenance | npm, OIDC, Provenance |
 | [browser-extension-starter](https://github.com/starter-series/browser-extension-starter) | MV3 extension with CWS + AMO publishing | Manifest V3, Chrome, Firefox |
 | [vscode-extension-starter](https://github.com/starter-series/vscode-extension-starter) | Dual publish to VS Marketplace + Open VSX | VS Code, Vanilla JS |
-| [discord-bot-starter](https://github.com/starter-series/discord-bot-starter) | Discord.js v14 with auto-loaded slash commands | Discord.js, Docker, Railway |
-| [telegram-bot-starter](https://github.com/starter-series/telegram-bot-starter) | grammY bot with polling + webhook dual mode | grammY, Docker, Railway |
-| [electron-app-starter](https://github.com/starter-series/electron-app-starter) | Cross-platform desktop app with code signing + auto-update | Electron, macOS/Win/Linux |
-| [react-native-starter](https://github.com/starter-series/react-native-starter) | Expo + EAS Build with App Store + Play Store CI/CD | Expo, iOS, Android |
-| [cloudflare-pages-starter](https://github.com/starter-series/cloudflare-pages-starter) | Static site + Cloudflare Pages deploy, unlimited bandwidth | Cloudflare Pages, Wrangler, GitHub Actions |
 
 ## create-starter
 
@@ -122,20 +113,15 @@ product layers.
 |------|----|
 | starter-series | [![CI](https://github.com/starter-series/starter-series/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/starter-series/actions/workflows/ci.yml) |
 | browser-extension-starter | [![CI](https://github.com/starter-series/browser-extension-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/browser-extension-starter/actions/workflows/ci.yml) |
-| cloudflare-pages-starter | [![CI](https://github.com/starter-series/cloudflare-pages-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/cloudflare-pages-starter/actions/workflows/ci.yml) |
-| discord-bot-starter | [![CI](https://github.com/starter-series/discord-bot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/discord-bot-starter/actions/workflows/ci.yml) |
 | docker-deploy-starter | [![CI](https://github.com/starter-series/docker-deploy-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/docker-deploy-starter/actions/workflows/ci.yml) |
-| electron-app-starter | [![CI](https://github.com/starter-series/electron-app-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/electron-app-starter/actions/workflows/ci.yml) |
 | mcp-server-starter | [![CI](https://github.com/starter-series/mcp-server-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/mcp-server-starter/actions/workflows/ci.yml) |
 | npm-package-starter | [![CI](https://github.com/starter-series/npm-package-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/npm-package-starter/actions/workflows/ci.yml) |
 | python-mcp-server-starter | [![CI](https://github.com/starter-series/python-mcp-server-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/python-mcp-server-starter/actions/workflows/ci.yml) |
-| react-native-starter | [![CI](https://github.com/starter-series/react-native-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/react-native-starter/actions/workflows/ci.yml) |
-| telegram-bot-starter | [![CI](https://github.com/starter-series/telegram-bot-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/telegram-bot-starter/actions/workflows/ci.yml) |
 | vscode-extension-starter | [![CI](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/starter-series/vscode-extension-starter/actions/workflows/ci.yml) |
 
 ## Currently implemented
 
-- 11 starters above, all under [github.com/starter-series](https://github.com/starter-series). Every starter ships with:
+- 6 public starters above, all under [github.com/starter-series](https://github.com/starter-series). Every starter ships with:
   - **CI/CD pipelines** — GitHub Actions for build, test, lint, and platform-specific deploy or package workflows
   - **Security in CI** — language-appropriate dependency audit (lockfile audit, or image scanning where the deliverable is a container), gitleaks (SHA256-pinned), CodeQL, AI security review on pull requests, license check wherever the starter carries a dependency graph, and safe install defaults
   - **Publish pipelines** — platform-specific publishing to npm, PyPI, Docker / GHCR, VS Marketplace, Open VSX, AMO, Chrome Web Store, App Store, Play Store, GitHub Releases

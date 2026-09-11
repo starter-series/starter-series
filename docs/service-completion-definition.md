@@ -14,13 +14,13 @@ Its package name is guarded here because it affects public command truth.
 Release claims require current execution evidence.
 
 The minimum viable closing target is narrower than the full local folder. It is:
-the canonical hub and the 11 core starters. Everything else is a classification
+the canonical hub and the 6 public core starters. Everything else is a classification
 or cleanup decision, not a new completion promise.
 
 | Group | Repos | Completion role |
 |---|---|---|
 | Canonical hub | `starter-series` | Public README, site assets, health table, and completion docs agree on the same included baseline. |
-| Core starters | `browser-extension-starter`, `cloudflare-pages-starter`, `discord-bot-starter`, `docker-deploy-starter`, `electron-app-starter`, `mcp-server-starter`, `npm-package-starter`, `python-mcp-server-starter`, `react-native-starter`, `telegram-bot-starter`, `vscode-extension-starter` | Each starter proves clone/install/test/build/deploy-preflight or package-preflight for the first user path it advertises. |
+| Core starters | `browser-extension-starter`, `docker-deploy-starter`, `mcp-server-starter`, `npm-package-starter`, `python-mcp-server-starter`, `vscode-extension-starter` | Each starter proves clone/install/test/build/deploy-preflight or package-preflight for the first user path it advertises. |
 | Independent products (excluded) | `heznpc/ProfileKit`, `heznpc/profilekit-mcp`, `heznpc/shotkit`, `heznpc/icon-maker` | Owned and maintained outside the Starter Series fleet. |
 | Public-surface cleanup | `landing-page`, `dot-github` | Decide whether each is canonical, redirect/archive candidate, or profile-only. These repos are not completion baseline unless promoted with evidence. |
 | Proof support cleanup | `rulemeter` | Either classify it as support-only with matching docs and CI evidence, or keep it outside the public Starter Series promise. |

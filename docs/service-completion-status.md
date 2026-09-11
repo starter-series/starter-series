@@ -1,6 +1,6 @@
 # Service completion status
 
-> Historical completion receipt. Current ownership: ProfileKit, profilekit-mcp, Shotkit, and icon-maker are independent `heznpc` products, excluded from the Starter Series fleet.
+> Historical completion receipt. As of 2026-09-12, five former templates are private; the current public fleet contains six starters. The inventory and results below describe the dated run, not current availability. Current ownership: ProfileKit, profilekit-mcp, Shotkit, and icon-maker are independent `heznpc` products, excluded from the Starter Series fleet.
 
 Timestamp: 2026-06-30 17:03 KST
 Last updated: 2026-07-01 13:12 KST

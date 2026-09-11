@@ -16,29 +16,19 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SITE_REPOS = {
     "docker-deploy-starter",
     "browser-extension-starter",
-    "discord-bot-starter",
-    "telegram-bot-starter",
-    "electron-app-starter",
     "npm-package-starter",
     "mcp-server-starter",
-    "react-native-starter",
     "python-mcp-server-starter",
-    "cloudflare-pages-starter",
     "vscode-extension-starter",
 }
 
 HEALTH_AUDIT_REPOS = {
     "starter-series",
     "browser-extension-starter",
-    "cloudflare-pages-starter",
-    "discord-bot-starter",
     "docker-deploy-starter",
-    "electron-app-starter",
     "mcp-server-starter",
     "npm-package-starter",
     "python-mcp-server-starter",
-    "react-native-starter",
-    "telegram-bot-starter",
     "vscode-extension-starter",
 }
 
@@ -63,6 +53,7 @@ class SiteParser(HTMLParser):
         self.i18n_keys: set[str] = set()
         self.detail_keys: set[str] = set()
         self.repo_slugs: set[str] = set()
+        self.card_repos: set[str] = set()
         self.picker_templates: set[str] = set()
         self.filters: set[str] = set()
         self.categories: set[str] = set()
@@ -87,6 +78,8 @@ class SiteParser(HTMLParser):
                 slug = value.removeprefix("https://github.com/starter-series/").split("/")[0]
                 if slug:
                     self.repo_slugs.add(slug)
+                    if key == "data-repo":
+                        self.card_repos.add(slug)
 
 
 def load_json(path: Path) -> dict[str, str]:
@@ -161,7 +154,7 @@ def validate_site(check_deploy_surface: bool) -> None:
     for lang, keys in locale_key_sets.items():
         assert_equal(f"{lang} locale coverage", keys & required_locale_keys, required_locale_keys)
 
-    assert_equal("site repo cards", parser.repo_slugs & EXPECTED_SITE_REPOS, EXPECTED_SITE_REPOS)
+    assert_equal("site repo cards", parser.card_repos, EXPECTED_SITE_REPOS)
     assert_equal("org audit repo list", workflow_repos(), HEALTH_AUDIT_REPOS)
     assert_equal("README health table", readme_health_repos(), HEALTH_AUDIT_REPOS)
     assert_equal("goal picker templates", parser.picker_templates - parser.repo_slugs, set())
