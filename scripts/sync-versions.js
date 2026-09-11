@@ -39,6 +39,11 @@ const ALWAYS_SKIP_DIRS = new Set(['.git', '.idea', '.claude', 'node_modules', 's
 // They can still be audited with `--all`.
 const NON_BASELINE_DIRS = new Set([
   'create-starter',
+  'discord-bot-starter',
+  'telegram-bot-starter',
+  'electron-app-starter',
+  'react-native-starter',
+  'cloudflare-pages-starter',
   'icon-maker',
   'rulemeter',
   'shotkit',

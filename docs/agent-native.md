@@ -34,7 +34,7 @@ The baseline standard, in increasing order of capability:
 | Included baseline | 1. AGENTS.md | 2. thin adapters | 3. run-block | 4. `--json` / exit codes | 5. skill | 6. MCP |
 |---|---|---|---|---|---|---|
 | starter-series hub | ✅ | ✅ Claude/Copilot/Cursor pointers | n/a (policy/docs/site hub) | n/a | n/a | n/a |
-| 11 starters | ✅ (AGENTS.md ships in each template) | ✅ Claude/Copilot/Cursor pointers | n/a (templates, not tools) | n/a | n/a | n/a |
+| 6 public starters | ✅ (AGENTS.md ships in each template) | ✅ Claude/Copilot/Cursor pointers | n/a (templates, not tools) | n/a | n/a | n/a |
 
 ## Adapter rule
 

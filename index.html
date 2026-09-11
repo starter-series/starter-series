@@ -143,10 +143,6 @@
       </div>
 
       <div class="goal-grid reveal" data-delay="80" aria-label="Choose a starter by shipping target" data-i18n-attr="aria-label" data-i18n="picker_aria">
-        <button type="button" class="goal-card" data-picker-template="cloudflare-pages-starter">
-          <span class="goal-label" data-i18n="goal_web_label">Website</span>
-          <span class="goal-copy" data-i18n="goal_web_copy">Static site on Cloudflare Pages</span>
-        </button>
         <button type="button" class="goal-card" data-picker-template="docker-deploy-starter">
           <span class="goal-label" data-i18n="goal_backend_label">Backend/API</span>
           <span class="goal-copy" data-i18n="goal_backend_copy">Docker deploy to a VPS</span>
@@ -162,18 +158,6 @@
         <button type="button" class="goal-card" data-picker-template="browser-extension-starter">
           <span class="goal-label" data-i18n="goal_extension_label">Browser extension</span>
           <span class="goal-copy" data-i18n="goal_extension_copy">MV3, permissions, store build</span>
-        </button>
-        <button type="button" class="goal-card" data-picker-template="react-native-starter">
-          <span class="goal-label" data-i18n="goal_mobile_label">Mobile app</span>
-          <span class="goal-copy" data-i18n="goal_mobile_copy">Expo/EAS and store guards</span>
-        </button>
-        <button type="button" class="goal-card" data-picker-template="electron-app-starter">
-          <span class="goal-label" data-i18n="goal_desktop_label">Desktop app</span>
-          <span class="goal-copy" data-i18n="goal_desktop_copy">Electron build and release path</span>
-        </button>
-        <button type="button" class="goal-card" data-picker-template="discord-bot-starter">
-          <span class="goal-label" data-i18n="goal_bot_label">Chat bot</span>
-          <span class="goal-copy" data-i18n="goal_bot_copy">Discord starter with deploy checks</span>
         </button>
         <button type="button" class="goal-card" data-picker-template="vscode-extension-starter">
           <span class="goal-label" data-i18n="goal_vscode_label">VS Code extension</span>
@@ -219,8 +203,6 @@
         <button class="pill-btn active" data-filter="all" data-i18n="filter_all">All</button>
         <button class="pill-btn" data-filter="infra" data-i18n="filter_infra">Infrastructure</button>
         <button class="pill-btn" data-filter="web" data-i18n="filter_web">Web</button>
-        <button class="pill-btn" data-filter="bot" data-i18n="filter_bot">Bots</button>
-        <button class="pill-btn" data-filter="app" data-i18n="filter_app">Apps</button>
       </div>
 
       <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1" id="starterGrid">
@@ -254,47 +236,8 @@ data-repo="https://github.com/starter-series/browser-extension-starter" data-det
           </div>
         </div>
 
-        <!-- Discord Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="80"
-data-repo="https://github.com/starter-series/discord-bot-starter" data-detail="detail_discord"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_discord_bot_name">Discord Bot</h3>
-            <p class="card-desc" data-i18n="card_discord_p">Discord.js v14. Auto-loaded slash commands. Railway or Fly.io deploy.</p>
-            <code class="card-tags" data-i18n="starter_discord_bot_tags">Discord.js · Docker · Railway</code>
-          </div>
-        </div>
 
-        <!-- Telegram Bot -->
-        <div class="glass-card reveal" data-category="bot" data-delay="40"
-data-repo="https://github.com/starter-series/telegram-bot-starter" data-detail="detail_tg"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_telegram_bot_name">Telegram Bot</h3>
-            <p class="card-desc" data-i18n="card_tg_p">grammY. Polling + webhook dual mode. One-command deploy.</p>
-            <code class="card-tags" data-i18n="starter_telegram_bot_tags">grammY · Polling · Webhook</code>
-          </div>
-        </div>
 
-        <!-- Electron App -->
-        <div class="glass-card reveal" data-category="app" data-delay="80"
-data-repo="https://github.com/starter-series/electron-app-starter" data-detail="detail_electron"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_electron_name">Electron App</h3>
-            <p class="card-desc" data-i18n="card_electron_p">macOS + Windows + Linux. Code signing. Auto-update via GitHub Releases.</p>
-            <code class="card-tags" data-i18n="starter_electron_tags">Electron · macOS · Win · Linux</code>
-          </div>
-        </div>
 
         <!-- npm Package -->
         <div class="glass-card reveal" data-category="infra" data-delay="120"
@@ -324,19 +267,6 @@ data-repo="https://github.com/starter-series/npm-package-starter" data-detail="d
           </div>
         </div>
 
-        <!-- React Native -->
-        <div class="glass-card reveal" data-category="app" data-delay="40"
-data-repo="https://github.com/starter-series/react-native-starter" data-detail="detail_rn"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_react_native_name">React Native</h3>
-            <p class="card-desc" data-i18n="card_rn_p">Expo + EAS Build. Submit to App Store and Play Store from CI.</p>
-            <code class="card-tags" data-i18n="starter_react_native_tags">Expo · iOS · Android · EAS</code>
-          </div>
-        </div>
 
         <!-- Python MCP Server -->
         <div class="glass-card reveal" data-category="infra" data-delay="120"
@@ -352,19 +282,6 @@ data-repo="https://github.com/starter-series/react-native-starter" data-detail="
           </div>
         </div>
 
-        <!-- Cloudflare Pages -->
-        <div class="glass-card reveal" data-category="web" data-delay="160"
-             data-repo="https://github.com/starter-series/cloudflare-pages-starter" data-detail="detail_cf_pages"
-             tabindex="0" role="button">
-          <div class="glass-fx"></div>
-          <div class="glass-tint"></div>
-          <div class="glass-shine"></div>
-          <div class="glass-content">
-            <h3 class="card-title" data-i18n="starter_cf_pages_name">Cloudflare Pages</h3>
-            <p class="card-desc" data-i18n="card_cf_pages_p">Static site. Unlimited bandwidth. Global CDN free.</p>
-            <code class="card-tags" data-i18n="starter_cf_pages_tags">Cloudflare Pages · Wrangler</code>
-          </div>
-        </div>
 
         <!-- VS Code Extension (wide) -->
         <div class="glass-card col-span-2 max-md:col-span-1 reveal" data-category="web" data-delay="80"

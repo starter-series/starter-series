@@ -10,7 +10,7 @@ separately from the starter completion baseline. Public command claims require
 current package metadata and execution evidence.
 
 The current completion baseline is defined in
-`docs/service-completion-definition.md`: this repo and the 11 core starters.
+`docs/service-completion-definition.md`: this repo and the 6 public core starters.
 The org profile is a public surface. Independent products live under `heznpc`
 and are outside this fleet.
 

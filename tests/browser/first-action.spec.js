@@ -52,13 +52,13 @@ test('goal picker opens starter modal with a copyable template command', async (
     await expect(page.locator('#modal')).not.toHaveClass(/open/);
   }
 
-  await page.locator('[data-picker-template="cloudflare-pages-starter"]').click();
+  await page.locator('[data-picker-template="npm-package-starter"]').click();
   await expect(page.locator('#modal')).toHaveClass(/open/);
 
   const modalCopyButton = page.locator('.modal-command .copy-btn[data-copy-source="modalCommand"]');
   await modalCopyButton.click();
   await expect(modalCopyButton).toHaveClass(/copied/);
   await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(
-    'gh repo create my-app --template starter-series/cloudflare-pages-starter',
+    'gh repo create my-app --template starter-series/npm-package-starter',
   );
 });

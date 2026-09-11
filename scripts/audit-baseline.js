@@ -12,15 +12,10 @@ const path = require('path');
 const BASELINE_REPOS = [
   'starter-series',
   'browser-extension-starter',
-  'cloudflare-pages-starter',
-  'discord-bot-starter',
   'docker-deploy-starter',
-  'electron-app-starter',
   'mcp-server-starter',
   'npm-package-starter',
   'python-mcp-server-starter',
-  'react-native-starter',
-  'telegram-bot-starter',
   'vscode-extension-starter',
 ];
 
